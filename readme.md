@@ -62,6 +62,13 @@ Problems
 	Failed to clone '[html-common]'. Retry scheduled
 
 
+https://stackoverflow.com/questions/74486167/git-clone-recurse-submodules-throws-error-on-macos-transmission-type-file-n
+https://git-scm.com/docs/git-config#Documentation/git-config.txt-protocolallow
+https://github.blog/open-source/git/git-security-vulnerabilities-announced/#fn-67904-1
+
+
+	git config --global protocol.file.allow always
+
 
 
 User config
