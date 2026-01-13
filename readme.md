@@ -22,7 +22,7 @@ git submodule set-branch --branch main "[html-common]
 ```
 
 In `superproject/.gitmodules`:
-```
+```conf
 [submodule "[html-common]"]
 	path = [html-common]
 	url = https://github.com/ldpercy/html-common
@@ -31,24 +31,49 @@ In `superproject/.gitmodules`:
 
 ### Local dev
 
-> [!WARNING]
-> Not working yet - see problems with file transport
 
-
-To use a local dev copy:
+To use a local development copy of the submodule:
 ```bash
+git config --local protocol.file.allow always
 git config --local submodule."[html-common]".url /local/path/to/html-common/
 ```
+
 Or in `superproject/.git/config`:
-```
+```conf
+[protocol "file"]
+	allow = always
 [submodule "[html-common]"]
 	url = /local/path/to/html-common/
 ```
+
 
 ### Maintenance
 
 	git submodule update
 
+
+
+User global config
+------------------
+
+To set some of these user-wide:
+
+
+```bash
+git config --global submodule.recurse true
+git config --global protocol.file.allow always
+git config --global submodule."[html-common]".url /local/path/to/html-common/
+```
+
+Equivalent to in `~/.gitconfig`:
+```conf
+[submodule]
+	recurse = true
+[protocol "file"]
+	allow = always
+[submodule "[html-common]"]
+	url = /local/path/to/html-common/
+```
 
 
 Problems
@@ -62,29 +87,12 @@ Problems
 	Failed to clone '[html-common]'. Retry scheduled
 
 
-https://stackoverflow.com/questions/74486167/git-clone-recurse-submodules-throws-error-on-macos-transmission-type-file-n
-https://git-scm.com/docs/git-config#Documentation/git-config.txt-protocolallow
-https://github.blog/open-source/git/git-security-vulnerabilities-announced/#fn-67904-1
+* https://stackoverflow.com/questions/74486167/git-clone-recurse-submodules-throws-error-on-macos-transmission-type-file-n
+* https://git-scm.com/docs/git-config#Documentation/git-config.txt-protocolallow
+* https://github.blog/open-source/git/git-security-vulnerabilities-announced/#fn-67904-1
 
 
 	git config --global protocol.file.allow always
 
 
 
-User config
------------
-
-To set these user-wide:
-
-```bash
-git config --global submodule.recurse true
-git config --global submodule."[html-common]".url /local/path/to/html-common/
-```
-
-In `~/.gitconfig`:
-```
-[submodule]
-	recurse = true
-[submodule "[html-common]"]
-	url = /local/path/to/html-common/
-```
