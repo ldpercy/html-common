@@ -4,7 +4,13 @@
 
 
 html {
-	--html5-red: #e44d26;
+
+	--html5-badge-dark: #e34f26;
+	--html5-badge-light: #ef652a;
+
+	--html5-logo-dark: #e44d26;
+	--html5-logo-light: #f16529;
+
 	--javascript-yellow1: #f7df1e;
 	--javascript-yellow2: #f0db4f;
 }
