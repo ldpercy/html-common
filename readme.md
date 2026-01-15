@@ -4,24 +4,26 @@ HTML Common
 A git submodule for common HTML items.
 
 
+
+
+
+
+Submodule setup
+---------------
+
 > [!IMPORTANT]
 > In progress, subject to revision
 
 
-
-Superproject
-------------
-
-### Setup
-
-
+### Add the submodule to an existing project
+Where project is called `superproject`:
 
 ```bash
 git submodule add https://github.com/ldpercy/html-common [html-common]
 git submodule set-branch --branch main "[html-common]
 ```
 
-In `superproject/.gitmodules`:
+Equivalent to in `superproject/.gitmodules`:
 ```conf
 [submodule "[html-common]"]
 	path = [html-common]
@@ -29,8 +31,14 @@ In `superproject/.gitmodules`:
 	branch = main
 ```
 
-### Local dev
+The submodule commit hash is tracked in (might vary):
 
+* superproject/.git/modules/[html-common]/refs/heads/main
+* superproject/.git/modules/[html-common]/refs/remotes/origin/main
+
+
+
+### Local development
 
 To use a local development copy of the submodule:
 ```bash
@@ -47,14 +55,20 @@ Or in `superproject/.git/config`:
 ```
 
 
+The submodule commit hash is also tracked in `superproject/.git/modules[html-common]/FETCH_HEAD`, eg:
+
+```
+1234abcd------commit-hash-------1234abcd		branch 'main' of /local/path/to/html-common
+```
+
+
+
 ### Maintenance
 
 	git submodule update
 
 
-
-User global config
-------------------
+### User global config
 
 To set some of these user-wide:
 
@@ -76,10 +90,10 @@ Equivalent to in `~/.gitconfig`:
 ```
 
 
-Problems
---------
+### Problems
 
-### 'file' not allowed
+
+`'file' not allowed`
 
 	Cloning into '/local/path/to/superproject/[html-common]'...
 	fatal: transport 'file' not allowed
