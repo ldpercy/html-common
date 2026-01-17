@@ -2,7 +2,6 @@
 **	style.css
 */
 
-
 html {
 
 	--html5-badge-dark: #e34f26;
@@ -18,8 +17,9 @@ html {
 
 
 
-	--javascript-yellow1: #f7df1e;
+	--javascript-yellow: #f7df1e;
 	--javascript-yellow2: #f0db4f;
+
 }
 
 

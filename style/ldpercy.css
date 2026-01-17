@@ -1,0 +1,96 @@
+
+html {
+
+	--silver-light: #bbb;
+	--silver-dark: #333;
+
+	--nearly-white: #fcfcfc;
+	--nearly-black: #111;
+
+
+	--html-background-light: var(--silver-light);
+	--body-background-light: var(--nearly-white);
+
+	--html-background-dark: var(--nearly-black);
+	--body-background-dark: var(--silver-dark);
+
+
+	background-color: var(--html-background-light);
+}
+
+
+body {
+	margin:1em;
+	padding:1em;
+	border-radius:1em;
+	font-family:sans-serif;
+	color:black;
+	background-color: var(--body-background-light);
+}
+
+
+h1:first-child, h2:first-child { margin-top:0ex; }
+
+h1 {
+	border-bottom: 1px solid silver;
+}
+h2 {
+	border-bottom: 1px dotted silver;
+}
+
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+
+nav {
+	display:block;
+	float:right;
+	font-weight:bold;
+	font-size: 2em;
+}
+
+
+
+
+textarea {
+	width:90%;
+	height:auto;
+	min-height:5rlh;
+}
+
+
+
+details {
+	margin:1em 0em;
+	cursor:pointer;
+}
+summary:hover {
+	text-decoration: underline dotted;
+}
+
+
+
+html.light {
+	color-scheme: light;
+	background-color: var(--html-background-light);
+	body {
+		background-color: var(--body-background-light);
+		color: black;
+	}
+}
+
+html.dark {
+	color-scheme: dark;
+	background-color: var(--html-background-dark);
+	body {
+		background-color: var(--body-background-dark);
+		color: white;
+	}
+}
+

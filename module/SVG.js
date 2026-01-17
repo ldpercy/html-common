@@ -17,23 +17,7 @@ export class SVG {
 }/* SVG */
 
 
-SVG.Rectangle = class {
-	constructor(
-			x, y, width, height,
-		) {
-		this.x      = x;
-		this.y      = y;
-		this.width  = width;
-		this.height = height;
-	}
 
-	get xMin() { return this.x; }
-	get xMid() { return this.x + this.width/2; }
-	get xMax() { return this.x + this.width; }
-	get yMin() { return this.y; }
-	get yMid() { return this.y + this.height/2; }
-	get yMax() { return this.y + this.height; }
-}/* SVG.Rectangle */
 
 
 

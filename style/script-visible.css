@@ -1,0 +1,28 @@
+@import "./technology-colour.css";
+
+body script {
+	/* scripts in the html body are displayed */
+	display: block;
+	margin:1ex;
+	background-color: hwb(from var(--javascript-yellow) h w b / 0.5);
+	border: 1px inset var(--javascript-yellow);
+	border-radius: 1ex;
+	font-family: monospace;
+	white-space-collapse: preserve;
+	tab-size: 4;
+
+	&::before {
+		display:inline-block;
+		background-color: var(--javascript-yellow);
+		border-radius: 1ex 0ex;
+		margin-bottom:2ex;
+		padding:1ex;
+		content: 'script';
+	}
+
+	&[type="module"]::before {
+		content: 'script type="module"';
+	}
+
+}
+

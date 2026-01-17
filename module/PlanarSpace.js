@@ -58,6 +58,7 @@ export class Space extends abstractSpace.Space {
 	/** @type {string} */
 	#name;
 
+
 	/** @type {CartesianCoordinates} */
 	static origin = new CartesianCoordinates(0,0);
 
@@ -67,18 +68,19 @@ export class Space extends abstractSpace.Space {
 	#jsAngleAxisAdjust;
 	#jsAngleDirectionAdjust;
 
-	// space dimensions - tbd
+	// space size - tbd
 	#size;
 
 
 	constructor(
 			name = 'Initial PlanarSpace name',
+			size,
 			polarAxis = 'y',
 			polarDirection = 'clockwise',
-			size,
 		) {
 		super();
 		this.#name = name;
+		this.#size = size;
 
 		if (polarAxis === 'y')	{	this.#jsAngleAxisAdjust = -Math.PI/2;	}
 		else					{	this.#jsAngleAxisAdjust = 0;			}
@@ -93,7 +95,7 @@ export class Space extends abstractSpace.Space {
 
 	get name() { return this.#name; }
 	get origin() { return Space.origin; }
-
+	get size() { return this.#size; }
 
 
 	//
@@ -612,3 +614,35 @@ export class Position {
 
 
 }/* Position */
+
+
+
+export class Rectangle {
+	/** type {number} */	x;
+	/** type {number} */	y;
+	/** type {number} */	width;
+	/** type {number} */	height;
+
+	/**
+	 * @param {number} x
+	 * @param {number} y
+	 * @param {number} width
+	 * @param {number} height
+	 */
+	constructor(
+			x, y, width, height,
+		) {
+		this.x      = x;
+		this.y      = y;
+		this.width  = width;
+		this.height = height;
+	}
+
+	get xMin() { return this.x; }
+	get xMid() { return this.x + this.width/2; }
+	get xMax() { return this.x + this.width; }
+	get yMin() { return this.y; }
+	get yMid() { return this.y + this.height/2; }
+	get yMax() { return this.y + this.height; }
+}/* Rectangle */
+
