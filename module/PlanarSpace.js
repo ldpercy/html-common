@@ -3,29 +3,82 @@
 //
 
 import * as Maths from "./Maths.js";
+import * as abstractSpace  from "./AbstractSpace.js"
 
 
-export class PlanarSpace {
 
-	static origin = {x:0, y:0};
+
+//
+//	Interfaces
+//
+
+
+/** CartesianCoordinates
+ * @interface
+ */
+export class CartesianCoordinates {
+	/** @type {number} */
+	x;
+	/** @type {number} */
+	y;
+
+	constructor(x=0, y=0) {
+		this.x = x;
+		this.y = y;
+	}
+}/* CartesianCoordinates */
+
+
+/** PolarCoordinates
+ * @interface
+ */
+export class PolarCoordinates {
+	/** @type {Angle} */
+	angle;
+	/** @type {number} */
+	radius;
+
+	constructor(angle = new Angle(), radius=0) {
+		this.angle = angle;
+		this.radius = radius;
+	}
+}/* PolarCoordinates */
+
+
+//
+//	classes
+//
+
+
+/** Space
+ *
+ */
+export class Space extends abstractSpace.Space {
+
+	/** @type {string} */
 	#name;
-	#dimensions;
+
+	/** @type {CartesianCoordinates} */
+	static origin = new CartesianCoordinates(0,0);
+
+
 
 	// JavaScript angle adjustments - see wiki/coordinates
 	#jsAngleAxisAdjust;
 	#jsAngleDirectionAdjust;
 
-
+	// space dimensions - tbd
+	#size;
 
 
 	constructor(
 			name = 'Initial PlanarSpace name',
-			dimensions,
 			polarAxis = 'y',
 			polarDirection = 'clockwise',
+			size,
 		) {
+		super();
 		this.#name = name;
-		this.#dimensions = dimensions;
 
 		if (polarAxis === 'y')	{	this.#jsAngleAxisAdjust = -Math.PI/2;	}
 		else					{	this.#jsAngleAxisAdjust = 0;			}
@@ -33,14 +86,13 @@ export class PlanarSpace {
 		if (polarDirection === 'clockwise')	{	this.#jsAngleDirectionAdjust = -1;	}
 		else								{	this.#jsAngleDirectionAdjust = +1;	}
 
-
+		this.#size = size;
 
 	}/* constructor */
 
 
 	get name() { return this.#name; }
-	get origin() { return PlanarSpace.origin; }
-	get dimensions() { return this.#dimensions; }
+	get origin() { return Space.origin; }
 
 
 
@@ -48,13 +100,15 @@ export class PlanarSpace {
 	// Instance Methods
 	//
 
-
-	/* getAngleFrom
-	TODO: Needs a bit of attention...
-	*/
+	/** getAngleFrom
+	 * TODO: Needs a bit of attention...
+	 * @param {CartesianCoordinates} center
+	 * @param {CartesianCoordinates} cartesian
+	 * @returns {Angle}
+	 */
 	getAngleFrom(center, cartesian) {
 		//console.debug(`${this.#name}.getAngleFrom:`, arguments);
-		const result = new PlanarSpace.Angle();
+		const result = new Angle();
 		result.radians = this.#jsAngleAxisAdjust + (this.#jsAngleDirectionAdjust * Math.atan2(center.y - cartesian.y, center.x - cartesian.x));
 		result.normalise180();
 		//console.debug(`${this.#name}.getAngleFrom:`, result);
@@ -62,22 +116,30 @@ export class PlanarSpace {
 	}/* getAngleFrom */
 
 
-	cartesianToPolar = function(cartesian) {
+	/**
+	 * @param {CartesianCoordinates} cartesian
+	 * @returns {PolarCoordinates}
+	 */
+	cartesianToPolar(cartesian) {
 
-		const result = new PlanarSpace.PolarCoordinates(
-			this.getAngleFrom(PlanarSpace.origin, cartesian),
-			PlanarSpace.distanceFromOrigin(cartesian)
+		const result = new PolarCoordinates(
+			this.getAngleFrom(Space.origin, cartesian),
+			Space.distanceFromOrigin(cartesian)
 		);
 		return result;
 	}/* cartesianToPolar */
 
 
-	polarToCartesian = function(polar) {
-		const result = new PlanarSpace.CartesianCoordinates(
-			PlanarSpace.origin.x + (polar.radius * +Math.sin(polar.angle.radians)),
-			PlanarSpace.origin.y + (polar.radius * +Math.cos(polar.angle.radians))		// PlanarSpace.zeroRadian +
+	/**
+	 * @param {PolarCoordinates} polar
+	 * @returns {CartesianCoordinates}
+	 */
+	polarToCartesian(polar) {
+		const result = new CartesianCoordinates(
+			Space.origin.x + (polar.radius * +Math.sin(polar.angle.radians)),
+			Space.origin.y + (polar.radius * +Math.cos(polar.angle.radians))		// PlanarSpace.zeroRadian +
 		);
-		//console.debug('PlanarSpace.polarToCartesian:', polar, result);
+		//console.debug('polarToCartesian:', polar, result);
 		return result;
 	}/* polarToCartesian */
 
@@ -86,17 +148,29 @@ export class PlanarSpace {
 	//	Static methods
 	//
 
-
+	/**
+	 * @param {CartesianCoordinates} cartesian
+	 * @returns {number}
+	 */
 	static distanceFromOrigin(cartesian) {
-		return PlanarSpace.getDistanceFrom(PlanarSpace.origin, cartesian);
+		return Space.getDistanceFrom(Space.origin, cartesian);
 	}
 
+	/**
+	 * @param {CartesianCoordinates} point1
+	 * @param {CartesianCoordinates} point2
+	 * @returns {number}
+	 */
 	static getDistanceFrom(point1, point2) {
 		return Math.hypot((point2.x - point1.x), (point2.y - point1.y));
 	}
 
 
-
+	/**
+	 * @param {CartesianCoordinates} point1
+	 * @param {CartesianCoordinates} point2
+	 * @returns {boolean}
+	 */
 	static areEqual(point1, point2) {
 		// could depend on more,
 		return ((point1.x === point2.x) && (point1.y === point2.y));
@@ -124,70 +198,73 @@ export class PlanarSpace {
 	// They may need changing over also if they require space instance references.
 
 
-	/* newPoint
-	Automatically passes in the required reference to the parent space instance for the new point.
-	*/
+	/** newPoint
+	 * Automatically passes in the required reference to the parent space instance for the new point.
+	 * @returns {Point}
+	 */
 	newPoint(name) {
-		return new PlanarSpace.Point(name, this);
+		return new Point(name, this);
 	}/* newPoint */
 
 
-	/* newPosition
-	Automatically passes in the required reference to the parent space instance for the new position.
-	*/
+	/** newPosition
+	 * Automatically passes in the required reference to the parent space instance for the new position.
+	 * @returns {Position}
+	 */
 	newPosition(name) {
-		return new PlanarSpace.Position(name, this);
+		return new Position(name, this);
 	}/* newPosition */
 
-	/** @returns { PlanarSpace.Angle } */
-	newAngle(degrees) {
-		return new PlanarSpace.Angle(degrees);
+	/** @returns {Angle} */
+	Angle = class {
+		constructor() {
+			return new Angle(...arguments);
+		}
 	}/* Angle */
 
+	/** @returns {Angle} */
+	newAngle() {
+		return new Angle(...arguments);
+	}
 
+	/** @returns {CartesianCoordinates} */
 	CartesianCoordinates = class {
 		constructor() {
-			return new PlanarSpace.CartesianCoordinates(...arguments);
+			return new CartesianCoordinates(...arguments);
 		}
 	}/* CartesianCoordinates */
 
+	/** @returns {CartesianCoordinates} */
+	newCartesianCoordinates() {
+		return new CartesianCoordinates(...arguments);
+	}
 
+
+	/** @returns {PolarCoordinates} */
 	PolarCoordinates = class {
 		constructor() {
-			return new PlanarSpace.PolarCoordinates(...arguments);
+			return new PolarCoordinates(...arguments);
 		}
 	}/* PolarCoordinates */
+
+	/** @returns {PolarCoordinates} */
+	newPolarCoordinates() {
+		return new PolarCoordinates(...arguments);
+	}
 
 
 }/* PlanarSpace */
 
 
-//
-//	Classes
-//
 
 
-PlanarSpace.CartesianCoordinates = class {
-	x;
-	y;
-	constructor(x=0, y=0) {
-		this.x = x;
-		this.y = y;
-	}
-}/* PlanarSpace.CartesianCoordinates */
 
 
-PlanarSpace.PolarCoordinates = class {
-	angle;
-	radius;
-	constructor(angle = new PlanarSpace.Angle(), radius=0) {
-		this.angle = angle;
-		this.radius = radius;
-	}
-}/* PlanarSpace.PolarCoordinates */
 
-
-PlanarSpace.Angle = class {
+/** Angle
+ * @type {Angle}
+ */
+export class Angle {
 	#degrees = 0;
 
 	constructor(degrees=0) {
@@ -234,26 +311,32 @@ PlanarSpace.Angle = class {
 
 	// return a new copy of the angle
 	new() {
-		return new PlanarSpace.Angle(this.degrees);
+		return new Angle(this.degrees);
 	}
 
-}/* PlanarSpace.Angle */
+}/* Angle */
 
 
 
-/* PlanarSpace.Point
-*/
-PlanarSpace.Point = class {
+/** Point
+ * @implements {CartesianCoordinates}
+ * @implements {PolarCoordinates}
+ */
+export class Point {
 	#name		= 'Initial Point name';
-	#space;
-	#cartesian;
-	#polar;
+	/** @type {Space} */					#space;
+	/** @type {CartesianCoordinates} */		#cartesian;
+	/** @type {PolarCoordinates} */			#polar;
 
+	/**
+	 * @param {string} name
+	 * @param {Space} space
+	 */
 	constructor(name, space) {
 		this.#name = name;
 		this.#space = space;
-		this.#cartesian	= new space.CartesianCoordinates();
-		this.#polar	    = new space.PolarCoordinates();
+		this.#cartesian	= new CartesianCoordinates();
+		this.#polar	    = new PolarCoordinates();
 	}
 
 	//
@@ -262,24 +345,25 @@ PlanarSpace.Point = class {
 
 	get x()			{ return this.#cartesian.x; }
 	get y()			{ return this.#cartesian.y; }
-	get cartesian() { return this.#cartesian; }
 	get angle()		{ return this.#polar.angle; }
 	get radius()	{ return this.#polar.radius; }
+	get cartesian() { return this.#cartesian; }
 
-
+	/** @param {PolarCoordinates} polar */
 	set polar(polar) {
-		//console.debug(`PlanarSpace.Point ${this.#name}.polar = `, polar);
+		//console.debug(`Point ${this.#name}.polar = `, polar);
 		this.#polar = polar;
-
 		this.#cartesian = this.#space.polarToCartesian(polar);
 	}
 
+
+	/** @param {CartesianCoordinates} cartesian */
 	set cartesian(cartesian) {
-		//console.debug(`PlanarSpace.Point ${this.#name}.cartesian = `, cartesian);
+		//console.debug(`Point ${this.#name}.cartesian = `, cartesian);
 		this.#cartesian = cartesian;
-		//console.debug('PlanarSpace.Point set cartesian', this.#cartesian);
+		//console.debug('Point set cartesian', this.#cartesian);
 		this.#polar = this.#space.cartesianToPolar(cartesian);
-		//console.debug('PlanarSpace.Point set cartesian result', this, this.#cartesian);
+		//console.debug('Point set cartesian result', this, this.#cartesian);
 	}
 
 
@@ -292,11 +376,11 @@ PlanarSpace.Point = class {
 	}
 
 	getDistanceFrom(point) {
-		return PlanarSpace.getDistanceFrom(this, point);
+		return Space.getDistanceFrom(this, point);
 	}
 
 	isEqualTo(point) {
-		return PlanarSpace.areEqual(this, point);
+		return Space.areEqual(this, point);
 	}
 
 	//
@@ -304,13 +388,13 @@ PlanarSpace.Point = class {
 	//
 
 	plus = function(point) {
-		const newPoint = new PlanarSpace.Point(`${this.#name} plus point`, this.#space);
-		newPoint.cartesian = new PlanarSpace.CartesianCoordinates(this.x + point.x, this.y + point.y);
+		const newPoint = new Point(`${this.#name} plus point`, this.#space);
+		newPoint.cartesian = new CartesianCoordinates(this.x + point.x, this.y + point.y);
 		return newPoint;
 	}
 
-	toCartesian()	{ return new PlanarSpace.CartesianCoordinates(this.x, this.y); }
-	toPolar()		{ return new PlanarSpace.PolarCoordinates(new PlanarSpace.Angle(this.#polar.angle.degrees), this.#polar.radius); }
+	toCartesian()	{ return new CartesianCoordinates(this.x, this.y); }
+	toPolar()		{ return new PolarCoordinates(new Angle(this.#polar.angle.degrees), this.#polar.radius); }
 
 
 
@@ -319,11 +403,11 @@ PlanarSpace.Point = class {
 	//
 
 	resetToOrigin() {
-		this.cartesian = new this.#space.CartesianCoordinates();
+		this.cartesian = new CartesianCoordinates();
 	}
 
 	add(point) {
-		const newCartesian = new PlanarSpace.CartesianCoordinates(this.x + point.x, this.y + point.y);
+		const newCartesian = new CartesianCoordinates(this.x + point.x, this.y + point.y);
 		this.cartesian = newCartesian;
 	}
 
@@ -331,8 +415,8 @@ PlanarSpace.Point = class {
 	rotate(angle) {	// relative
 		//console.debug('PlanarSpace.Point rotate', angle);
 
-		const newPolarAngle = new PlanarSpace.Angle(this.#polar.angle.degrees + angle.degrees);
-		const newPolar = new PlanarSpace.PolarCoordinates(newPolarAngle, this.#polar.radius);
+		const newPolarAngle = new Angle(this.#polar.angle.degrees + angle.degrees);
+		const newPolar = new PolarCoordinates(newPolarAngle, this.#polar.radius);
 		this.polar = newPolar;
 	}
 
@@ -341,26 +425,28 @@ PlanarSpace.Point = class {
 		return `${this.#name} - x:${this.x}; y:${this.y}; a:${this.angle.degrees}; r:${this.radius};`;
 	}
 
-}/* PlanarSpace.Point */
+}/* Point */
 
 
 
 
 
-/* PlanarSpace.PolarPoint
+/* PolarPoint
 This can be culled  - there might be some sort of need for it in the future but in a greatly cut-down version.
 For now though Point is the combined version.
 */
 
 
 
-/* PlanarSpace.Position
-*/
-PlanarSpace.Position = class {
-	#name		= 'Initial Position name';
-	#space;
-	#location;			// point in space
-	#direction;			// angle in space
+/** Position
+ * @implements {CartesianCoordinates}
+ * @implements {PolarCoordinates}
+ */
+export class Position {
+	/** @type {string} */		#name		= 'Initial Position name';
+	/** @type {Space} */		#space;
+	/** @type {Point} */		#location;
+	/** @type {Angle} */		#direction;
 
 
 	constructor(name, space) {
@@ -373,19 +459,60 @@ PlanarSpace.Position = class {
 	get x()			{ return this.#location.x; }
 	get y()			{ return this.#location.y; }
 	get location()	{ return this.#location; }
+	get cartesian()	{ return this.#location.cartesian; }
 	get direction()	{ return this.#direction; }
+	get angle()     { return this.#direction; }
 	get degrees()   { return this.#direction.degrees; }
 	get radius()	{ return this.#location.radius; }
 
 
+	/** setLocation
+	 * @param {Point} location
+	 */
+	setLocation(location) {
+		this.#location.cartesian = location.cartesian;
+	}
+
+	/** setCartesian
+	 * @param {CartesianCoordinates} cartesian
+	 */
+	setCartesian(cartesian) {
+		this.#location.cartesian = cartesian;
+	}
+
+	/** setDirection
+	 * @param {Angle} direction
+	 */
+	setDirection(direction) {
+		this.#direction = direction;
+	}
+
+	/** @param {Point} point */
+	addPoint(point) {
+		const newCartesian = new CartesianCoordinates(this.x + point.x, this.y + point.y);
+		this.#location.cartesian = newCartesian;
+	}
+
+
+
+	resetToOrigin() {
+		this.#location.resetToOrigin();
+		this.#direction.degrees = 0;
+	}
+
+	/**
+	 * @param {number} bearingDegrees
+	 * @param {number} distance
+	 */
 	bear(bearingDegrees, distance) {
 
-		let delta, angle;
+		/** @type {Point} */ let delta;
+		let angle;
 		this.#direction.degrees += bearingDegrees;
 
 		if (distance) { // could also be subject to float comparison
 			delta = this.#space.newPoint('bearing delta');
-			delta.polar = new this.#space.PolarCoordinates(this.#direction, distance);
+			delta.polar = this.#space.newPolarCoordinates(this.#direction, distance);
 
 			//console.debug('Position.bear delta', delta);
 
@@ -395,33 +522,17 @@ PlanarSpace.Position = class {
 	}/* bear */
 
 
-	addPoint(point) {
-		const newCartesian = new PlanarSpace.CartesianCoordinates(this.x + point.x, this.y + point.y);
-		this.#location.cartesian = newCartesian;
-	}
-
-	setPoint(point) {
-		this.#location.cartesian = point;
-	}
-
-
-	resetToOrigin() {
-		this.#location.resetToOrigin();
-		this.#direction.degrees = 0;
-	}
-
-
-
 	move(dx, dy) {
 		//console.debug('Position.move:', arguments);
 
-		const currentCartesian = new this.#space.CartesianCoordinates(this.x, this.y);
+		const currentCartesian =  this.#space.newCartesianCoordinates(this.x, this.y);
 
+		/** @type {Point} */
 		const newPoint = this.#space.newPoint('Move newPoint');
 		newPoint.cartesian = currentCartesian;
 
 		let delta = this.#space.newPoint('delta');
-		let deltaCartesian = new this.#space.CartesianCoordinates(dx, dy);
+		let deltaCartesian = this.#space.newCartesianCoordinates(dx, dy);
 		//console.debug('Position.move deltaCartesian:', deltaCartesian);
 
 
@@ -457,19 +568,19 @@ PlanarSpace.Position = class {
 		//console.debug('Position.move new direction:', newDirection);
 		//this.#direction = newDirection;
 
-		this.setPoint(newPoint);
+		this.setLocation(newPoint);
 	}
 
 
 	moveToXY(x,y) {
-		const newCartesian = new this.#space.CartesianCoordinates(x, y);
-		this.setPoint(newCartesian);
+		const newCartesian = this.#space.newCartesianCoordinates(x, y);
+		this.setCartesian(newCartesian);
 	}
 
 
-	moveToXYwithRotate(x,y) {
-		const currentCartesian = new this.#space.CartesianCoordinates(this.x, this.y);
-		const newCartesian = new this.#space.CartesianCoordinates(x, y);
+	moveToXYandTurn(x,y) {
+		const currentCartesian = this.#space.newCartesianCoordinates(this.x, this.y);
+		const newCartesian =  this.#space.newCartesianCoordinates(x, y);
 
 		const spaceAngle = this.#space.getAngleFrom(currentCartesian, newCartesian);
 		//const delta = Maths.degrees180(spaceAngle.degrees - this.#direction.degrees);
@@ -487,9 +598,17 @@ PlanarSpace.Position = class {
 		//console.log('delta', delta);
 		this.direction.add(delta);
 
-		this.setPoint(newCartesian);
+		this.setCartesian(newCartesian);
+	}
+
+
+	moveToXYD(x,y,d) {
+		const newCartesian = this.#space.newCartesianCoordinates(x, y);
+		this.setCartesian(newCartesian);
+		const newDirection  =  this.#space.newAngle(d);
+		this.setDirection(newDirection);
 	}
 
 
 
-}/* PlanarSpace.Position */
+}/* Position */
