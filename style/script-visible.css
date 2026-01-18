@@ -18,10 +18,7 @@ body script {
 		margin-bottom:2ex;
 		padding:1ex;
 		content: 'script';
-	}
-
-	&[type="module"]::before {
-		content: 'script type="module"';
+		content: attr(type) " " attr(src);
 	}
 
 }
