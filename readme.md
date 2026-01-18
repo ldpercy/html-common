@@ -61,6 +61,18 @@ The submodule commit hash is also tracked in `superproject/.git/modules[html-com
 1234abcd------commit-hash-------1234abcd		branch 'main' of /local/path/to/html-common
 ```
 
+#### `.git/modules/[html-common]/config`
+
+It might be necessary to manually edit this file to make sure it's pointing to the local development copy eg:
+```conf
+[remote "origin"]
+	url = /local/path/to/html-common/
+	fetch = +refs/heads/*:refs/remotes/origin/*
+```
+
+
+
+
 
 
 ### Maintenance
@@ -90,10 +102,10 @@ Equivalent to in `~/.gitconfig`:
 ```
 
 
-### Problems
+### Troubleshooting
 
 
-`'file' not allowed`
+#### 'file' not allowed
 
 	Cloning into '/local/path/to/superproject/[html-common]'...
 	fatal: transport 'file' not allowed
