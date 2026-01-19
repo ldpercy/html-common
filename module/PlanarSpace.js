@@ -675,7 +675,7 @@ export class Position {
 
 
 
-export class Rectangle {
+export class Box {
 	/** type {number} */	x;
 	/** type {number} */	y;
 	/** type {number} */	width;
@@ -702,7 +702,7 @@ export class Rectangle {
 	get yMin() { return this.y; }
 	get yMid() { return this.y + this.height/2; }
 	get yMax() { return this.y + this.height; }
-}/* Rectangle */
+}/* Box */
 
 
 
