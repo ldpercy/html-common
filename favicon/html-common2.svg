@@ -2,10 +2,10 @@
 	<style>
 		polygon {
 			opacity:0.97;
-			mix-blend-mode: difference;
+			mix-blend-mode: multiply;
 		}
 	</style>
-	<polygon points="0,4 -36,-32 36,-32"  style="fill:#70e07e;"/>
+	<polygon points="0,4 -36,-32 36,-32"  style="fill:#663399;"/>
 	<polygon points="4,0 -32,-36 -32,36" style="fill:#f7df1e;"/>
 	<polygon points="-4,0 32,-36 32,36" style="fill:#ffb13b;"/>
 	<polygon points="0,-4 -36,32 36,32" style="fill:#e42;"/>

@@ -1,12 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="-32 -32 64 64">
-	<style>
-		polygon {
-			opacity:1;
-			mix-blend-mode: multiply;
-		}
-	</style>
-
-	<polygon points="2,0 -32,-34 -32,34" style="fill:#e42;"/>
-	<polygon points="0,2 32,2 32,-32 -34,-32" style="fill:#f7df1e;"/>
-	<polygon points="0,-2 32,-2 32,32 -34,32" style="fill:#ffb13b;"/>
+	<polygon points="-32,-32 +32,-32 +32,00 -32,00" style="fill:#f7df1e;"/>
+	<polygon points="-32,-00 +32,-00 +32,32 -32,32" style="fill:#ffb13b;"/>
+	<polygon points="0,-32 -32,0 0,32" style="fill:#e42;"/>
+	<polygon points="0,-32 +32,0 0,32" style="fill:#639;"/>
 </svg>

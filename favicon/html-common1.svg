@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="-32 -32 64 64">
-	<polygon points="0,0 -32,-32 32,-32" fill="#70e07e"/>
+	<polygon points="0,0 -32,-32 32,-32" fill="#663399"/>
 	<polygon points="0,0 -32,-32 -32,32" fill="#f7df1e"/>
 	<polygon points="0,0 32,-32 32,32" fill="#ffb13b"/>
 	<polygon points="0,0 -32,32 32,32" fill="#e42"/>
