@@ -17,8 +17,7 @@ body script {
 		border-radius: 1ex 0ex;
 		margin-bottom:2ex;
 		padding:1ex;
-		content: 'script';
-		content: attr(type) " " attr(src);
+		content: 'JS ' attr(type) ' ' attr(src);
 	}
 
 }

@@ -1,0 +1,25 @@
+@import "./technology-colour.css";
+
+body style {
+	/* styles in the html body are displayed */
+	display: block;
+	margin:1ex;
+	background-color: hwb(from var(--css-purple) h w b / 0.4);
+	border: 1px inset var(--css-purple);
+	border-radius: 1ex;
+	font-family: monospace;
+	white-space-collapse: preserve;
+	tab-size: 4;
+
+	&::before {
+		display:inline-block;
+		background-color: var(--css-purple);
+		border-radius: 1ex 0ex;
+		margin-bottom: 2ex;
+		padding: 1ex;
+		color:white;
+		content: 'CSS ' attr(src);
+	}
+
+}
+
