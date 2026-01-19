@@ -31,40 +31,6 @@ export class SVG {
 
 
 
-/* ViewBox
-*/
-export class ViewBox {
-
-	rectangle;
-
-	constructor(rectangle) {
-		this.rectangle = rectangle;
-	}
-
-	fromString(viewBoxString) {
-		const vba    = viewBoxString.split(' ');
-		this.rectangle.x      = parseInt(vba[0]);
-		this.rectangle.y      = parseInt(vba[1]);
-		this.rectangle.width  = parseInt(vba[2]);
-		this.rectangle.height = parseInt(vba[3]);
-		return this;
-	}
-
-	toString() {
-		return `${this.rectangle.x} ${this.rectangle.y} ${this.rectangle.width} ${this.rectangle.height}`;
-	}
-
-	toStringScaled(scale) {
-		return `${this.rectangle.x * scale} ${this.rectangle.y * scale} ${this.rectangle.width * scale} ${this.rectangle.height * scale}`;
-	}
-
-	toStringPadded(padding) {
-		return `${this.rectangle.x - padding} ${this.rectangle.y - padding} ${this.rectangle.width + 2*padding} ${this.rectangle.height + 2*padding}`;
-	}
-
-
-}/* ViewBox */
-
 
 
 /* CartesianGrid
@@ -315,3 +281,57 @@ export class Box {
 	/** @returns {number} */	get yMid() { return this.y + this.height/2; }
 	/** @returns {number} */	get yMax() { return this.y + this.height; }
 }/* Box */
+
+
+
+
+/* ViewBox
+*/
+export class ViewBox extends Box{
+
+	/**
+	 * @param {number} x
+	 * @param {number} y
+	 * @param {number} width
+	 * @param {number} height
+	 */
+	constructor(
+			x, y, width, height,
+		) {
+		super(x, y, width, height);
+	}
+
+	/** @param {string} viewBoxString */
+	fromString(viewBoxString) {
+		const vba    = viewBoxString.split(' ');
+		this.x      = parseInt(vba[0]);
+		this.y      = parseInt(vba[1]);
+		this.width  = parseInt(vba[2]);
+		this.height = parseInt(vba[3]);
+		return this;
+	}
+
+	/** @returns {string} */
+	toString() {
+		return `${this.x} ${this.y} ${this.width} ${this.height}`;
+	}
+
+	/**
+	 * @param {number} scale
+	 * @returns {string}
+	 */
+	toStringScaled(scale) {
+		return `${this.x * scale} ${this.y * scale} ${this.width * scale} ${this.height * scale}`;
+	}
+
+	/**
+	 * @param {number} padding
+	 * @returns {string}
+	 */
+	toStringPadded(padding) {
+		return `${this.x - padding} ${this.y - padding} ${this.width + 2*padding} ${this.height + 2*padding}`;
+	}
+
+
+}/* ViewBox */
+
