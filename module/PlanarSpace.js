@@ -6,10 +6,22 @@ import * as Maths from "./Maths.js";
 import * as abstractSpace  from "./AbstractSpace.js"
 
 
+//
+//	Type
+//
+
+/** SpaceSetting
+ * @typedef {Object} SpaceSetting
+ * @param {string}	polarAxis
+ * @param {string}	polarDirection
+ * @param {object}	shape
+ */
+
+
 
 
 //
-//	Interfaces
+//	Interface
 //
 
 
@@ -42,25 +54,26 @@ export class PolarCoordinates {
 }/* PolarCoordinates */
 
 
+
+
+
+
 //
-//	classes
+//	Const
 //
-
-
-/** SpaceSetting
- * @typedef {Object} SpaceSetting
- * @param {string}	polarAxis
- * @param {string}	polarDirection
- * @param {object}	size
- */
-
 
 /** @type {SpaceSetting} */
 const defaultSpaceSettings = {
 	polarAxis		: 'y',
 	polarDirection	: 'clockwise',
-	size			: undefined,
+	shape			: undefined,
 }
+
+
+
+//
+//	Class
+//
 
 
 /** Space
@@ -81,8 +94,8 @@ export class Space extends abstractSpace.Space {
 	#jsAngleAxisAdjust;
 	#jsAngleDirectionAdjust;
 
-	// space size - tbd
-	#size;
+	// space shape - tbd - I think needs to be something that can return a bounding box
+	#shape;
 
 	/**
 	 * @param {string} name
@@ -96,7 +109,7 @@ export class Space extends abstractSpace.Space {
 		) {
 		super(name, setting);
 		this.#name = name;
-		this.#size = setting.size;
+		this.#shape = setting.shape;
 
 		if (polarAxis === 'y')	{	this.#jsAngleAxisAdjust = -Math.PI/2;	}
 		else					{	this.#jsAngleAxisAdjust = 0;			}
@@ -109,7 +122,7 @@ export class Space extends abstractSpace.Space {
 
 	get name() { return this.#name; }
 	get origin() { return Space.origin; }
-	get size() { return this.#size; }
+	get shape() { return this.#shape; }
 
 
 	//
@@ -690,4 +703,7 @@ export class Rectangle {
 	get yMid() { return this.y + this.height/2; }
 	get yMax() { return this.y + this.height; }
 }/* Rectangle */
+
+
+
 

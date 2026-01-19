@@ -7,6 +7,7 @@ body style {
 	background-color: hwb(from var(--css-purple) h w b / 0.4);
 	border: 1px inset var(--css-purple);
 	border-radius: 1ex;
+	/* corner-shape: bevel; */
 	font-family: monospace;
 	white-space-collapse: preserve;
 	tab-size: 4;
@@ -18,8 +19,28 @@ body style {
 		margin-bottom: 2ex;
 		padding: 1ex;
 		color:white;
-		content: 'CSS ' attr(src);
+		content: 'style';
 	}
 
 }
 
+body link[rel="stylesheet"] {
+
+	/* style links in the html body are displayed */
+	display: block;
+	margin:0ex;
+	background-color: lightgrey;
+	border: 1px inset grey;
+	border-radius: 1ex;
+	font-family: monospace;
+	white-space-collapse: preserve;
+	tab-size: 4;
+	&::after {
+
+		padding:1ex;
+		content: 'link ' attr(rel) ' ' attr(href);
+	}
+
+
+
+}

@@ -1,3 +1,15 @@
+//
+//	SVG
+//
+
+
+//
+//	Interface
+//
+
+
+
+
 /* SVG
 */
 export class SVG {
@@ -19,11 +31,9 @@ export class SVG {
 
 
 
-
-
-/* SVG.ViewBox
+/* ViewBox
 */
-SVG.ViewBox = class {
+export class ViewBox {
 
 	rectangle;
 
@@ -53,19 +63,19 @@ SVG.ViewBox = class {
 	}
 
 
-}/* SVG.ViewBox */
+}/* ViewBox */
 
 
 
-/* SVG.CartesianGrid
+/* CartesianGrid
 */
 export class CartesianGrid {
 
-	rectangle;
+	box;
 
-	constructor(space, rectangle, spacingMajor=500, spacingMinor=100) {
+	constructor(space, box, spacingMajor=500, spacingMinor=100) {
 		this.space = space;
-		this.rectangle = rectangle;
+		this.box = box;
 		this.spacingMajor = spacingMajor;
 		this.spacingMinor = spacingMinor;
 	}
@@ -89,14 +99,14 @@ export class CartesianGrid {
 	getGridlines(spacing, className) {
 		let result = '';
 		let xLines = '', yLines = '';
-		let x = this.rectangle.x - (this.rectangle.x % spacing);
-		let y = this.rectangle.y - (this.rectangle.y % spacing);
+		let x = this.box.xMin - (this.box.xMin % spacing);
+		let y = this.box.yMin - (this.box.yMin % spacing);
 
-		for (x; x <= this.rectangle.xMax; x += spacing){
-			xLines += `<line x1="${x}" y1="${-this.rectangle.y}" x2="${x}" y2="${-this.rectangle.yMax}"><title>x: ${x}</title></line>`;
+		for (x; x <= this.box.xMax; x += spacing){
+			xLines += `<line x1="${x}" y1="${-this.box.yMin}" x2="${x}" y2="${-this.box.yMax}"><title>x: ${x}</title></line>`;
 		}
-		for (y; y <= this.rectangle.yMax; y += spacing){
-			yLines += `<line x1="${this.rectangle.x}" y1="${-y}" x2="${this.rectangle.xMax}" y2="${-y}"><title>y: ${y}</title></line>`;
+		for (y; y <= this.box.yMax; y += spacing){
+			yLines += `<line x1="${this.box.xMin}" y1="${-y}" x2="${this.box.xMax}" y2="${-y}"><title>y: ${y}</title></line>`;
 		}
 
 		result = `
@@ -113,15 +123,15 @@ export class CartesianGrid {
 	getLabels(spacing) {
 
 		let xLabels = '', yLabels = '';
-		let x = this.rectangle.x - (this.rectangle.x % spacing);
-		let y = this.rectangle.y - (this.rectangle.y % spacing);
+		let x = this.box.xMin - (this.box.xMin % spacing);
+		let y = this.box.yMin - (this.box.yMin % spacing);
 
 		const adjust = -5;
 
-		for (x; x <= this.rectangle.xMax; x += spacing){
+		for (x; x <= this.box.xMax; x += spacing){
 			xLabels += (x !== 0) ? `<text x="${x}" y="${adjust}"><title>x: ${x}</title>${x}</text>` : '';
 		}
-		for (y; y <= this.rectangle.yMax; y += spacing){
+		for (y; y <= this.box.yMax; y += spacing){
 			yLabels += (y !== 0) ? `<text x="${adjust}" y="${-y}"><title>y: ${y}</title>${y}</text>` : '';	/* note negative y in here - needs to be made space-aware  */
 		}
 
@@ -143,20 +153,22 @@ export class CartesianGrid {
 
 	toString() {
 		const result= `
-			${this.getGridlines(this.spacingMinor,'minor')}
-			${this.getGridlines(this.spacingMajor,'major')}
-			${this.axes}
-			${this.getLabels(this.spacingMajor)}
+			<g class="cartesian-grid">
+				${this.getGridlines(this.spacingMinor,'minor')}
+				${this.getGridlines(this.spacingMajor,'major')}
+				${this.axes}
+				${this.getLabels(this.spacingMajor)}
+			</g>
 		`;
 
 		return result;
 	}/* toString */
 
-}/* SVG.CartesianGrid */
+}/* CartesianGrid */
 
 
 
-/* SVG.PolarGrid
+/* PolarGrid
 */
 export class PolarGrid {
 
@@ -271,5 +283,35 @@ export class PolarGrid {
 
 
 
-}/* SVG.PolarGrid */
+}/* PolarGrid */
 
+
+
+export class Box {
+	/** type {number} */	x;
+	/** type {number} */	y;
+	/** type {number} */	width;
+	/** type {number} */	height;
+
+	/**
+	 * @param {number} x
+	 * @param {number} y
+	 * @param {number} width
+	 * @param {number} height
+	 */
+	constructor(
+			x, y, width, height,
+		) {
+		this.x      = x;
+		this.y      = y;
+		this.width  = width;
+		this.height = height;
+	}
+
+	/** @returns {number} */	get xMin() { return this.x; }
+	/** @returns {number} */	get xMid() { return this.x + this.width/2; }
+	/** @returns {number} */	get xMax() { return this.x + this.width; }
+	/** @returns {number} */	get yMin() { return this.y; }
+	/** @returns {number} */	get yMid() { return this.y + this.height/2; }
+	/** @returns {number} */	get yMax() { return this.y + this.height; }
+}/* Box */
