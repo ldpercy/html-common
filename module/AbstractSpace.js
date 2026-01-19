@@ -4,7 +4,9 @@
 
 
 
-
+/** SpaceSetting
+ * @typedef {Object} SpaceSetting
+ */
 
 
 // not sure if should be base class or interface...
@@ -15,7 +17,10 @@ export class Space {
 	#name;
 	#setting;
 
-
+	/**
+	 * @param {string} name
+	 * @param {SpaceSetting} setting
+	 */
 	constructor(name, setting) {
 		this.#name = name;
 		this.#setting = setting;
@@ -25,3 +30,5 @@ export class Space {
 	get setting() { return this.#setting; }
 
 }/* Space */
+
+

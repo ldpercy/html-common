@@ -17,10 +17,8 @@ import * as abstractSpace  from "./AbstractSpace.js"
  * @interface
  */
 export class CartesianCoordinates {
-	/** @type {number} */
-	x;
-	/** @type {number} */
-	y;
+	/** @type {number} */	x;
+	/** @type {number} */	y;
 
 	constructor(x=0, y=0) {
 		this.x = x;
@@ -33,14 +31,13 @@ export class CartesianCoordinates {
  * @interface
  */
 export class PolarCoordinates {
-	/** @type {Angle} */
-	angle;
-	/** @type {number} */
-	radius;
+	/** @type {Angle} */	angle;
+	/** @type {number} */	radius;
 
 	constructor(angle = new Angle(), radius=0) {
 		this.angle = angle;
 		this.radius = radius;
+		this.angle = angle;
 	}
 }/* PolarCoordinates */
 
@@ -48,6 +45,22 @@ export class PolarCoordinates {
 //
 //	classes
 //
+
+
+/** SpaceSetting
+ * @typedef {Object} SpaceSetting
+ * @param {string}	polarAxis
+ * @param {string}	polarDirection
+ * @param {object}	size
+ */
+
+
+/** @type {SpaceSetting} */
+const defaultSpaceSettings = {
+	polarAxis		: 'y',
+	polarDirection	: 'clockwise',
+	size			: undefined,
+}
 
 
 /** Space
@@ -71,24 +84,25 @@ export class Space extends abstractSpace.Space {
 	// space size - tbd
 	#size;
 
-
+	/**
+	 * @param {string} name
+	 * @param {SpaceSetting} setting
+	 */
 	constructor(
 			name = 'Initial PlanarSpace name',
-			size,
+			setting = defaultSpaceSettings,
 			polarAxis = 'y',
 			polarDirection = 'clockwise',
 		) {
-		super();
+		super(name, setting);
 		this.#name = name;
-		this.#size = size;
+		this.#size = setting.size;
 
 		if (polarAxis === 'y')	{	this.#jsAngleAxisAdjust = -Math.PI/2;	}
 		else					{	this.#jsAngleAxisAdjust = 0;			}
 
 		if (polarDirection === 'clockwise')	{	this.#jsAngleDirectionAdjust = -1;	}
 		else								{	this.#jsAngleDirectionAdjust = +1;	}
-
-		this.#size = size;
 
 	}/* constructor */
 
@@ -351,15 +365,10 @@ export class Point {
 	get radius()	{ return this.#polar.radius; }
 	get cartesian() { return this.#cartesian; }
 
-	/** @param {PolarCoordinates} polar */
-	set polar(polar) {
-		//console.debug(`Point ${this.#name}.polar = `, polar);
-		this.#polar = polar;
-		this.#cartesian = this.#space.polarToCartesian(polar);
-	}
 
-
-	/** @param {CartesianCoordinates} cartesian */
+	/** set cartesian
+	 * @param {CartesianCoordinates} cartesian
+	 */
 	set cartesian(cartesian) {
 		//console.debug(`Point ${this.#name}.cartesian = `, cartesian);
 		this.#cartesian = cartesian;
@@ -367,6 +376,42 @@ export class Point {
 		this.#polar = this.#space.cartesianToPolar(cartesian);
 		//console.debug('Point set cartesian result', this, this.#cartesian);
 	}
+
+
+	/** set polar
+	 * @param {PolarCoordinates} polar
+	 */
+	set polar(polar) {
+		//console.debug(`Point ${this.#name}.polar = `, polar);
+		this.#polar = polar;
+		this.#cartesian = this.#space.polarToCartesian(polar);
+	}
+
+
+	/** setCartesian
+	 * Convenience setter for setting cartesian x & y directly (js class setters only allow one arg)
+	 * @param {number} x
+	 * @param {number} y
+	 */
+	setCartesian(x, y) {
+		const cc = new CartesianCoordinates(x,y);
+		this.cartesian = cc;
+	}
+
+
+	/** setPolar
+	 * Convenience setter for setting polar radius & degrees directly (js class setters only allow one arg)
+	 * @param {number} degrees
+	 * @param {number} radius
+	 */
+	setPolar(degrees, radius) {
+		const a = new Angle(degrees);
+		const pc = new PolarCoordinates(a, radius);
+		this.polar = pc;
+	}
+
+
+
 
 
 	//
