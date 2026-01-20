@@ -335,3 +335,40 @@ export class ViewBox extends Box{
 
 }/* ViewBox */
 
+
+
+/* Chunk
+*/
+export class Chunk {
+	/** @type {string} */	text;
+	/** @type {string} */	defs;
+
+	/**
+	 * @param {string} text
+	 * @param {string} defs
+	 */
+	constructor(
+		text = '',
+		defs = ''
+	) {
+		this.text = text;
+		this.defs = defs;
+	}
+
+	/** @param {Chunk} svgChunk */
+	add(svgChunk) {
+		this.text += svgChunk.text;
+		this.defs += svgChunk.defs;
+	}
+
+	/** @return {string} */
+	toString() {
+		const result = `
+			<defs>
+				${this.defs}
+			</defs>
+			${this.text}`;
+		return result;
+	}
+}/* Chunk */
+
