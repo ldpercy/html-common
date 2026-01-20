@@ -290,10 +290,10 @@ export class Box {
 export class ViewBox extends Box{
 
 	/**
-	 * @param {number} x
-	 * @param {number} y
-	 * @param {number} width
-	 * @param {number} height
+	 * @param {number} [x]
+	 * @param {number} [y]
+	 * @param {number} [width]
+	 * @param {number} [height]
 	 */
 	constructor(
 			x, y, width, height,
@@ -301,7 +301,10 @@ export class ViewBox extends Box{
 		super(x, y, width, height);
 	}
 
-	/** @param {string} viewBoxString */
+	/**
+	 * @param {string} viewBoxString
+	 * @return {ViewBox}
+	 */
 	fromString(viewBoxString) {
 		const vba    = viewBoxString.split(' ');
 		this.x      = parseInt(vba[0]);
@@ -311,14 +314,27 @@ export class ViewBox extends Box{
 		return this;
 	}
 
-	/** @returns {string} */
+	/**
+	 * @param {number} padding
+	 * @return {ViewBox}
+	 */
+	pad(padding) {
+		this.x =- padding;
+		this.y =- padding;
+		this.width =+ 2*padding;
+		this.height =+ 2*padding;
+		return this;
+	}
+
+
+	/** @return {string} */
 	toString() {
 		return `${this.x} ${this.y} ${this.width} ${this.height}`;
 	}
 
 	/**
 	 * @param {number} scale
-	 * @returns {string}
+	 * @return {string}
 	 */
 	toStringScaled(scale) {
 		return `${this.x * scale} ${this.y * scale} ${this.width * scale} ${this.height * scale}`;
@@ -326,7 +342,7 @@ export class ViewBox extends Box{
 
 	/**
 	 * @param {number} padding
-	 * @returns {string}
+	 * @return {string}
 	 */
 	toStringPadded(padding) {
 		return `${this.x - padding} ${this.y - padding} ${this.width + 2*padding} ${this.height + 2*padding}`;
