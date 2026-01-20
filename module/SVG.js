@@ -319,10 +319,10 @@ export class ViewBox extends Box{
 	 * @return {ViewBox}
 	 */
 	pad(padding) {
-		this.x =- padding;
-		this.y =- padding;
-		this.width =+ 2*padding;
-		this.height =+ 2*padding;
+		this.x -= padding;
+		this.y -= padding;
+		this.width += 2*padding;
+		this.height += 2*padding;
 		return this;
 	}
 
