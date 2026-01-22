@@ -1,11 +1,15 @@
 HTML Common
 ===========
 
-A git submodule for common HTML items.
+A git submodule for common HTML, CSS, SVG & JavaScript items.
 
-
-
-
+<p align="center">
+	<img width="15%" src="favicon/html-common.svg" alt="HTML Common" title="HTML Common"/>
+	<img width="15%" src="favicon/html.svg" alt="HTML" title="HTML"/>
+	<img width="15%" src="favicon/css.svg" alt="CSS" title="CSS"/>
+	<img width="15%" src="favicon/svg.svg" alt="SVG" title="SVG"/>
+	<img width="15%" src="favicon/javascript.svg" alt="JavaScript" title="JavaScript"/>
+</p>
 
 
 Submodule setup
