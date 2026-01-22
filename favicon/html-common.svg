@@ -1,6 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="-32 -32 64 64">
-	<polygon points="-32,-32 +32,-32 +32,00 -32,00" style="fill:#f7df1e;"/>
-	<polygon points="-32,-00 +32,-00 +32,32 -32,32" style="fill:#ffb13b;"/>
-	<polygon points="0,-32 -32,0 0,32" style="fill:#e42;"/>
-	<polygon points="0,-32 +32,0 0,32" style="fill:#639;"/>
+	<polygon points="32,-32 -32,32 -32,-32" style="fill:#639;"/>
+	<polygon points="32,-32 -32,32 +32,+32" style="fill:#f7df1e;"/>
+
+	<polygon points="0,-32 0,32 -32,0" style="fill:#ffb13b;"/>
+
+	<polygon points="0,-32 0,32 +32,0" style="fill:#e42;"/>
 </svg>
