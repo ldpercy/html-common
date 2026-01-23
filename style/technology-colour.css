@@ -1,8 +1,8 @@
 /*
-**	style.css
+**	technology-colour.css
 */
 
-html {
+:root {
 
 	--html5-badge-dark: #e34f26;
 	--html5-badge-light: #ef652a;
@@ -14,17 +14,12 @@ html {
 	--html5-simple-dark: #e42;
 	--html5-simple-light: #f97;
 
-
+	--css-purple:#663399;
 
 
 	--javascript-yellow: #f7df1e;
 	--javascript-yellow2: #f0db4f;
 
+	--svg-orange: #ffb13b;
+
 }
-
-
-
-
-
-
-

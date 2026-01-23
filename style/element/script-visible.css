@@ -1,4 +1,3 @@
-@import "./technology-colour.css";
 
 body script {
 	/* scripts in the html body are displayed */
@@ -17,8 +16,7 @@ body script {
 		border-radius: 1ex 0ex;
 		margin-bottom:2ex;
 		padding:1ex;
-		content: 'script';
-		content: attr(type) " " attr(src);
+		content: 'script ' attr(type) ' ' attr(src);
 	}
 
 }

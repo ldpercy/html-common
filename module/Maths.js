@@ -6,22 +6,35 @@
 const TAU = 2 * Math.PI;
 
 
-/* significantFigures
-Returns a function that will call toPrecision with the supplied number of significant figures
-*/
-function significantFigures(integer) {
+/** significantFigures
+ * Returns a function that will call toPrecision with the supplied number of significant figures
+ * @param {number} integer
+ * @return {function}
+ */
+export function significantFigures(integer) {
 	return (number) => { return number.toPrecision(integer) }
 }
 
 
-/* equalToPrecision
-This won't always do what you want, for example comparing a nearby float to an int `toPrecision` will rarely yield equal.
-Need better ways of comparing numbers in those circumstances.
-*/
+/** equalToPrecision
+ * This won't always do what you want, for example comparing a nearby float to an int `toPrecision` will rarely yield equal.
+ * Need better ways of comparing numbers in those circumstances.
+ * @param {number} precision
+ * @param {number} n1
+ * @param {number} n2
+ * @return {boolean}
+ */
 export function equalToPrecision(precision, n1, n2) {
 	return (n1.toPrecision(precision) === n2.toPrecision(precision))
 }
 
+
+/** equalToFixed
+ * @param {number} digits
+ * @param {number} n1
+ * @param {number} n2
+ * @return {boolean}
+ */
 export function equalToFixed(digits, n1, n2) {
 	//console.log('equalToFixed:',arguments, n1.toFixed(digits), n2.toFixed(digits));
 	return (n1.toFixed(digits) === n2.toFixed(digits));
@@ -36,7 +49,7 @@ export function equalToFixed(digits, n1, n2) {
 
 /** radiansToDegrees
  * @param {number} radians
- * @returns {number}
+ * @return {number}
  */
 function radiansToDegrees(radians) {
 	return (radians/Math.PI) * 180;
@@ -44,7 +57,7 @@ function radiansToDegrees(radians) {
 
 /** degreesToRadians
  * @param {number} degrees
- * @returns {number}
+ * @return {number}
  */
 function degreesToRadians(degrees) {
 	return (degrees/180) * Math.PI;
@@ -52,7 +65,7 @@ function degreesToRadians(degrees) {
 
 /** degreesToRadiansPi
  * @param {number} degrees
- * @returns {number}
+ * @return {number}
  */
 function degreesToRadiansPi(degrees) {
 	return (degrees/180);
@@ -60,7 +73,7 @@ function degreesToRadiansPi(degrees) {
 
 /** degreesToRadiansTau
  * @param {number} degrees
- * @returns {number}
+ * @return {number}
  */
 function degreesToRadiansTau(degrees) {
 	return (degrees/360);
@@ -68,7 +81,7 @@ function degreesToRadiansTau(degrees) {
 
 /** degrees180
  * @param {number} degrees
- * @returns {number}
+ * @return {number}
  */
 export function degrees180(degrees) {
 	// https://stackoverflow.com/questions/2320986/easy-way-to-keeping-angles-between-179-and-180-degrees
@@ -92,7 +105,7 @@ export function degrees180(degrees) {
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
  * @param {number} min
  * @param {number} max
- * @returns {number}
+ * @return {number}
  */
 export function getRandomInt(min, max) {
 	const minCeiled = Math.ceil(min);
@@ -104,7 +117,7 @@ export function getRandomInt(min, max) {
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
  * @param {number} min
  * @param {number} max
- * @returns {number}
+ * @return {number}
  */
 export function getRandomIntInclusive(min, max) {
 	const minCeiled = Math.ceil(min);
@@ -112,3 +125,37 @@ export function getRandomIntInclusive(min, max) {
 	return Math.floor(Math.random() * (maxFloored - minCeiled + 1) + minCeiled); // The maximum is inclusive and the minimum is inclusive
 }
 
+
+
+/** asRomanNumerals
+ * @param {number} number
+ * @return {string}
+ */
+export function asRomanNumerals(number) {
+	let result = '';
+	let value=number, divisor, remainder;
+	const rn = [
+		{ s: 'm',  v: 1000 },
+		{ s: 'cm', v: 900  },
+		{ s: 'd',  v: 500  },
+		{ s: 'cd', v: 400  },
+		{ s: 'c',  v: 100  },
+		{ s: 'xc', v: 90   },
+		{ s: 'l',  v: 50   },
+		{ s: 'xl', v: 40   },
+		{ s: 'x',  v: 10   },
+		{ s: 'ix', v: 9    },
+		{ s: 'v',  v: 5    },
+		{ s: 'iv', v: 4    },
+		{ s: 'i',  v: 1    },
+	];
+
+	for (var j = 0; j < rn.length; j++) {
+		divisor = Math.floor(number/rn[j].v);
+		result += rn[j].s.repeat(divisor);
+		number = number - (divisor * rn[j].v);
+		//log(rn[j], divisor,result,number);
+	}
+
+	return result
+}

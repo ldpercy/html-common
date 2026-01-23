@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<title>SVG</title>
+	<meta charset="utf-8">
+	<link rel="icon" href="../favicon/html-common.svg">
+
+
+
+</head>
+<body>
+	<header>
+		<nav>
+			<a title="To folder" href="./">🖿</a>
+			<a title="Parent folder" href="../">🡅</a>
+		</nav>
+		<h1><a href="">SVG</a></h1>
+	</header>
+
+	<link rel="stylesheet" href="../style/ldpercy.css">
+	<link rel="stylesheet" href="../style/html-visible.css">
+	<link rel="stylesheet" href="../style/svg/grid.css"/>
+
+	<style>
+		svg { width:80%; height:50%; outline:1px solid silver; }
+	</style>
+
+
+	<script type="module">
+		import * as planar from './PlanarSpace.js'
+		import * as svg from './SVG.js'
+
+		let space = new planar.Space('simple space');
+		let box = new svg.Box(-1200,-600,2400,1200);
+		console.log(box);
+
+		const cartesianGrid = new svg.CartesianGrid(space, box);
+		document.getElementById('svgGrid').innerHTML = cartesianGrid.toString();
+
+	</script>
+
+	<svg id="svgDoc1" viewBox="-1200 -600 2400 1200">
+
+		<g id="svgGrid" class="grid"></g>
+
+	</svg>
+
+
+
+</body>
+</html>

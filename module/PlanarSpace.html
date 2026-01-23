@@ -3,9 +3,8 @@
 <head>
 	<title>Planar Space</title>
 	<meta charset="utf-8">
-	<link rel="icon" href="../favicon.ico">
-	<link rel="stylesheet" href="../style/ldpercy.css">
-	<link rel="stylesheet" href="../style/script-visible.css">
+	<link rel="icon" href="../favicon/html-common.svg">
+
 </head>
 <body>
 	<header>
@@ -15,20 +14,30 @@
 		</nav>
 		<h1><a href="">Planar Space</a></h1>
 	</header>
+	<link rel="stylesheet" href="../style/ldpercy.css">
+	<link rel="stylesheet" href="../style/html-visible.css">
+
 
 	<script type="module">
-		import * as planarSpace from './PlanarSpace.js'
+		import * as PS from './PlanarSpace.js'
 
-		const space = new planarSpace.Space('planar-space');
+		let s = new PS.Space('test-space',{});
 
-		console.log(space);
+		console.log(s);
+		console.log(s.setting);
 
-		const r = new planarSpace.Rectangle();
+		let p = s.newPoint('p');
+		p.setCartesian(15,20);
 
-		console.log(r);
+		console.log(p);
+
+		console.log(p.getAngleFrom(s.origin));
+		console.log(p.getDistanceFrom(s.origin));
+
+		//const r = new planarSpace.Rectangle();
+		//console.log(r);
 
 	</script>
-
 
 
 </body>

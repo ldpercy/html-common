@@ -1,0 +1,36 @@
+.grid {
+	--colour-cartesian: teal;
+	--colour-polar: pink;
+	font-family:monospace;
+	fill:none;
+	stroke-width: 1px;
+
+	.cartesian-grid {
+		stroke: var(--colour-cartesian);
+		.axis  { stroke-width: 5px; }
+		.major { stroke-width: 2px; }
+		.minor { stroke-width: 1px; }
+		.label { fill: var(--colour-cartesian); }
+		.origin { r: 10px; stroke-width: 3px; }
+
+		.axis line {
+			marker-start:url(#axisMarker-cartesian);
+			marker-end:url(#axisMarker-cartesian);
+		}
+	}
+
+	.label {
+		stroke: none;
+		font-size: 25px;
+		dominant-baseline: ideographic;
+		font-family: monospace;
+	}
+
+	.cartesian-grid .label {
+		text-anchor: end;
+		.x {
+			writing-mode: vertical-lr;
+		}
+	}
+
+}/* .grid */
