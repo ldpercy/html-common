@@ -84,7 +84,7 @@ summary:hover {
 
 
 
-html.light {
+html.colourScheme-light {
 	color-scheme: light;
 	background-color: var(--html-background-light);
 	body {
@@ -93,7 +93,7 @@ html.light {
 	}
 }
 
-html.dark {
+html.colourScheme-dark {
 	color-scheme: dark;
 	background-color: var(--html-background-dark);
 	body {

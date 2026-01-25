@@ -8,8 +8,8 @@
 <body>
 	<header>
 		<nav>
-			<a id="button-lightScheme" href="#" title="Light scheme" data-scheme="light">🟓</a>
-			<a id="button-darkScheme" href="#" title="Dark scheme" data-scheme="dark">🟒</a>
+			<a class="colourScheme-selector" href="?colourScheme=light" title="Light colour scheme" data-colourscheme="light">🟓</a>
+			<a class="colourScheme-selector" href="?colourScheme=dark" title="Dark colour scheme" data-colourscheme="dark">🟒</a>
 			<a title="To folder" href="./">🖿</a>
 			<a title="Parent folder" href="../">🡅</a>
 		</nav>
@@ -43,15 +43,26 @@
 						type: 'change',
 						listener: this.formChangeListener
 					},
+					{
+						query: '.colourScheme-selector',
+						type: 'click',
+						listener: this.colourSchemeListener
+					},
 				];
 
 				documentClickListener(event) {
 					const domPoint = new DOMPoint(event.clientX, event.clientY);
 					console.info('You clicked', domPoint);
-				}/* svgClickListener */
+				}
 
 				formChangeListener(event) {
 					console.log('formChangeListener arguments', arguments);				// arguments[0] = change
+				}
+
+				colourSchemeListener(event) {
+					console.log('colourSchemeListener', event.target.dataset);
+					event.preventDefault();
+					this.setColourScheme(event.target.dataset.colourscheme);
 				}
 
 			}/* ExampleApp */
@@ -65,12 +76,17 @@
 		<form id="myForm">
 			<h2>App elements</h2>
 
-			<button type="button" id="myButton">myButton</button>
-
 			<label>
 				<input type="checkbox">
 				checkbox
 			</label>
+			<br/>
+			<select size="5">
+				<option>abcd</option>
+				<option>efgh</option>
+				<option>ijkl</option>
+				<option>mnop</option>
+			</select>
 		</form>
 
 	</main>

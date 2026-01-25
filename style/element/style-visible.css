@@ -21,26 +21,23 @@ body style {
 	}
 
 	&[contenteditable]::before { content:'style contenteditable='attr(contenteditable)}
-
 }
 
 body link[rel="stylesheet"] {
 
 	/* style links in the html body are displayed */
 	display: inline-block;
-	margin:0ex;
+	margin:1ex;
+	padding:1ex;
 	background-color: lightgrey;
 	border: 1px inset grey;
 	border-radius: 1ex;
 	font-family: monospace;
-	white-space-collapse: preserve;
-	tab-size: 4;
 	&::after {
-
-		padding:1ex;
 		content: 'link ' attr(rel) ' ' attr(href);
 	}
+}
 
-
-
+.colourScheme-dark body link[rel="stylesheet"] {
+	background-color: dimgrey;
 }
