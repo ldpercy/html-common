@@ -17,60 +17,63 @@
 		<h1><a href="">HTML App</a></h1>
 	</header>
 
-	<link rel="stylesheet" href="../style/ldpercy.css">
-	<link rel="stylesheet" href="../style/html-visible.css">
+	<link rel="stylesheet" href="../style/html-common.css">
+
+	<main>
+
+		<script type="module">
+			import { HTMLApp } from "./HTMLApp.js";
+
+			class ExampleApp extends HTMLApp {
+				appName = "ExampleApp";
+				appInfo = [`%c
+					Example App 0.0.1 by ldpercy
+					`.replace(/\n\t\t/g,'\n'),
+					'color:light-dark(darkblue, lightblue);'
+				];
+
+				eventListeners = [
+					{
+						element: document,
+						type: 'click',
+						listener: this.documentClickListener
+					},
+					{
+						query: '#myForm',
+						type: 'change',
+						listener: this.formChangeListener
+					},
+				];
+
+				documentClickListener(event) {
+					const domPoint = new DOMPoint(event.clientX, event.clientY);
+					console.info('You clicked', domPoint);
+				}/* svgClickListener */
+
+				formChangeListener(event) {
+					console.log('formChangeListener arguments', arguments);				// arguments[0] = change
+				}
+
+			}/* ExampleApp */
+
+			var exampleApp = new ExampleApp();
+		</script>
 
 
-	<script type="module">
-		import { HTMLApp } from "./HTMLApp.js";
-
-		class ExampleApp extends HTMLApp {
-			appName = "ExampleApp";
-			appInfo = [`%c
-				Example App 0.0.1 by ldpercy
-				`.replace(/\n\t\t/g,'\n'),
-				'color:light-dark(darkblue, lightblue);'
-			];
-
-			eventListeners = [
-				{
-					element: document,
-					type: 'click',
-					listener: this.documentClickListener
-				},
-				{
-					query: '#myForm',
-					type: 'change',
-					listener: this.formChangeListener
-				},
-			];
-
-			documentClickListener(event) {
-				const domPoint = new DOMPoint(event.clientX, event.clientY);
-				console.info('You clicked', domPoint);
-			}/* svgClickListener */
-
-			formChangeListener(event) {
-				console.log('formChangeListener arguments', arguments);				// arguments[0] = change
-			}
-
-		}/* ExampleApp */
-
-		var exampleApp = new ExampleApp();
-	</script>
 
 
-	<h2>App elements</h2>
+		<form id="myForm">
+			<h2>App elements</h2>
 
-	<button id="myButton">myButton</button>
+			<button type="button" id="myButton">myButton</button>
 
-	<form id="myForm">
-		<h3>myForm</h3>
-		<label>
-			<input type="checkbox">
-			checkbox
-		</label>
-	</form>
+			<label>
+				<input type="checkbox">
+				checkbox
+			</label>
+		</form>
+
+	</main>
 
 </body>
 </html>

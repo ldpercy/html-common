@@ -56,8 +56,6 @@ export class PolarCoordinates {
 
 
 
-
-
 //
 //	Const
 //
@@ -104,18 +102,24 @@ export class Space extends abstractSpace.Space {
 	constructor(
 			name = 'Initial PlanarSpace name',
 			setting = defaultSpaceSettings,
-			polarAxis = 'y',
-			polarDirection = 'clockwise',
 		) {
 		super(name, setting);
 		this.#name = name;
 		this.#shape = setting.shape;
 
-		if (polarAxis === 'y')	{	this.#jsAngleAxisAdjust = -Math.PI/2;	}
-		else					{	this.#jsAngleAxisAdjust = 0;			}
+		if (setting.polarAxis === 'y') {
+			this.#jsAngleAxisAdjust = -Math.PI/2;
+		}
+		else {
+			this.#jsAngleAxisAdjust = 0;
+		}
 
-		if (polarDirection === 'clockwise')	{	this.#jsAngleDirectionAdjust = -1;	}
-		else								{	this.#jsAngleDirectionAdjust = +1;	}
+		if (setting.polarDirection === 'clockwise')	{
+			this.#jsAngleDirectionAdjust = -1;
+		}
+		else {
+			this.#jsAngleDirectionAdjust = +1;
+		}
 
 	}/* constructor */
 

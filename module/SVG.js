@@ -252,7 +252,9 @@ export class PolarGrid {
 }/* PolarGrid */
 
 
-
+/** Box
+ * cf https://developer.mozilla.org/en-US/docs/Web/API/DOMRectReadOnly
+ */
 export class Box {
 	/** type {number} */	x;
 	/** type {number} */	y;

@@ -4,7 +4,6 @@
 	<title>Planar Space</title>
 	<meta charset="utf-8">
 	<link rel="icon" href="../favicon/html-common.svg">
-
 </head>
 <body>
 	<header>
@@ -14,31 +13,32 @@
 		</nav>
 		<h1><a href="">Planar Space</a></h1>
 	</header>
-	<link rel="stylesheet" href="../style/ldpercy.css">
-	<link rel="stylesheet" href="../style/html-visible.css">
 
+	<link rel="stylesheet" href="../style/html-common.css">
 
-	<script type="module">
-		import * as PS from './PlanarSpace.js'
+	<main>
 
-		let s = new PS.Space('test-space',{});
+		<script type="module">
+			import * as PS from './PlanarSpace.js'
 
-		console.log(s);
-		console.log(s.setting);
+			let s = new PS.Space('test-space',{});
 
-		let p = s.newPoint('p');
-		p.setCartesian(15,20);
+			console.log(s);
+			console.log(s.setting);
 
-		console.log(p);
+			let p = s.newPoint('p');
+			p.setCartesian(15,20);
 
-		console.log(p.getAngleFrom(s.origin));
-		console.log(p.getDistanceFrom(s.origin));
+			console.log(p);
 
-		//const r = new planarSpace.Rectangle();
-		//console.log(r);
+			console.log(p.getAngleFrom(s.origin));
+			console.log(p.getDistanceFrom(s.origin));
 
-	</script>
+			//const r = new planarSpace.Rectangle();
+			//console.log(r);
 
+		</script>
 
+	</main>
 </body>
 </html>

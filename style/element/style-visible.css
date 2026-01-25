@@ -2,7 +2,6 @@
 body style {
 	/* styles in the html body are displayed */
 	display: block;
-	margin:1ex;
 	background-color: hwb(from var(--css-purple) h w b / 0.4);
 	border: 1px inset var(--css-purple);
 	border-radius: 1ex;
@@ -28,7 +27,7 @@ body style {
 body link[rel="stylesheet"] {
 
 	/* style links in the html body are displayed */
-	display: block;
+	display: inline-block;
 	margin:0ex;
 	background-color: lightgrey;
 	border: 1px inset grey;

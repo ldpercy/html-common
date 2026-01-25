@@ -2,3 +2,146 @@
 **	html-common.css
 */
 
+@import "./technology-colour.css";
+@import "./element/script-visible.css";
+@import "./element/style-visible.css";
+
+
+
+html {
+
+	--silver-light: #bbb;
+	--silver-dark: #333;
+
+	--nearly-white: #fcfcfc;
+	--nearly-black: #111;
+
+
+	--html-background-light: var(--silver-light);
+	--body-background-light: var(--nearly-white);
+
+	--html-background-dark: var(--nearly-black);
+	--body-background-dark: var(--silver-dark);
+
+
+	background-color: var(--html-background-light);
+
+	--accent-colour: mediumvioletred;
+	--accent-light: mediumvioletred;
+	--accent-dark: hwb(from var(--accent-colour) h w b / a);
+
+	/* background-color: hwb(from var(--css-purple) h w b / 0.4); */
+	/* --accent: var(--accent-dark); */
+	--accent: var(--accent-colour);
+	accent-color: var(--accent-colour);
+}
+
+
+body {
+	margin:1em;
+	padding:1em;
+	border-radius:1em;
+	font-family:sans-serif;
+	color:black;
+	background-color: var(--body-background-light);
+}
+
+
+h1:first-child, h2:first-child { margin-top:0ex; }
+
+h1 {
+	border-bottom: 1px solid silver;
+}
+h2 {
+	border-bottom: 1px dotted silver;
+}
+
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+
+nav {
+	display:block;
+	float:right;
+	font-weight:bold;
+	font-size: 2em;
+}
+
+
+details {
+	margin:1em 0em;
+	cursor:pointer;
+}
+summary:hover {
+	text-decoration: underline dotted;
+}
+
+
+
+html.light {
+	color-scheme: light;
+	background-color: var(--html-background-light);
+	body {
+		background-color: var(--body-background-light);
+		color: black;
+	}
+}
+
+html.dark {
+	color-scheme: dark;
+	background-color: var(--html-background-dark);
+	body {
+		background-color: var(--body-background-dark);
+		color: white;
+	}
+}
+
+
+
+
+
+/*
+**	grid layout
+*/
+
+
+main {
+	display:grid;
+
+	margin:1ex;	border-radius:1ex;
+	&>* { margin:inherit; border-radius:inherit;	}
+
+	style, script {
+		grid-column-start: span 2;
+	}
+
+	.limit-height {
+		max-height:30em;
+		overflow-y: scroll;
+	}
+	.fullwidth { grid-column-start: span 4; }
+
+}
+
+@media (orientation: landscape) {
+	main {
+		grid-template-columns: 1fr 1fr 1fr 1fr;
+		output { grid-column-start: span 3; }
+		form { grid-column-start: span 1; }
+	}
+
+}
+
+@media (orientation: portrait) {
+	main {
+		grid-template-columns: 1fr 1fr ;
+		output { grid-column-start: span 2; }
+		form { grid-column-start: span 2; }
+	}
+}
