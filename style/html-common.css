@@ -3,6 +3,8 @@
 */
 
 @import "./technology-colour.css";
+@import "./element/element-colour.css";
+
 @import "./element/script-visible.css";
 @import "./element/style-visible.css";
 
@@ -37,6 +39,25 @@ html {
 }
 
 
+html.colourScheme-light {
+	color-scheme: light;
+	background-color: var(--html-background-light);
+	body {
+		background-color: var(--body-background-light);
+		color: black;
+	}
+}
+
+html.colourScheme-dark {
+	color-scheme: dark;
+	background-color: var(--html-background-dark);
+	body {
+		background-color: var(--body-background-dark);
+		color: white;
+	}
+}
+
+
 body {
 	margin:1em;
 	padding:1em;
@@ -45,6 +66,85 @@ body {
 	color:black;
 	background-color: var(--body-background-light);
 }
+
+
+main {
+	&>* {
+		border: 1px inset var(--element-colour);
+		background-color: hsl(from var(--element-colour) h s 50 / 0.5);
+		padding: 1ex;
+	}
+	form {
+		background-color: hwb(from var(--element-colour) h w 20 / 0.5);
+	}
+}
+
+
+.colourScheme-light {
+	main>* {
+		border: 1px inset var(--element-colour);
+		background-color: hsl(from var(--element-colour) h s 50 / 0.5);
+	}
+	form {
+		background-color: hwb(from var(--element-colour) h w 20 / 0.5);
+	}
+}
+
+.colourScheme-dark {
+	main>* {
+		border: 1px inset var(--element-colour);
+		background-color: hsl(from var(--element-colour) h s 50 / 0.2);
+	}
+	form {
+		background-color: hwb(from var(--element-colour) h w 20 / 0.2);
+	}
+}
+
+
+
+/*
+**	grid layout
+*/
+
+
+main {
+	display:grid;
+
+	margin:1ex;	border-radius:1ex;
+	&>* {
+		margin:inherit;
+		border-radius:inherit;
+		grid-column-start: span 2;
+	}
+
+	.limit-height {
+		max-height:30em;
+		overflow-y: scroll;
+	}
+}
+
+@media (orientation: landscape) {
+	main {
+		grid-template-columns: 1fr 1fr 1fr 1fr;
+		&>* {
+			grid-column-start: span 2;
+		}
+		.fullwidth { grid-column-start: span 4; }
+	}
+}
+
+@media (orientation: portrait) {
+	main {
+		grid-template-columns: 1fr 1fr ;
+	}
+}
+
+
+
+/*
+**	Miscellaneous
+*/
+
 
 
 h1:first-child, h2:first-child { margin-top:0ex; }
@@ -82,66 +182,3 @@ summary:hover {
 	text-decoration: underline dotted;
 }
 
-
-
-html.colourScheme-light {
-	color-scheme: light;
-	background-color: var(--html-background-light);
-	body {
-		background-color: var(--body-background-light);
-		color: black;
-	}
-}
-
-html.colourScheme-dark {
-	color-scheme: dark;
-	background-color: var(--html-background-dark);
-	body {
-		background-color: var(--body-background-dark);
-		color: white;
-	}
-}
-
-
-
-
-
-/*
-**	grid layout
-*/
-
-
-main {
-	display:grid;
-
-	margin:1ex;	border-radius:1ex;
-	&>* { margin:inherit; border-radius:inherit;	}
-
-	style, script {
-		grid-column-start: span 2;
-	}
-
-	.limit-height {
-		max-height:30em;
-		overflow-y: scroll;
-	}
-	.fullwidth { grid-column-start: span 4; }
-
-}
-
-@media (orientation: landscape) {
-	main {
-		grid-template-columns: 1fr 1fr 1fr 1fr;
-		output { grid-column-start: span 3; }
-		form { grid-column-start: span 1; }
-	}
-
-}
-
-@media (orientation: portrait) {
-	main {
-		grid-template-columns: 1fr 1fr ;
-		output { grid-column-start: span 2; }
-		form { grid-column-start: span 2; }
-	}
-}

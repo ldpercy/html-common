@@ -1,26 +1,22 @@
 
 body script {
-	/* scripts in the html body are displayed */
 	display: block;
-	background-color: hwb(from var(--javascript-yellow) h w b / 0.5);
-	border: 1px inset var(--javascript-yellow);
 	border-radius: 1ex;
+	padding: 0ex;
 	font-family: monospace;
 	white-space-collapse: preserve;
 	tab-size: 4;
 
 	&::before {
 		display:inline-block;
-		background-color: var(--javascript-yellow);
+		background-color: var(--element-colour);
 		border-radius: 1ex 0ex;
-		margin-bottom:2ex;
+		margin-bottom: 1ex;
 		padding:1ex;
 		content: 'script ' attr(type) ' ' attr(src);
 	}
 }
 
 .colourScheme-dark body script {
-	border-style: outset;
-	background-color: hwb(from var(--javascript-yellow) h w b / 0.2);
 	&::before { color: black; }
 }
