@@ -1,9 +1,8 @@
 
-
 body script	{ --element-colour: var(--javascript-yellow); }
 body style	{ --element-colour: var(--css-purple); }
 body link	{ --element-colour: grey; }
 
-form	{ --element-colour: floralwhite; }
+form	{ --element-colour: lightgrey; }
 svg		{ --element-colour: var(--svg-orange); }
 
