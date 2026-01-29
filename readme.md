@@ -48,6 +48,8 @@ To use a local development copy of the submodule:
 ```bash
 git config --local protocol.file.allow always
 git config --local submodule."[html-common]".url /local/path/to/html-common/
+
+git submodule update		# performs the clone operation
 ```
 
 Or in `superproject/.git/config`:

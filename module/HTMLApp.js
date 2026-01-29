@@ -144,7 +144,7 @@ export class HTMLApp {
 	 */
 	setColourScheme(schemeName) {
 		document.documentElement.style.setProperty('--colourScheme', schemeName);
-		document.documentElement.className = document.documentElement.className.replace(/(\bcolourScheme-\w+\b)?/,`colourScheme-${schemeName}`);
+		document.documentElement.className = document.documentElement.className.replace(/\b(colourScheme-\w+)\b/,`colourScheme-${schemeName}`);
 		localStorage.colourScheme = schemeName;
 	}
 
