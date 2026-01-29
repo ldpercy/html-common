@@ -17,6 +17,6 @@ body script {
 	}
 }
 
-.colourScheme-dark body script {
+[data-colourscheme=dark] body script {
 	&::before { color: black; }
 }

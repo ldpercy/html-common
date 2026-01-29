@@ -26,7 +26,7 @@ html {
 	}
 }
 
-html.colourScheme-light {
+html[data-colourscheme=light] {
 	color-scheme: light;
 	background-color: var(--html-light);
 	body {
@@ -35,7 +35,7 @@ html.colourScheme-light {
 	}
 }
 
-html.colourScheme-dark {
+html[data-colourscheme=dark] {
 	color-scheme: dark;
 	background-color: var(--html-dark);
 	body {
@@ -68,18 +68,12 @@ main {
 }
 
 
-.colourScheme-light {
-	main>* {
-		border: 1px inset var(--element-colour);
-		background-color: hsl(from var(--element-colour) h s 60 / 0.30);
-	}
+[data-colourscheme=light] main>* {
+	background-color: hsl(from var(--element-colour) h s 60 / 0.30);
 }
 
-.colourScheme-dark {
-	main>* {
-		border: 1px inset var(--element-colour);
-		background-color: hsl(from var(--element-colour) h s 60 / 0.10);
-	}
+[data-colourscheme=dark] main>* {
+	background-color: hsl(from var(--element-colour) h s 60 / 0.10);
 }
 
 

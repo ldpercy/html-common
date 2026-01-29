@@ -8,8 +8,8 @@
 <body>
 	<header>
 		<nav>
-			<a class="colourScheme-selector" href="?colourScheme=light" title="Light colour scheme" data-colourscheme="light">🟓</a>
-			<a class="colourScheme-selector" href="?colourScheme=dark" title="Dark colour scheme" data-colourscheme="dark">🟒</a>
+			<a class="colourScheme-selector" href="?colourScheme=light" title="Light colour scheme" data-schemename="light">🟓</a>
+			<a class="colourScheme-selector" href="?colourScheme=dark" title="Dark colour scheme" data-schemename="dark">🟒</a>
 			<a title="To folder" href="./">🖿</a>
 			<a title="Parent folder" href="../">🡅</a>
 		</nav>
@@ -60,9 +60,9 @@
 				}
 
 				colourSchemeListener(event) {
-					console.log('colourSchemeListener', event.target.dataset);
+					//console.log('colourSchemeListener', event.target.dataset);
 					event.preventDefault();
-					this.setColourScheme(event.target.dataset.colourscheme);
+					this.setColourScheme(event.target.dataset.schemename);
 				}
 
 			}/* ExampleApp */
