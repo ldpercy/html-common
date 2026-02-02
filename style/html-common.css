@@ -12,15 +12,15 @@
 :root {
 	--project-colour: mediumvioletred;
 
-
 	--light-html: #eee;
 	--light-body: #fff;
-	--light-bg-alpha: 0.2;
+	--light-text: #000;
 
 	--dark-html: #000;
 	--dark-body: #111;
-	--dark-bg-alpha: 0.1;
+	--dark-text: #fff;
 
+	--background-alpha: 0.15;
 	--border-alpha: 0.7;
 }
 
@@ -28,30 +28,27 @@
 html {
 	color-scheme: light;
 	background-color: var(--light-html);
-	--background-alpha: var(--light-bg-alpha);
 	body {
 		background-color: var(--light-body);
-		color: black;
+		color: var(--light-text);
 	}
 }
 
 html[data-colourscheme=light] {
 	color-scheme: light;
 	background-color: var(--light-html);
-	--background-alpha: var(--light-bg-alpha);
 	body {
 		background-color: var(--light-body);
-		color: black;
+		color: var(--light-text);
 	}
 }
 
 html[data-colourscheme=dark] {
 	color-scheme: dark;
 	background-color: var(--dark-html);
-	--background-alpha: var(--dark-bg-alpha);
 	body {
 		background-color: var(--dark-body);
-		color: white;
+		color: var(--dark-text);
 	}
 }
 

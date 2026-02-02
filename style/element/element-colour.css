@@ -3,6 +3,6 @@ body script	{ --element-colour: var(--javascript-yellow); }
 body style	{ --element-colour: var(--css-purple); }
 body link	{ --element-colour: grey; }
 
-form	{ --element-colour: lightgrey; }
+form	{ --element-colour: silver; }
 svg		{ --element-colour: var(--svg-orange); }
 
