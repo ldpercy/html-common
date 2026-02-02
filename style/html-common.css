@@ -67,6 +67,16 @@ body {
 }
 
 
+
+header {
+	position:sticky;
+	top:0;
+	background-color: inherit;
+	z-index: 50;
+}
+
+
+
 main {
 	&>* {
 		border: 1px inset hsl( from var(--element-colour) h s l / var(--border-alpha));
