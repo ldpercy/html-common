@@ -11,35 +11,46 @@
 
 :root {
 	--project-colour: mediumvioletred;
+
+
+	--light-html: #eee;
+	--light-body: #fff;
+	--light-bg-alpha: 0.2;
+
+	--dark-html: #000;
+	--dark-body: #111;
+	--dark-bg-alpha: 0.1;
+
+	--border-alpha: 0.7;
 }
 
 
 html {
-	--html-light: #ddd;
-	--html-dark: #000;
-	background-color: var(--html-light);
-
+	color-scheme: light;
+	background-color: var(--light-html);
+	--background-alpha: var(--light-bg-alpha);
 	body {
-		--body-light: #fcfcfc;		/* nearly-white */
-		--body-dark: #222;
-		background-color: var(--body-light);
+		background-color: var(--light-body);
+		color: black;
 	}
 }
 
 html[data-colourscheme=light] {
 	color-scheme: light;
-	background-color: var(--html-light);
+	background-color: var(--light-html);
+	--background-alpha: var(--light-bg-alpha);
 	body {
-		background-color: var(--body-light);
+		background-color: var(--light-body);
 		color: black;
 	}
 }
 
 html[data-colourscheme=dark] {
 	color-scheme: dark;
-	background-color: var(--html-dark);
+	background-color: var(--dark-html);
+	--background-alpha: var(--dark-bg-alpha);
 	body {
-		background-color: var(--body-dark);
+		background-color: var(--dark-body);
 		color: white;
 	}
 }
@@ -61,20 +72,12 @@ body {
 
 main {
 	&>* {
-		border: 1px inset var(--element-colour);
-		background-color: hsl(from var(--element-colour) h s 60 / 0.30);
+		border: 1px inset hsl( from var(--element-colour) h s l / var(--border-alpha));
+		background-color: hsl( from var(--element-colour) h s l / var(--background-alpha));
 		padding: 1ex;
 	}
 }
 
-
-[data-colourscheme=light] main>* {
-	background-color: hsl(from var(--element-colour) h s 60 / 0.30);
-}
-
-[data-colourscheme=dark] main>* {
-	background-color: hsl(from var(--element-colour) h s 60 / 0.10);
-}
 
 
 
