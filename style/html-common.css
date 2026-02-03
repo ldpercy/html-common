@@ -27,27 +27,29 @@
 
 html {
 	color-scheme: light;
-	background-color: var(--light-html);
+	--html-background: var(--light-html);
+	background-color: var(--html-background);
 	body {
-		background-color: var(--light-body);
+		--body-background: var(--light-body);
+		background-color: var(--body-background);
 		color: var(--light-text);
 	}
 }
 
 html[data-colourscheme=light] {
 	color-scheme: light;
-	background-color: var(--light-html);
+	--html-background: var(--light-html);
 	body {
-		background-color: var(--light-body);
+		--body-background: var(--light-body);
 		color: var(--light-text);
 	}
 }
 
 html[data-colourscheme=dark] {
 	color-scheme: dark;
-	background-color: var(--dark-html);
+	--html-background: var(--dark-html);
 	body {
-		background-color: var(--dark-body);
+		--body-background: var(--dark-body);
 		color: var(--dark-text);
 	}
 }
@@ -71,8 +73,27 @@ body {
 header {
 	position:sticky;
 	top:0;
-	background-color: inherit;
+	background-color: hsl(from var(--body-background) h s l / 0.9);
 	z-index: 50;
+
+	h1 { margin:0em; }
+	h1::before {
+		display: inline-block;
+		content: url("../favicon.svg");
+		height:1.2ex;
+		width:1.2ex;
+		margin-right:1rex;
+	}
+
+	nav {
+		display:block;
+		float:right;
+		font-weight:bold;
+		font-size: 2em;
+	}
+
+	border-bottom: 2px groove #bbbb;
+	margin-bottom:1em;
 }
 
 
@@ -135,9 +156,7 @@ main {
 
 h1:first-child, h2:first-child { margin-top:0ex; }
 
-h1 {
-	border-bottom: 1px solid silver;
-}
+
 h2 {
 	border-bottom: 1px dotted silver;
 }
