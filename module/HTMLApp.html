@@ -7,14 +7,13 @@
 </head>
 <body>
 	<header>
+		<h1><a href="">HTML App</a></h1>
 		<nav>
-			<a class="colourScheme-selector" href="?colourScheme=light" title="Light colour scheme" data-schemename="light">🟓</a>
-			<a class="colourScheme-selector" href="?colourScheme=dark" title="Dark colour scheme" data-schemename="dark">🟒</a>
+			<a class="colourScheme-selector" href="?colourScheme=light" title="Light colour scheme" data-colourscheme="light">🟓</a>
+			<a class="colourScheme-selector" href="?colourScheme=dark" title="Dark colour scheme" data-colourscheme="dark">🟒</a>
 			<a title="To folder" href="./">🖿</a>
 			<a title="Parent folder" href="../">🡅</a>
 		</nav>
-
-		<h1><a href="">HTML App</a></h1>
 	</header>
 
 	<link rel="stylesheet" href="../style/html-common.css">
@@ -62,7 +61,7 @@
 				colourSchemeListener(event) {
 					//console.log('colourSchemeListener', event.target.dataset);
 					event.preventDefault();
-					this.setColourScheme(event.target.dataset.schemename);
+					this.setColourScheme(event.target.dataset.colourscheme);
 				}
 
 			}/* ExampleApp */

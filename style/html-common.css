@@ -72,9 +72,19 @@ body {
 
 header {
 	position:sticky;
-	top:0;
+	top:0em;
 	background-color: hsl(from var(--body-background) h s l / 0.9);
 	z-index: 50;
+
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+
+	line-height: 4ex;
+
+	margin-bottom: 1em;
+	padding: 1ex;
+	border-bottom: 2px groove #bbbb;
+
 
 	h1 { margin:0em; }
 	h1::before {
@@ -86,14 +96,13 @@ header {
 	}
 
 	nav {
-		display:block;
-		float:right;
+		text-align:right;
 		font-weight:bold;
 		font-size: 2em;
 	}
 
-	border-bottom: 2px groove #bbbb;
-	margin-bottom:1em;
+
+
 }
 
 
