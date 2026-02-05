@@ -61,7 +61,7 @@ export class PolarCoordinates {
 //
 
 /** @type {SpaceSetting} */
-const defaultSpaceSettings = {
+export const defaultSpaceSettings = {
 	polarAxis		: 'y',
 	polarDirection	: 'clockwise',
 	shape			: undefined,
