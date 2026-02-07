@@ -233,10 +233,12 @@ export class Space extends abstractSpace.Space {
 
 	/** newPoint
 	 * Automatically passes in the required reference to the parent space instance for the new point.
+	 * @param {CartesianCoordinates} [cartesian]
+	 * @param {string} [name]
 	 * @returns {Point}
 	 */
-	newPoint(name) {
-		return new Point(name, this);
+	newPoint(cartesian, name) {
+		return new Point(this, cartesian, name);
 	}/* newPoint */
 
 
@@ -361,15 +363,20 @@ export class Point {
 	/** @type {CartesianCoordinates} */		#cartesian;
 	/** @type {PolarCoordinates} */			#polar;
 
-	/**
-	 * @param {string} name
+
+	/** constructor
 	 * @param {Space} space
+	 * @param {CartesianCoordinates} [cartesian]
+	 * @param {string} [name]
 	 */
-	constructor(name, space) {
-		this.#name = name;
+	constructor(
+			space,
+			cartesian = new CartesianCoordinates(),
+			name,
+		) {
 		this.#space = space;
-		this.#cartesian	= new CartesianCoordinates();
-		this.#polar	    = new PolarCoordinates();
+		this.cartesian = cartesian;
+		this.#name = name;
 	}
 
 	//
@@ -382,6 +389,8 @@ export class Point {
 	get radius()	{ return this.#polar.radius; }
 	get cartesian() { return this.#cartesian; }
 
+	/** @param {string} name */
+	set name(name) {this.#name = name}
 
 	/** set cartesian
 	 * @param {CartesianCoordinates} cartesian
@@ -452,7 +461,7 @@ export class Point {
 	//
 
 	plus = function(point) {
-		const newPoint = new Point(`${this.#name} plus point`, this.#space);
+		const newPoint = this.#space.newPoint();
 		newPoint.cartesian = new CartesianCoordinates(this.x + point.x, this.y + point.y);
 		return newPoint;
 	}
@@ -513,7 +522,7 @@ export class Position {
 	/** @type {Angle} */		#direction;
 
 
-	constructor(name, space) {
+	constructor(name, space, ) {
 		this.#name = name;
 		this.#space = space;
 		this.#location    = space.newPoint(`${name}.location`);
@@ -575,7 +584,7 @@ export class Position {
 		this.#direction.degrees += bearingDegrees;
 
 		if (distance) { // could also be subject to float comparison
-			delta = this.#space.newPoint('bearing delta');
+			delta = this.#space.newPoint();
 			delta.polar = this.#space.newPolarCoordinates(this.#direction, distance);
 
 			//console.debug('Position.bear delta', delta);
@@ -592,10 +601,10 @@ export class Position {
 		const currentCartesian =  this.#space.newCartesianCoordinates(this.x, this.y);
 
 		/** @type {Point} */
-		const newPoint = this.#space.newPoint('Move newPoint');
+		const newPoint = this.#space.newPoint(); //.name = ('Move newPoint');
 		newPoint.cartesian = currentCartesian;
 
-		let delta = this.#space.newPoint('delta');
+		let delta = this.#space.newPoint();
 		let deltaCartesian = this.#space.newCartesianCoordinates(dx, dy);
 		//console.debug('Position.move deltaCartesian:', deltaCartesian);
 

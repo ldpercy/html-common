@@ -20,10 +20,27 @@
 	<main>
 
 		<script type="module" class="fullwidth">
-			import * as ps from './PlanarSpace.js'
+			import * as planarSpace from './PlanarSpace.js'
+			import * as test from '../testing/testing.js';
+			import * as predicate from '../testing/predicate.js';
+
+
+			console.group('example space');
+
+				const exampleSpace = new planarSpace.Space('example space');
+				const p0 = new planarSpace.Point(exampleSpace, new planarSpace.CartesianCoordinates(300,400));
+				console.log(p0);
+
+				// no space instance specified - fails during construction:
+				// const p00 = new planarSpace.Point('p00', undefined, new planarSpace.CartesianCoordinates(300,400));
+				// console.log(p00);
+
+			console.groupEnd();
+
+
 
 			console.group('default planar space');
-				let dps = new ps.Space('default planar space', ps.defaultSpaceSettings);
+				let dps = new planarSpace.Space('default planar space', planarSpace.defaultSpaceSettings);
 				console.log('dps', dps);
 
 				let p1 = dps.newPoint('p1');
@@ -40,12 +57,25 @@
 				p1.setCartesian(-100,-100);
 				console.assert((p1.angle.degrees === -135), 'Angle not equal to -45');
 
+
+
+/* 				test.testArray(
+					predicate.allEqual,
+					[
+						[(new dps.Point( 100, 100)).degrees, 45],
+						[(new dps.Point( 100,-100)).degrees, 135],
+						[(new dps.Point(-100, 100)).degrees, -45],
+						[(new dps.Point(-100,-100)).degrees, -135],
+					]
+				);
+ */
+
 			console.groupEnd();
 
 
 			console.group('configured planar space');
 				let setting = {polarAxis:'x', polarDirection: 'anticlockwise'};
-				let cps = new ps.Space('configured planar space', setting);
+				let cps = new planarSpace.Space('configured planar space', setting);
 				console.log('cps', cps);
 
 				let p2 = cps.newPoint('p2');
