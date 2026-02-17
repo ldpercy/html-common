@@ -17,6 +17,9 @@ body script {
 	}
 }
 
+
+body script[src] { display: inline-block; }
+
 [data-colourscheme=dark] body script {
 	&::before { color: black; }
 }
