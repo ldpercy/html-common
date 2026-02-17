@@ -79,13 +79,8 @@ export const defaultSpaceSettings = {
  */
 export class Space extends abstractSpace.Space {
 
-	/** @type {string} */
-	#desc;
-
-
 	/** @type {CartesianCoordinates} */
 	static origin = new CartesianCoordinates(0,0);
-
 
 
 	// JavaScript angle adjustments - see wiki/coordinates
@@ -104,7 +99,6 @@ export class Space extends abstractSpace.Space {
 			desc = 'PlanarSpace description',
 		) {
 		super(setting, desc);
-		this.#desc = desc;
 		this.#shape = setting.shape;
 
 		if (setting.polarAxis === 'y') {
@@ -124,7 +118,6 @@ export class Space extends abstractSpace.Space {
 	}/* constructor */
 
 
-	get desc() { return this.#desc; }
 	get origin() { return Space.origin; }
 	get shape() { return this.#shape; }
 

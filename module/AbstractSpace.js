@@ -13,9 +13,9 @@
 
 export class Space {
 
-	/** @type string */
-	#desc;
-	#setting;
+	/** @type {SpaceSetting} */		#setting;
+	/** @type string */				#desc;
+
 
 	/**
 	 * @param {SpaceSetting} setting
@@ -26,8 +26,14 @@ export class Space {
 		this.#desc = desc;
 	}
 
-	get desc() { return this.#desc; }
+	/** @returns {SpaceSetting} */
 	get setting() { return this.#setting; }
+
+	/** @returns {string} */
+	get desc() { return this.#desc; }
+
+	/** @param {string} desc */
+	set desc(desc) {this.#desc = desc; }
 
 }/* Space */
 

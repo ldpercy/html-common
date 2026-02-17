@@ -3,10 +3,9 @@
 <head>
 	<title>Testing</title>
 	<meta charset="utf-8">
-	<link rel="icon" href="../[common]/html-experiment.svg">
-	<link rel="stylesheet" href="../[common]/common-style.css">
-	<link rel="stylesheet" href="../[common]/form.css">
-	<script defer src="../[common]/colourScheme-selector.js"></script>
+	<link rel="icon" href="../favicon.svg">
+	<link rel="stylesheet" href="../style/html-common.css">
+	<script type="disabled" defer src="../[common]/colourScheme-selector.js"></script>
 </head>
 <body>
 	<header>
@@ -46,10 +45,10 @@
 
 
 		<script type="module" class="fullwidth">
-			import * as ps from '../[html-common]/module/PlanarSpace.js'
+			import * as ps from '../module/PlanarSpace.js'
 
 			console.group('default planar space');
-				let dps = new ps.Space('default planar space', ps.defaultSpaceSettings);
+				let dps = new ps.Space(ps.defaultSpaceSettings, 'default planar space');
 				console.log('dps', dps);
 
 				let p1 = dps.newPoint('p1');

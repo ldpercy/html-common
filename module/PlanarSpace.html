@@ -27,7 +27,9 @@
 
 			console.group('example space');
 
-				const exampleSpace = new planarSpace.Space(undefined, 'example space');
+				const exampleSpace = new planarSpace.Space();
+				exampleSpace.desc = 'example space';
+				console.log(exampleSpace);
 				const p0 = new planarSpace.Point(exampleSpace, new planarSpace.CartesianCoordinates(300,400));
 				console.log(p0);
 
