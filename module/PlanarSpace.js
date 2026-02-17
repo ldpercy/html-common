@@ -80,7 +80,7 @@ export const defaultSpaceSettings = {
 export class Space extends abstractSpace.Space {
 
 	/** @type {string} */
-	#name;
+	#desc;
 
 
 	/** @type {CartesianCoordinates} */
@@ -96,15 +96,15 @@ export class Space extends abstractSpace.Space {
 	#shape;
 
 	/**
-	 * @param {string} name
 	 * @param {SpaceSetting} setting
+	 * @param {string} desc
 	 */
 	constructor(
-			name = 'Initial PlanarSpace name',
 			setting = defaultSpaceSettings,
+			desc = 'PlanarSpace description',
 		) {
-		super(name, setting);
-		this.#name = name;
+		super(setting, desc);
+		this.#desc = desc;
 		this.#shape = setting.shape;
 
 		if (setting.polarAxis === 'y') {
@@ -124,7 +124,7 @@ export class Space extends abstractSpace.Space {
 	}/* constructor */
 
 
-	get name() { return this.#name; }
+	get desc() { return this.#desc; }
 	get origin() { return Space.origin; }
 	get shape() { return this.#shape; }
 
@@ -140,11 +140,11 @@ export class Space extends abstractSpace.Space {
 	 * @returns {Angle}
 	 */
 	getAngleFrom(center, cartesian) {
-		//console.debug(`${this.#name}.getAngleFrom:`, arguments);
+		//console.debug(`${this.#desc}.getAngleFrom:`, arguments);
 		const result = new Angle();
 		result.radians = this.#jsAngleAxisAdjust + (this.#jsAngleDirectionAdjust * Math.atan2(center.y - cartesian.y, center.x - cartesian.x));
 		result.normalise180();
-		//console.debug(`${this.#name}.getAngleFrom:`, result);
+		//console.debug(`${this.#desc}.getAngleFrom:`, result);
 		return result;
 	}/* getAngleFrom */
 
@@ -214,7 +214,7 @@ export class Space extends abstractSpace.Space {
 
 	/* Attach constructed items to their parent space instance:
 	Doing something like the following:
-		constructor(name, space=this) {
+		constructor(space=this, desc) {
 	Unfortunately does not bind the 'this' to the space instance, it's bound to the new Instance's this.
 	I bet there is a way to do it though...
 
@@ -234,20 +234,21 @@ export class Space extends abstractSpace.Space {
 	/** newPoint
 	 * Automatically passes in the required reference to the parent space instance for the new point.
 	 * @param {CartesianCoordinates} [cartesian]
-	 * @param {string} [name]
+	 * @param {string} [desc]
 	 * @returns {Point}
 	 */
-	newPoint(cartesian, name) {
-		return new Point(this, cartesian, name);
+	newPoint(cartesian, desc) {
+		return new Point(this, cartesian, desc);
 	}/* newPoint */
 
 
 	/** newPosition
 	 * Automatically passes in the required reference to the parent space instance for the new position.
+	 * @param {string} desc
 	 * @returns {Position}
 	 */
-	newPosition(name) {
-		return new Position(name, this);
+	newPosition(desc) {
+		return new Position(this, desc);
 	}/* newPosition */
 
 	/** @returns {Angle} */
@@ -358,7 +359,7 @@ export class Angle {
  * @implements {PolarCoordinates}
  */
 export class Point {
-	#name		= 'Initial Point name';
+	#desc		= 'Point description';
 	/** @type {Space} */					#space;
 	/** @type {CartesianCoordinates} */		#cartesian;
 	/** @type {PolarCoordinates} */			#polar;
@@ -367,16 +368,16 @@ export class Point {
 	/** constructor
 	 * @param {Space} space
 	 * @param {CartesianCoordinates} [cartesian]
-	 * @param {string} [name]
+	 * @param {string} [desc]
 	 */
 	constructor(
 			space,
 			cartesian = new CartesianCoordinates(),
-			name,
+			desc,
 		) {
 		this.#space = space;
 		this.cartesian = cartesian;
-		this.#name = name;
+		this.#desc = desc;
 	}
 
 	//
@@ -389,14 +390,14 @@ export class Point {
 	get radius()	{ return this.#polar.radius; }
 	get cartesian() { return this.#cartesian; }
 
-	/** @param {string} name */
-	set name(name) {this.#name = name}
+	/** @param {string} desc */
+	set desc(desc) {this.#desc = desc}
 
 	/** set cartesian
 	 * @param {CartesianCoordinates} cartesian
 	 */
 	set cartesian(cartesian) {
-		//console.debug(`Point ${this.#name}.cartesian = `, cartesian);
+		//console.debug(`Point ${this.#desc}.cartesian = `, cartesian);
 		this.#cartesian = cartesian;
 		//console.debug('Point set cartesian', this.#cartesian);
 		this.#polar = this.#space.cartesianToPolar(cartesian);
@@ -408,7 +409,7 @@ export class Point {
 	 * @param {PolarCoordinates} polar
 	 */
 	set polar(polar) {
-		//console.debug(`Point ${this.#name}.polar = `, polar);
+		//console.debug(`Point ${this.#desc}.polar = `, polar);
 		this.#polar = polar;
 		this.#cartesian = this.#space.polarToCartesian(polar);
 	}
@@ -495,7 +496,7 @@ export class Point {
 
 
 	toString() {
-		return `${this.#name} - x:${this.x}; y:${this.y}; a:${this.angle.degrees}; r:${this.radius};`;
+		return `${this.#desc} - x:${this.x}; y:${this.y}; a:${this.angle.degrees}; r:${this.radius};`;
 	}
 
 }/* Point */
@@ -516,17 +517,18 @@ For now though Point is the combined version.
  * @implements {PolarCoordinates}
  */
 export class Position {
-	/** @type {string} */		#name		= 'Initial Position name';
+	/** @type {string} */		#desc		= 'Position description';
 	/** @type {Space} */		#space;
 	/** @type {Point} */		#location;
 	/** @type {Angle} */		#direction;
 
 
-	constructor(name, space, ) {
-		this.#name = name;
+
+	constructor(space, location, direction, desc) {
 		this.#space = space;
-		this.#location    = space.newPoint(`${name}.location`);
+		this.#location    = space.newPoint(`${desc}.location`);
 		this.#direction   = space.newAngle();
+		this.#desc = desc;
 	}
 
 	get x()			{ return this.#location.x; }
@@ -601,7 +603,7 @@ export class Position {
 		const currentCartesian =  this.#space.newCartesianCoordinates(this.x, this.y);
 
 		/** @type {Point} */
-		const newPoint = this.#space.newPoint(); //.name = ('Move newPoint');
+		const newPoint = this.#space.newPoint(); //.desc = ('Move newPoint');
 		newPoint.cartesian = currentCartesian;
 
 		let delta = this.#space.newPoint();

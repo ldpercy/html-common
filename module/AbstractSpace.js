@@ -14,19 +14,19 @@
 export class Space {
 
 	/** @type string */
-	#name;
+	#desc;
 	#setting;
 
 	/**
-	 * @param {string} name
 	 * @param {SpaceSetting} setting
+	 * @param {string} desc
 	 */
-	constructor(name, setting) {
-		this.#name = name;
+	constructor(setting, desc) {
 		this.#setting = setting;
+		this.#desc = desc;
 	}
 
-	get name() { return this.#name; }
+	get desc() { return this.#desc; }
 	get setting() { return this.#setting; }
 
 }/* Space */

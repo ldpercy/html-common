@@ -27,7 +27,7 @@
 
 			console.group('example space');
 
-				const exampleSpace = new planarSpace.Space('example space');
+				const exampleSpace = new planarSpace.Space(undefined, 'example space');
 				const p0 = new planarSpace.Point(exampleSpace, new planarSpace.CartesianCoordinates(300,400));
 				console.log(p0);
 
@@ -40,10 +40,10 @@
 
 
 			console.group('default planar space');
-				let dps = new planarSpace.Space('default planar space', planarSpace.defaultSpaceSettings);
+				let dps = new planarSpace.Space(planarSpace.defaultSpaceSettings, 'default planar space' );
 				console.log('dps', dps);
 
-				let p1 = dps.newPoint('p1');
+				let p1 = dps.newPoint(undefined,'p1');
 				p1.setCartesian(100,100);
 				//console.log('p1', p1);
 				//console.log('p1.angle', p1.angle);
@@ -75,7 +75,7 @@
 
 			console.group('configured planar space');
 				let setting = {polarAxis:'x', polarDirection: 'anticlockwise'};
-				let cps = new planarSpace.Space('configured planar space', setting);
+				let cps = new planarSpace.Space(setting, 'configured planar space');
 				console.log('cps', cps);
 
 				let p2 = cps.newPoint('p2');
