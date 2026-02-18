@@ -377,11 +377,13 @@ export class Point {
 	//	Accessors
 	//
 
-	get x()			{ return this.#cartesian.x; }
-	get y()			{ return this.#cartesian.y; }
-	get angle()		{ return this.#polar.angle; }
-	get radius()	{ return this.#polar.radius; }
-	get cartesian() { return this.#cartesian; }
+	/** @returns {number}	*/					get x()			{ return this.#cartesian.x; }
+	/** @returns {number}	*/					get y()			{ return this.#cartesian.y; }
+	/** @returns {number}	*/					get radius()	{ return this.#polar.radius; }
+	/** @returns {Angle}	*/					get angle()		{ return this.#polar.angle; }
+	/** @returns {CartesianCoordinates}	*/		get cartesian() { return this.#cartesian; }
+	/** @returns {PolarCoordinates}		*/		get polar() 	{ return this.#polar; }
+
 
 	/** @param {string} desc */
 	set desc(desc) {this.#desc = desc}
