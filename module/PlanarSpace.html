@@ -59,7 +59,10 @@
 				p1.setCartesian(-100,-100);
 				console.assert((p1.angle.degrees === -135), 'Angle not equal to -45');
 
-
+				// this was the branch bug reported a couple of weeks back:
+				let p = dps.newPoint('p');
+				p.setCartesian(15,20);
+				console.log('p.polar.angle.degrees', p.polar.angle.degrees);
 
 /* 				test.testArray(
 					predicate.allEqual,
@@ -86,16 +89,16 @@
 				console.log('p2.angle', p2.angle);
 				console.log('p2.radius', p2.radius);
 
-				p1.setCartesian(100,100);
-				console.assert((p1.angle.degrees === 45), `Angle not equal to 45: ${p1.angle.degrees}`);
+				p2.setCartesian(100,100);
+				console.assert((p2.angle.degrees === 45), `Angle not equal to 45: ${p2.angle.degrees}`);
 
-				p1.setCartesian(-100,100);
-				console.assert((p1.angle.degrees === 135), `Angle not equal to 135: ${p1.angle.degrees}`);
+				p2.setCartesian(-100,100);
+				console.assert((p2.angle.degrees === 135), `Angle not equal to 135: ${p2.angle.degrees}`);
 
-				p1.setCartesian(100,-100);
-				console.assert((p1.angle.degrees === -45), `Angle not equal to -45: ${p1.angle.degrees}`);
-				p1.setCartesian(-100,-100);
-				console.assert((p1.angle.degrees === -135), `Angle not equal to -135: ${p1.angle.degrees}`);
+				p2.setCartesian(100,-100);
+				console.assert((p2.angle.degrees === -45), `Angle not equal to -45: ${p2.angle.degrees}`);
+				p2.setCartesian(-100,-100);
+				console.assert((p2.angle.degrees === -135), `Angle not equal to -135: ${p2.angle.degrees}`);
 
 			console.groupEnd();
 
