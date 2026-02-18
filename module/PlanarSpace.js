@@ -410,17 +410,20 @@ export class Point {
 
 	/** setCartesian
 	 * Convenience setter for setting cartesian x & y directly (js class setters only allow one arg)
+	 * Also returns 'this' to allow chaining
 	 * @param {number} x
 	 * @param {number} y
 	 */
 	setCartesian(x, y) {
 		const cc = new CartesianCoordinates(x,y);
 		this.cartesian = cc;
+		return this;
 	}
 
 
 	/** setPolar
 	 * Convenience setter for setting polar radius & degrees directly (js class setters only allow one arg)
+	 * Also returns 'this' to allow chaining
 	 * @param {number} degrees
 	 * @param {number} radius
 	 */
@@ -428,6 +431,7 @@ export class Point {
 		const a = new Angle(degrees);
 		const pc = new PolarCoordinates(a, radius);
 		this.polar = pc;
+		return this;
 	}
 
 
