@@ -246,16 +246,22 @@ export class Space extends abstractSpace.Space {
 		return new Position(this, location, direction, desc);
 	}/* newPosition */
 
-	/** @returns {Angle} */
+	/**
+	 * @param {number} [degrees]
+	 * @returns {Angle}
+	 */
 	Angle = class {
-		constructor() {
-			return new Angle(...arguments);
+		constructor(degrees) {
+			return new Angle(degrees);
 		}
 	}/* Angle */
 
-	/** @returns {Angle} */
-	newAngle() {
-		return new Angle(...arguments);
+	/**
+	 * @param {number} [degrees]
+	 * @returns {Angle}
+	 */
+	newAngle(degrees) {
+		return new Angle(degrees);
 	}
 
 	/** @returns {CartesianCoordinates} */
@@ -292,25 +298,29 @@ export class Space extends abstractSpace.Space {
 
 
 
-/** Angle
- * @type {Angle}
- */
+/* Angle
+*/
 export class Angle {
+	/** @type {number} */
 	#degrees = 0;
 
+	/**
+	 * @param {number} degrees
+	 */
 	constructor(degrees=0) {
 		this.#degrees = degrees;
 	}
 
-	get degrees()    { return this.#degrees; }
-	get radians()    { return this.#degrees / 180 * Math.PI; }
-	get radiansPi()  { return this.#degrees / 180; }
-	get radiansTau() { return this.#degrees / 360; }
 
-	set degrees(degrees)         { this.#degrees = degrees; }
-	set radians(radians)         { this.#degrees = radians * 180 / Math.PI; }
-	set radiansPi(radiansPi)     { this.#degrees = radiansPi * 180; }
-	set radiansTau(radiansTau)   { this.#degrees = radiansTau * 360; }
+	/** @returns {number} */ get degrees()    { return this.#degrees; }
+	/** @returns {number} */ get radians()    { return this.#degrees / 180 * Math.PI; }
+	/** @returns {number} */ get radiansPi()  { return this.#degrees / 180; }
+	/** @returns {number} */ get radiansTau() { return this.#degrees / 360; }
+
+	/** @param {number} degrees		*/	set degrees(degrees)         { this.#degrees = degrees; }
+	/** @param {number} radians		*/	set radians(radians)         { this.#degrees = radians * 180 / Math.PI; }
+	/** @param {number} radiansPi	*/	set radiansPi(radiansPi)     { this.#degrees = radiansPi * 180; }
+	/** @param {number} radiansTau	*/	set radiansTau(radiansTau)   { this.#degrees = radiansTau * 360; }
 
 
 	//
