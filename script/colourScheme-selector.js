@@ -9,7 +9,7 @@ document.querySelectorAll('.colourScheme-selector').forEach(
 
 				const eventTarget = /** @type {HTMLElement} */ (event.target);		// this cast is awkward - see if there is a 'proper' way
 
-				this.setColourScheme(eventTarget.dataset.colourscheme);
+				setColourScheme(eventTarget.dataset.colourscheme);
 			}
 		);
 	}
