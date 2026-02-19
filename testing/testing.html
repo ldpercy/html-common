@@ -5,7 +5,7 @@
 	<meta charset="utf-8">
 	<link rel="icon" href="../favicon.svg">
 	<link rel="stylesheet" href="../style/html-common.css">
-	<script type="disabled" defer src="../[common]/colourScheme-selector.js"></script>
+	<script defer src="../script/colourScheme-selector.js"></script>
 </head>
 <body>
 	<header>
@@ -23,91 +23,122 @@
 			import * as test from './testing.js';
 			import * as predicate from './predicate.js';
 
-			//console.log(predicate.areEqual(1+1,3-1));
 
-			test.testArray(
-				predicate.allEqual,
+			new test.Test(
+				'empty test'
+			).toConsole();
+			// Empty tests pass:	https://en.wikipedia.org/wiki/Vacuous_truth#In_computer_programming
+
+
+			new test.Test(
+				'All equal test',
+				new predicate.AllEqual(),
 				[
 					[],
 					[1],
 					[true],
 					[false],
 					[1,2],
-					[1,2-1],
+					[1,2-1,1*1],
 					[null,false],
-					[1,2,3]
+					[1,2,3],
+					[1,1,1,1],
+					[typeof (()=>{}), 'function']
 				]
-			);
+			).toConsole();
+
+
+
+			new test.Test(
+				'Equal to test',
+				new predicate.EqualTo(5),
+				[
+					[0],
+					[1],
+					[5],
+					[6],
+					[true],
+					[false],
+				]
+			).toConsole();
+
+
+			new test.Test(
+				'Greater than test',
+				new predicate.GreaterThan(5),
+				[
+					[0],
+					[1],
+					[5],
+					[6],
+					[true],
+					[false],
+				]
+			).toConsole();
+
+			new test.Test(
+				'Less than test',
+				new predicate.LessThan(5),
+				[
+					[0],
+					[1],
+					[5],
+					[6],
+					[true],
+					[false],
+				]
+			).toConsole();
+
+
+			new test.Test(
+				'Excepts test',
+				new predicate.Excepts(),
+				[
+					1+2,
+					1/0,
+					()=>{ return 1+1; },
+					()=>{ throw 'an exception'; },
+					throwsException,
+					//throwsException(),		// can't do this - it excepts immediately and isn't caught by the testing function
+					()=>throwsException(),
+					f1,
+					() => f1,
+					() => f1(),
+					() => f1({}),
+					//f1(),						// can't do this - it excepts immediately and isn't caught by the testing function
+				]
+			).toConsole();
 
 		</script>
 
 
+		<script>
+			// helpers
 
+			function throwsException() {
+				throw 'this is an exception';
+			}
 
-		<script type="module" class="fullwidth">
-			import * as ps from '../module/PlanarSpace.js'
+			function f1({a,b,c}) {
+				// console.log(`f1(${argString(arguments)}): ${a},${b},${c}`);
+				return `f1(${argString(arguments)}): ${a},${b},${c}`;
+			}
 
-			console.group('default planar space');
-				let dps = new ps.Space(ps.defaultSpaceSettings, 'default planar space');
-				console.log('dps', dps);
+			//f1();
+			// 	[chr] Uncaught TypeError: Cannot destructure property 'a' of 'undefined' as it is undefined.
+			//	[ff] Uncaught TypeError: (destructured parameter) is undefined
 
-				let p1 = dps.newPoint('p1');
-				p1.setCartesian(100,100);
-
-				console.info(dps.newPoint('').setCartesian(100,100));
-
-
-				//console.log('p1', p1);
-				//console.log('p1.angle', p1.angle);
-				//console.log('p1.radius', p1.radius);
-				p1.setCartesian(100,100);
-				console.assert((p1.angle.degrees === 45), 'Angle not equal to 45');
-				p1.setCartesian(-100,100);
-				console.assert((p1.angle.degrees === -45), 'Angle not equal to -45');
-				p1.setCartesian(100,-100);
-				console.assert((p1.angle.degrees === 135), 'Angle not equal to 45');
-				p1.setCartesian(-100,-100);
-				console.assert((p1.angle.degrees === -135), 'Angle not equal to -45');
-
-				test.testArray(
-					predicate.allEqual,
-					[
-						[(new Point(100, 100)).degrees, 45],
-						[(new Point(100, -100)).degrees, 135],
-						[(new Point(-100, 100)).degrees, -45],
-						[(new Point(-100,-100)).degrees, -135],
-					]
-				);
-
-
-			console.groupEnd();
-
-
-			console.group('configured planar space');
-				let setting = {polarAxis:'x', polarDirection: 'anticlockwise'};
-				let cps = new ps.Space('configured planar space', setting);
-				console.log('cps', cps);
-
-				let p2 = cps.newPoint('p2');
-				p2.setCartesian(15,20);
-				console.log('p2', p2);
-				console.log('p2.angle', p2.angle);
-				console.log('p2.radius', p2.radius);
-
-				p1.setCartesian(100,100);
-				console.assert((p1.angle.degrees === 45), `Angle not equal to 45: ${p1.angle.degrees}`);
-
-				p1.setCartesian(-100,100);
-				console.assert((p1.angle.degrees === 135), `Angle not equal to 135: ${p1.angle.degrees}`);
-
-				p1.setCartesian(100,-100);
-				console.assert((p1.angle.degrees === -45), `Angle not equal to -45: ${p1.angle.degrees}`);
-				p1.setCartesian(-100,-100);
-				console.assert((p1.angle.degrees === -135), `Angle not equal to -135: ${p1.angle.degrees}`);
-
-			console.groupEnd();
+			/*
+			try {
+				f1();
+			}
+			catch(exception){
+				console.log(exception);  // this exception appears at the top of the console stack
+			}
+			*/
 
 		</script>
+
 
 
 	</main>

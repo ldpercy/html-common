@@ -2,38 +2,36 @@ Testing
 =======
 
 
-This **really** isn't the sort of thing I should be attempting, but there's basically nothing built into core js or the apis that I can see save for the lonely `console.assert()` function.
 
-So I'm going to whip together a little module to help with some things.
+Test categories
+---------------
+* equality -  IsStrictlyEqual, IsLooselyEqual
+* equivalence - to some specified level
+* greater/less than a specified comparator
+* typeof
+* instanceof
+* exceptions
+* Deep equality?
+* ???
 
 
+
+
+Empty tests, `every` & vacuous truths
+-------------------------------------
 
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/every
-https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some
+
+> true unless callbackFn returns a falsy value for an array element, in which case false is immediately returned.
+
+> every acts like the "for all" quantifier in mathematics. In particular, for an empty array, it returns true. (It is vacuously true that all elements of the empty set satisfy any given condition.)
 
 
+The `every` method is "none false" - something in the array *has* to be false otherwise it returns true.
+Don't feel like boxing with set theorists so I'll go with their findings.
+**An empty test passes.**
 
+https://en.wikipedia.org/wiki/Vacuous_truth#In_computer_programming
 
+I may have need for a stronger assertion of "all true" in some cases - try to find a reference or precedent.
 
-A single test will be:
-
-* one or more values/expressions
-* a predicate to be said about those values/expressions, eg allEqual
-
-eg
-	[1,2]
-
-
-
-jsdoc
------
-
-I want to be able to declare a predicate function type, but not sure how to partial type or similar in jsdoc.
-
-
-
-
-Tests needed
-------------
-
-* exceptions
