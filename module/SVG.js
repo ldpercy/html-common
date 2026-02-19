@@ -305,7 +305,7 @@ export class ViewBox extends Box{
 
 	/**
 	 * @param {string} viewBoxString
-	 * @return {ViewBox}
+	 * @return {this}
 	 */
 	fromString(viewBoxString) {
 		const vba    = viewBoxString.split(' ');
@@ -318,7 +318,7 @@ export class ViewBox extends Box{
 
 	/**
 	 * @param {number} padding
-	 * @return {ViewBox}
+	 * @return {this}
 	 */
 	pad(padding) {
 		this.x -= padding;

@@ -315,12 +315,24 @@ export class Angle {
 	//	mutators
 	//
 
+	/**
+	 * @param {Angle} angle
+	 * @return {this}
+	 */
 	add(angle)		{	this.#degrees += angle.degrees;	return this; }
+
+	/**
+	 * @param {Angle} angle
+	 * @return {this}
+	 */
 	subtract(angle)	{	this.#degrees -= angle.degrees;	return this; }
 
-	/* normalise180 (mutator)
-	Normalise the angle to +/-180 degrees, or -/+ pi radians.
-	*/
+
+	/** normalise180 (mutator)
+	 * Normalise the angle to +/-180 degrees, or -/+ pi radians.
+	 *
+	 * @return {this}
+	 */
 	normalise180() {
 		// https://stackoverflow.com/questions/2320986/easy-way-to-keeping-angles-between-179-and-180-degrees
 
@@ -415,6 +427,7 @@ export class Point {
 	 * Also returns 'this' to allow chaining
 	 * @param {number} x
 	 * @param {number} y
+	 * @return {this}
 	 */
 	setCartesian(x, y) {
 		const cc = new CartesianCoordinates(x,y);
@@ -428,6 +441,7 @@ export class Point {
 	 * Also returns 'this' to allow chaining
 	 * @param {number} degrees
 	 * @param {number} radius
+	 * @return {this}
 	 */
 	setPolar(degrees, radius) {
 		const a = new Angle(degrees);
