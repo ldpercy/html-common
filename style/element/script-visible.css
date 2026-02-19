@@ -9,6 +9,8 @@ body script {
 
 	&::before {
 		display:inline-block;
+		position:sticky;
+		top:0em;
 		background-color: var(--element-colour);
 		border-radius: 1ex 0ex;
 		margin-bottom: 1ex;
@@ -23,3 +25,6 @@ body script[src] { display: inline-block; }
 [data-colourscheme=dark] body script {
 	&::before { color: black; }
 }
+
+
+

@@ -196,3 +196,15 @@ summary:hover {
 	text-decoration: underline dotted;
 }
 
+[type=disabled] {
+	max-height: 12em;
+	overflow-y: scroll;
+	background:
+		repeating-linear-gradient(
+			135deg,
+			#999a 0px,
+			#999a 10px,
+			#fffa 10px,
+			#fffa 20px
+		);
+}
