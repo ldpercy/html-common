@@ -19,14 +19,14 @@
 	</header>
 
 	<main>
-		<script type="module" class="fullwidth">
+		<script type="disabled" class="fullwidth">
 			import * as test from '../testing/testing.js';
 			import * as predicate from '../testing/predicate.js';
 			import * as ps from './PlanarSpace.js'
 
 
-			console.groupCollapsed('setup default planar space');
-				let dps = new ps.Space(ps.defaultSpaceSettings, 'default planar space');
+			console.groupCollapsed('Setup default (navigational) planar space');
+				let dps = new ps.Space(undefined, 'default planar space');
 				console.log('dps:', dps);
 
 				let p1 = dps.newPoint(dps.newCartesianCoordinates(100,100), 'test point');
@@ -36,7 +36,7 @@
 
 
 			const pst1 = new test.Test(
-				'Default cartesian quadrant test',
+				'Default (navigational) quadrant test',
 				new predicate.AllEqual(),
 				[
 					//[	p1.setCartesian(123,456).polar.angle.degrees,	789],
@@ -52,9 +52,9 @@
 
 			console.groupCollapsed('Setup configured planar space - maths conventions');
 
-				let mathsConventions = {polarAxis:'x', polarDirection: 'anticlockwise'};
+				//let mathsConventions = {polarAxis:'x', polarDirection: 'anticlockwise'};
 
-				let cps = new ps.Space(mathsConventions, 'Planar space using maths conventions');
+				let cps = new ps.Space(ps.settings_maths, 'Planar space using maths conventions');
 				console.log('cps', cps);
 
 				let p2 = cps.newPoint().setCartesian(15,20);
@@ -63,7 +63,7 @@
 
 
 			const pst2 = new test.Test(
-				'Conventional geometry quadrant test',
+				'Maths conventions quadrant test',
 				new predicate.AllEqual(),
 				[
 					[	0,		p2.setCartesian(100,0).polar.angle.degrees],
@@ -76,6 +76,40 @@
 				]
 			);
 			pst2.toConsole();
+
+		</script>
+		<script type="module" class="fullwidth">
+			import * as test from '../testing/testing.js';
+			import * as predicate from '../testing/predicate.js';
+			import * as ps from './PlanarSpace.js'
+
+			console.groupCollapsed('Setup custom planar space');
+
+
+				let customSettings = {polarAxis:'down', polarDirection: 'anticlockwise'};
+
+				let customSpace1 = new ps.Space(customSettings, 'Polar axis down, anticlockwise');
+				console.log('customSpace1', customSpace1);
+
+				let p3 = customSpace1.newPoint().setCartesian(15,20);
+				console.log('p3', p3);
+			console.groupEnd();
+
+
+			const pst3 = new test.Test(
+				'Test: Custom configuration quadrant test',
+				new predicate.AllEqual(),
+				[
+					[	0,		p3.setCartesian(0,-100).polar.angle.degrees],
+					[	45,		p3.setCartesian(100,-100).polar.angle.degrees],
+					[	90,		p3.setCartesian(100,0).polar.angle.degrees],
+					[	135,	p3.setCartesian(100,100).polar.angle.degrees],
+					[	-45,	p3.setCartesian(-100,-100).polar.angle.degrees],
+					[	-90,	p3.setCartesian(-100,0).polar.angle.degrees],
+					[	-135,	p3.setCartesian(-100,100).polar.angle.degrees]
+				]
+			);
+			pst3.toConsole();
 
 
 

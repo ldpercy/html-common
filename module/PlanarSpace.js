@@ -61,11 +61,19 @@ export class PolarCoordinates {
 //
 
 /** @type {SpaceSetting} */
-export const defaultSpaceSettings = {
-	polarAxis		: 'y',
+export const settings_navigation = {
+	polarAxis		: 'up',
 	polarDirection	: 'clockwise',
 	shape			: undefined,
 }
+
+/** @type {SpaceSetting} */
+export const settings_maths = {
+	polarAxis		: 'right',
+	polarDirection	: 'counterclockwise',
+	shape			: undefined,
+}
+
 
 
 
@@ -95,23 +103,25 @@ export class Space extends abstractSpace.Space {
 	 * @param {string} desc
 	 */
 	constructor(
-			setting = defaultSpaceSettings,
+			setting = settings_navigation,
 			desc = 'PlanarSpace description',
 		) {
 		super(setting, desc);
 		this.#shape = setting.shape;
 
-		if (setting.polarAxis === 'y') {
-			this.#jsAngleAxisAdjust = -Math.PI/2;
-		}
-		else {
-			this.#jsAngleAxisAdjust = Math.PI;
+
+		switch(setting.polarAxis) {
+			case 'up'    : this.#jsAngleAxisAdjust = Math.PI/2; 	break;
+			case 'right' : this.#jsAngleAxisAdjust = 0; 			break;
+			case 'down'  : this.#jsAngleAxisAdjust = -Math.PI/2;	break;
+			case 'left'  : this.#jsAngleAxisAdjust = -Math.PI;		break;
+			default      : this.#jsAngleAxisAdjust = 0; 			break;
 		}
 
 		if (setting.polarDirection === 'clockwise')	{
 			this.#jsAngleDirectionAdjust = -1;
 		}
-		else {
+		else {	// anti, counter
 			this.#jsAngleDirectionAdjust = +1;
 		}
 
@@ -135,7 +145,7 @@ export class Space extends abstractSpace.Space {
 	getAngleFrom(center, cartesian) {
 		//console.debug(`${this.#desc}.getAngleFrom:`, arguments);
 		const result = new Angle();
-		result.radians = this.#jsAngleAxisAdjust + (this.#jsAngleDirectionAdjust * Math.atan2(center.y - cartesian.y, center.x - cartesian.x));
+		result.radians = (this.#jsAngleDirectionAdjust * Math.atan2(cartesian.y - center.y, cartesian.x - center.x)) + this.#jsAngleAxisAdjust;
 		result.normalise180();
 		//console.debug(`${this.#desc}.getAngleFrom:`, result);
 		return result;
