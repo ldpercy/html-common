@@ -25,15 +25,6 @@
 			import * as ps from './PlanarSpace.js'
 
 
-			// Empty tests pass:	https://en.wikipedia.org/wiki/Vacuous_truth#In_computer_programming
-			// const emptyTest = new test.Test(
-			// 	'empty test'
-			// );
-			// emptyTest.toConsole();
-
-
-
-
 			console.groupCollapsed('setup default planar space');
 				let dps = new ps.Space(ps.defaultSpaceSettings, 'default planar space');
 				console.log('dps:', dps);
@@ -41,33 +32,6 @@
 				let p1 = dps.newPoint(dps.newCartesianCoordinates(100,100), 'test point');
 				console.log('p1:', p1.cartesian, p1);
 
-				//console.info(dps.newPoint('').setCartesian(100,100));
-
-				console.log(p1.setCartesian(234,567).polar.angle.degrees);
-
-
-
-				//console.log('p1', p1);
-				//console.log('p1.angle', p1.angle);
-				//console.log('p1.radius', p1.radius);
-				// p1.setCartesian(100,100);
-				// console.assert((p1.angle.degrees === 45), 'Angle not equal to 45');
-				// p1.setCartesian(-100,100);
-				// console.assert((p1.angle.degrees === -45), 'Angle not equal to -45');
-				// p1.setCartesian(100,-100);
-				// console.assert((p1.angle.degrees === 135), 'Angle not equal to 45');
-				// p1.setCartesian(-100,-100);
-				// console.assert((p1.angle.degrees === -135), 'Angle not equal to -45');
-
-				// test.testArray(
-				// 	predicate.allEqual,
-				// 	[
-				// 		[(new Point( 100, 100)).degrees, 45],
-				// 		[(new Point( 100,-100)).degrees, 135],
-				// 		[(new Point(-100, 100)).degrees, -45],
-				// 		[(new Point(-100,-100)).degrees, -135],
-				// 	]
-				// );
 			console.groupEnd();
 
 
@@ -86,30 +50,28 @@
 
 
 
+			console.groupCollapsed('Setup configured planar space - maths conventions');
 
+				let mathsConventions = {polarAxis:'x', polarDirection: 'anticlockwise'};
 
-			console.groupCollapsed('Setup configured planar space - conventional geometry');
-				let setting = {polarAxis:'x', polarDirection: 'anticlockwise'};
-				let cps = new ps.Space(setting, 'Planar space using maths conventions');
+				let cps = new ps.Space(mathsConventions, 'Planar space using maths conventions');
 				console.log('cps', cps);
 
 				let p2 = cps.newPoint().setCartesian(15,20);
 				console.log('p2', p2);
-
-				p2.setCartesian(100,100);
-				console.log('p2.cartesian', p2.cartesian);
-				console.log('p2.polar.angle', p2.polar.angle);
-
-
 			console.groupEnd();
+
 
 			const pst2 = new test.Test(
 				'Conventional geometry quadrant test',
 				new predicate.AllEqual(),
 				[
+					[	0,		p2.setCartesian(100,0).polar.angle.degrees],
 					[	45,		p2.setCartesian(100,100).polar.angle.degrees],
+					[	90,		p2.setCartesian(0,100).polar.angle.degrees],
 					[	135,	p2.setCartesian(-100,100).polar.angle.degrees],
 					[	-45,	p2.setCartesian(100,-100).polar.angle.degrees],
+					[	-90,	p2.setCartesian(0,-100).polar.angle.degrees],
 					[	-135,	p2.setCartesian(-100,-100).polar.angle.degrees]
 				]
 			);

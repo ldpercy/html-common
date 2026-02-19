@@ -105,7 +105,7 @@ export class Space extends abstractSpace.Space {
 			this.#jsAngleAxisAdjust = -Math.PI/2;
 		}
 		else {
-			this.#jsAngleAxisAdjust = 0;
+			this.#jsAngleAxisAdjust = Math.PI;
 		}
 
 		if (setting.polarDirection === 'clockwise')	{
@@ -461,8 +461,6 @@ export class Point {
 		this.polar = pc;
 		return this;
 	}
-
-
 
 
 
