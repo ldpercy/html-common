@@ -228,7 +228,7 @@ export class Space extends abstractSpace.Space {
 	 * Automatically passes in the required reference to the parent space instance for the new point.
 	 * @param {CartesianCoordinates} [cartesian]
 	 * @param {string} [desc]
-	 * @returns {Point}
+	 * @return {Point}
 	 */
 	newPoint(cartesian, desc) {
 		return new Point(this, cartesian, desc);
@@ -237,11 +237,13 @@ export class Space extends abstractSpace.Space {
 
 	/** newPosition
 	 * Automatically passes in the required reference to the parent space instance for the new position.
-	 * @param {string} desc
-	 * @returns {Position}
+	 * @param {Point} [location]
+	 * @param {Angle} [direction]
+	 * @param {string} [desc]
+	 * @return {Position}
 	 */
-	newPosition(desc) {
-		return new Position(this, desc);
+	newPosition(desc, location, direction) {
+		return new Position(this, location, direction, desc);
 	}/* newPosition */
 
 	/** @returns {Angle} */
@@ -527,7 +529,7 @@ For now though Point is the combined version.
 
 /** Position
  * @implements {CartesianCoordinates}
- * @implements {PolarCoordinates}
+ * //@implements {PolarCoordinates}
  */
 export class Position {
 	/** @type {string} */		#desc		= 'Position description';
@@ -536,22 +538,35 @@ export class Position {
 	/** @type {Angle} */		#direction;
 
 
-
-	constructor(space, location, direction, desc) {
-		this.#space = space;
-		this.#location    = space.newPoint(`${desc}.location`);
-		this.#direction   = space.newAngle();
-		this.#desc = desc;
+	/** constructor
+	 * @param {Space} space
+	 * @param {Point} [location]
+	 * @param {Angle} [direction]
+	 * @param {string} [desc]
+	 */
+	constructor(
+			space,
+			location  = space.newPoint(undefined ,`position.location`),
+			direction = space.newAngle(),
+			desc
+		) {
+		this.#space       = space;
+		this.#location    = location;
+		this.#direction   = direction;
+		this.#desc        = desc;
 	}
 
-	get x()			{ return this.#location.x; }
-	get y()			{ return this.#location.y; }
-	get location()	{ return this.#location; }
-	get cartesian()	{ return this.#location.cartesian; }
-	get direction()	{ return this.#direction; }
-	get angle()     { return this.#direction; }
-	get degrees()   { return this.#direction.degrees; }
-	get radius()	{ return this.#location.radius; }
+	/** @return {number}				*/	get x()			{ return this.#location.x; }
+	/** @return {number}				*/	get y()			{ return this.#location.y; }
+	/** @return {Point}					*/	get location()	{ return this.#location; }
+	/** @return {Angle}					*/	get direction()	{ return this.#direction; }
+	/** @return {CartesianCoordinates}	*/	get cartesian()	{ return this.#location.cartesian; }
+	/** @return {PolarCoordinates}		*/	get polar()		{ return this.#location.polar; }
+
+
+
+	//get degrees()   { return this.#direction.degrees; }
+	//get radius()	{ return this.#location.radius; }
 
 
 	/** setLocation
