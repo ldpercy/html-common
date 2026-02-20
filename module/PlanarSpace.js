@@ -14,7 +14,8 @@ import * as abstractSpace  from "./AbstractSpace.js"
  * @typedef {Object} SpaceSetting
  * @param {string}	polarAxis
  * @param {string}	polarDirection
- * @param {object}	shape
+ * @param {object}	[shape]
+ * @param {string}	[desc]
  */
 
 
@@ -62,6 +63,7 @@ export class PolarCoordinates {
 
 /** @type {SpaceSetting} */
 export const settings_navigation = {
+	desc			: 'Common navigational settings: polar axis up, rotate clockwise',
 	polarAxis		: 'up',
 	polarDirection	: 'clockwise',
 	shape			: undefined,
@@ -69,8 +71,9 @@ export const settings_navigation = {
 
 /** @type {SpaceSetting} */
 export const settings_maths = {
+	desc			: 'Common maths settings: polar axis right, rotate anticlockwise',
 	polarAxis		: 'right',
-	polarDirection	: 'counterclockwise',
+	polarDirection	: 'anticlockwise',
 	shape			: undefined,
 }
 
