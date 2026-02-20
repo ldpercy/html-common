@@ -108,11 +108,20 @@ header {
 
 
 main {
+	/*
+	These conditions need work - not everything in body needs dressing, and some items I always want dressed even when nested
+	*/
 	&>* {
 		border: 1px inset hsl( from var(--element-colour) h s l / var(--border-alpha));
 		background-color: hsl( from var(--element-colour) h s l / var(--background-alpha));
 		padding: 1ex;
 	}
+	details>script
+	{
+		border: 1px inset hsl( from var(--element-colour) h s l / var(--border-alpha));
+		background-color: hsl( from var(--element-colour) h s l / var(--background-alpha));
+	}
+
 }
 
 
