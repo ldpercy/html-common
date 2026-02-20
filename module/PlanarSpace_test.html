@@ -35,7 +35,7 @@
 				let nps = new ps.Space(undefined, 'default planar space');
 				console.log('nps:', nps);
 
-				let np = nps.newPoint(nps.newCartesianCoordinates(100,100), 'test point');
+					let np = nps.newPoint(nps.newCartesianCoordinates(77,77), 'test point');
 				console.log('np:', np.cartesian, np);
 
 			console.groupEnd();
@@ -46,10 +46,10 @@
 				new predicate.AllEqual(),
 				[
 					//[	np.setCartesian(123,456).polar.angle.degrees,	789],
-					[	45,		np.setCartesian(100,100).polar.angle.degrees],
-					[	-45,	np.setCartesian(-100,100).polar.angle.degrees],
-					[	135,	np.setCartesian(100,-100).polar.angle.degrees],
-					[	-135,	np.setCartesian(-100,-100).polar.angle.degrees]
+						[	45,		np.setCartesian(77,77).polar.angle.degrees],
+						[	-45,	np.setCartesian(-77,77).polar.angle.degrees],
+						[	135,	np.setCartesian(77,-77).polar.angle.degrees],
+						[	-135,	np.setCartesian(-77,-77).polar.angle.degrees]
 				]
 			).toConsole();
 
@@ -69,13 +69,13 @@
 				'Maths conventions quadrant test',
 				new predicate.AllEqual(),
 				[
-					[	0,		mp.setCartesian(100,0).polar.angle.degrees],
-					[	45,		mp.setCartesian(100,100).polar.angle.degrees],
-					[	90,		mp.setCartesian(0,100).polar.angle.degrees],
-					[	135,	mp.setCartesian(-100,100).polar.angle.degrees],
-					[	-45,	mp.setCartesian(100,-100).polar.angle.degrees],
-					[	-90,	mp.setCartesian(0,-100).polar.angle.degrees],
-					[	-135,	mp.setCartesian(-100,-100).polar.angle.degrees]
+						[	0,		mp.setCartesian(77,0).polar.angle.degrees],
+						[	45,		mp.setCartesian(77,77).polar.angle.degrees],
+						[	90,		mp.setCartesian(0,77).polar.angle.degrees],
+						[	135,	mp.setCartesian(-77,77).polar.angle.degrees],
+						[	-45,	mp.setCartesian(77,-77).polar.angle.degrees],
+						[	-90,	mp.setCartesian(0,-77).polar.angle.degrees],
+						[	-135,	mp.setCartesian(-77,-77).polar.angle.degrees]
 				]
 			).toConsole();
 
@@ -83,13 +83,13 @@
 				'Maths conventions should be the same as atan2',
 				new predicate.AllEqual(),
 				[
-					[	mat2(100,0),		mp.setCartesian(100,0).polar.angle.radians],
-					[	mat2(100,100),		mp.setCartesian(100,100).polar.angle.radians],
-					[	mat2(0,100),		mp.setCartesian(0,100).polar.angle.radians],
-					[	mat2(-100,100),		mp.setCartesian(-100,100).polar.angle.radians],
-					[	mat2(100,-100),		mp.setCartesian(100,-100).polar.angle.radians],
-					[	mat2(0,-100),		mp.setCartesian(0,-100).polar.angle.radians],
-					[	mat2(-100,-100),	mp.setCartesian(-100,-100).polar.angle.radians]
+						[	mat2(77,0),		mp.setCartesian(77,0).polar.angle.radians],
+						[	mat2(77,77),	mp.setCartesian(77,77).polar.angle.radians],
+						[	mat2(0,77),		mp.setCartesian(0,77).polar.angle.radians],
+						[	mat2(-77,77),	mp.setCartesian(-77,77).polar.angle.radians],
+						[	mat2(77,-77),	mp.setCartesian(77,-77).polar.angle.radians],
+						[	mat2(0,-77),	mp.setCartesian(0,-77).polar.angle.radians],
+						[	mat2(-77,-77),	mp.setCartesian(-77,-77).polar.angle.radians]
 				]
 			).toConsole();
 
