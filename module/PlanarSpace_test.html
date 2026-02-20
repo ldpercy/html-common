@@ -19,7 +19,9 @@
 	</header>
 
 	<main>
-		<script type="module" class="fullwidth" title="Preconfigured space tests">
+		<details name="test_set" class="fullwidth">
+			<summary>Preconfigured space tests</summary>
+			<script type="module" title="Preconfigured space tests">
 			console.info('preconfigured space setting tests');
 
 			import * as test from '../testing/testing.js';
@@ -92,8 +94,11 @@
 			).toConsole();
 
 		</script>
+		</details>
 
-		<script type="module" class="fullwidth" title="Custom space tests">
+		<details name="test_set" class="fullwidth" open>
+			<summary>Custom space tests - maths variants (anticlockwise)</summary>
+			<script type="module"  title="Custom space tests">
 			console.info('Custom space setting tests:');
 			import * as test from '../testing/testing.js';
 			import * as predicate from '../testing/predicate.js';
@@ -130,7 +135,7 @@
 
 
 		</script>
-
+		</details>
 
 	</main>
 
