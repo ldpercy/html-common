@@ -148,7 +148,9 @@ export class Space extends abstractSpace.Space {
 	getAngleFrom(center, cartesian) {
 		//console.debug(`${this.#desc}.getAngleFrom:`, arguments);
 		const result = new Angle();
+		//console.debug(this.#jsAngleDirectionAdjust, this.#jsAngleAxisAdjust);
 		result.radians = (this.#jsAngleDirectionAdjust * Math.atan2(cartesian.y - center.y, cartesian.x - center.x)) + this.#jsAngleAxisAdjust;
+		//console.debug(result.radians, result.degrees);
 		result.normalise180();
 		//console.debug(`${this.#desc}.getAngleFrom:`, result);
 		return result;

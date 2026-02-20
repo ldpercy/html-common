@@ -45,10 +45,12 @@
 					'Default (navigational) quadrant test',
 					new predicate.AllEqual(),
 					[
-						//[	np.setCartesian(123,456).polar.angle.degrees,	789],
+						[	0,		np.setCartesian(0,77).polar.angle.degrees],
 						[	45,		np.setCartesian(77,77).polar.angle.degrees],
-						[	-45,	np.setCartesian(-77,77).polar.angle.degrees],
+						[	90,		np.setCartesian(77,0).polar.angle.degrees],
 						[	135,	np.setCartesian(77,-77).polar.angle.degrees],
+						[	-45,	np.setCartesian(-77,77).polar.angle.degrees],
+						[	-90,	np.setCartesian(-77,0).polar.angle.degrees],
 						[	-135,	np.setCartesian(-77,-77).polar.angle.degrees]
 					]
 				).toConsole();
