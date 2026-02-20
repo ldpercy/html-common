@@ -122,6 +122,9 @@ class Test {
 		return this.#result;
 	}/* run */
 
+
+
+
 	/** @return {boolean} */
 	get pass() {
 		const result = this.#result.every(						// this is still a 'none false' condition
@@ -133,12 +136,18 @@ class Test {
 
 	toConsole() {
 		this.run();
-		const consoleStyle = `color:${(this.pass) ? 'green' : 'red'};`  ;
+		const pass = this.pass;
+		const consoleStyle = `color:${(pass) ? 'green' : 'red'};`  ;
+		if (pass) {
+			console.groupCollapsed(`%c [${passFail(pass)}] ${this.desc}`, consoleStyle);
+		}
+		else{
+			console.group(`%c [${passFail(pass)}] ${this.desc}`, consoleStyle);
+		}
 
-		console.group(`%c [${passFail(this.pass)}] ${this.desc}`, consoleStyle);
 		console.log('predicate:', this.predicate.constructor.name);
 		console.dir(this.result);
-		console.log(`%c ${passFail(this.pass)}`, consoleStyle);
+		console.log(`%c ${passFail(pass)}`, consoleStyle);
 		console.groupEnd();
 
 	}/* toConsole */
