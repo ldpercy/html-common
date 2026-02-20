@@ -26,58 +26,70 @@
 			import * as predicate from '../testing/predicate.js';
 			import * as ps from './PlanarSpace.js'
 
+			function mat2(x,y) { return Math.atan2(y,x); }
+
 
 			console.groupCollapsed('Setup default (navigational) planar space');
-				let dps = new ps.Space(undefined, 'default planar space');
-				console.log('dps:', dps);
+				let nps = new ps.Space(undefined, 'default planar space');
+				console.log('nps:', nps);
 
-				let p1 = dps.newPoint(dps.newCartesianCoordinates(100,100), 'test point');
-				console.log('p1:', p1.cartesian, p1);
+				let np = nps.newPoint(nps.newCartesianCoordinates(100,100), 'test point');
+				console.log('np:', np.cartesian, np);
 
 			console.groupEnd();
 
 
-			const pst1 = new test.Test(
+			new test.Test(
 				'Default (navigational) quadrant test',
 				new predicate.AllEqual(),
 				[
-					//[	p1.setCartesian(123,456).polar.angle.degrees,	789],
-					[	45,		p1.setCartesian(100,100).polar.angle.degrees],
-					[	-45,	p1.setCartesian(-100,100).polar.angle.degrees],
-					[	135,	p1.setCartesian(100,-100).polar.angle.degrees],
-					[	-135,	p1.setCartesian(-100,-100).polar.angle.degrees]
+					//[	np.setCartesian(123,456).polar.angle.degrees,	789],
+					[	45,		np.setCartesian(100,100).polar.angle.degrees],
+					[	-45,	np.setCartesian(-100,100).polar.angle.degrees],
+					[	135,	np.setCartesian(100,-100).polar.angle.degrees],
+					[	-135,	np.setCartesian(-100,-100).polar.angle.degrees]
 				]
-			);
-			pst1.toConsole();
+			).toConsole();
 
 
+			console.groupCollapsed('Setup planar space - maths conventions');
 
-			console.groupCollapsed('Setup configured planar space - maths conventions');
+				let mps = new ps.Space(ps.settings_maths, 'Planar space using maths conventions');
+				console.log('mps', mps);
 
-				//let mathsConventions = {polarAxis:'x', polarDirection: 'anticlockwise'};
+				let mp = mps.newPoint().setCartesian(15,20);
+				console.log('mp', mp);
 
-				let cps = new ps.Space(ps.settings_maths, 'Planar space using maths conventions');
-				console.log('cps', cps);
-
-				let p2 = cps.newPoint().setCartesian(15,20);
-				console.log('p2', p2);
 			console.groupEnd();
 
 
-			const pst2 = new test.Test(
+			new test.Test(
 				'Maths conventions quadrant test',
 				new predicate.AllEqual(),
 				[
-					[	0,		p2.setCartesian(100,0).polar.angle.degrees],
-					[	45,		p2.setCartesian(100,100).polar.angle.degrees],
-					[	90,		p2.setCartesian(0,100).polar.angle.degrees],
-					[	135,	p2.setCartesian(-100,100).polar.angle.degrees],
-					[	-45,	p2.setCartesian(100,-100).polar.angle.degrees],
-					[	-90,	p2.setCartesian(0,-100).polar.angle.degrees],
-					[	-135,	p2.setCartesian(-100,-100).polar.angle.degrees]
+					[	0,		mp.setCartesian(100,0).polar.angle.degrees],
+					[	45,		mp.setCartesian(100,100).polar.angle.degrees],
+					[	90,		mp.setCartesian(0,100).polar.angle.degrees],
+					[	135,	mp.setCartesian(-100,100).polar.angle.degrees],
+					[	-45,	mp.setCartesian(100,-100).polar.angle.degrees],
+					[	-90,	mp.setCartesian(0,-100).polar.angle.degrees],
+					[	-135,	mp.setCartesian(-100,-100).polar.angle.degrees]
 				]
-			);
-			pst2.toConsole();
+			).toConsole();
+
+			new test.Test(
+				'Maths conventions should be the same as atan2',
+				new predicate.AllEqual(),
+				[
+					[	mat2(100,0),		mp.setCartesian(100,0).polar.angle.radians],
+					[	mat2(100,100),		mp.setCartesian(100,100).polar.angle.radians],
+					[	mat2(0,100),		mp.setCartesian(0,100).polar.angle.radians],
+					[	mat2(-100,100),		mp.setCartesian(-100,100).polar.angle.radians],
+					[	mat2(100,-100),		mp.setCartesian(100,-100).polar.angle.radians],
+					[	mat2(0,-100),		mp.setCartesian(0,-100).polar.angle.radians],
+					[	mat2(-100,-100),	mp.setCartesian(-100,-100).polar.angle.radians]
+				]
+			).toConsole();
 
 		</script>
 
