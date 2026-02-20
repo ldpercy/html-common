@@ -19,7 +19,9 @@
 	</header>
 
 	<main>
-		<script type="disabled" class="fullwidth">
+		<script type="module" class="fullwidth" title="Preconfigured space tests">
+			console.info('preconfigured space setting tests');
+
 			import * as test from '../testing/testing.js';
 			import * as predicate from '../testing/predicate.js';
 			import * as ps from './PlanarSpace.js'
@@ -78,7 +80,9 @@
 			pst2.toConsole();
 
 		</script>
-		<script type="module" class="fullwidth">
+
+		<script type="module" class="fullwidth" title="Custom space tests">
+			console.info('Custom space setting tests:');
 			import * as test from '../testing/testing.js';
 			import * as predicate from '../testing/predicate.js';
 			import * as ps from './PlanarSpace.js'
