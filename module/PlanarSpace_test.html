@@ -98,10 +98,97 @@
 			</script>
 		</details>
 
+
+
 		<details name="test_set" class="fullwidth" open>
-			<summary>Custom space tests - maths variants (anticlockwise)</summary>
+			<summary>Custom space tests - clockwise (navigation) variants</summary>
+
 			<script type="module"  title="Custom space tests">
-				console.info('Custom space setting tests:');
+				console.info('Custom space tests - clockwise (navigation) variants');
+				import * as test from '../testing/testing.js';
+				import * as predicate from '../testing/predicate.js';
+				import * as ps from './PlanarSpace.js'
+
+				console.groupCollapsed('Setup navigation variant 1 - Polar axis right, clockwise');
+					const nv1 = new ps.Space(
+						{ polarAxis:'right', polarDirection: 'clockwise' },
+						'Polar axis right, clockwise'
+					);
+					const nv1p = nv1.newPoint().setCartesian(11,22);
+					console.log('nv1p', nv1p);
+				console.groupEnd();
+
+				new test.Test(
+					'Test: navigation variant 1 - Polar axis right, clockwise',
+					new predicate.AllEqual(),
+					[
+						[	0,		nv1p.setCartesian(77,0).polar.angle.degrees],
+						[	45,		nv1p.setCartesian(77,-77).polar.angle.degrees],
+						[	90,		nv1p.setCartesian(0,-77).polar.angle.degrees],
+						[	135,	nv1p.setCartesian(-77,-77).polar.angle.degrees],
+						[	-45,	nv1p.setCartesian(77,77).polar.angle.degrees],
+						[	-90,	nv1p.setCartesian(0,77).polar.angle.degrees],
+						[	-135,	nv1p.setCartesian(-77,77).polar.angle.degrees]
+					]
+				).toConsole();
+
+				console.groupCollapsed('Setup navigation variant 2 - Polar axis down, clockwise');
+					const nv2 = new ps.Space(
+						{ polarAxis:'down', polarDirection: 'clockwise' },
+						'Polar axis down, clockwise'
+					);
+					const nv2p = nv2.newPoint().setCartesian(22,33);
+					console.log('nv2p', nv2p);
+				console.groupEnd();
+
+				new test.Test(
+					'Test: navigation variant 2 - Polar axis down, clockwise',
+					new predicate.AllEqual(),
+					[
+						[	0,		nv2p.setCartesian(0,-77).polar.angle.degrees],
+						[	45,		nv2p.setCartesian(-77,-77).polar.angle.degrees],
+						[	90,		nv2p.setCartesian(-77,0).polar.angle.degrees],
+						[	135,	nv2p.setCartesian(-77,77).polar.angle.degrees],
+						[	-45,	nv2p.setCartesian(77,-77).polar.angle.degrees],
+						[	-90,	nv2p.setCartesian(77,0).polar.angle.degrees],
+						[	-135,	nv2p.setCartesian(77,77).polar.angle.degrees]
+					]
+				).toConsole();
+
+				/* 				 */
+
+				console.groupCollapsed('Test: navigation variant 3 - Polar axis left, clockwise');
+					const nv3 = new ps.Space(
+						{ polarAxis:'left', polarDirection: 'clockwise' },
+						'Polar axis left, clockwise'
+					);
+					const nv3p = nv3.newPoint().setCartesian(33,44);
+					console.log('nv3p', nv3p);
+				console.groupEnd();
+
+				new test.Test(
+					'Test: navigation variant 3 - Polar axis left, clockwise',
+					new predicate.AllEqual(),
+					[
+						[	0,		nv3p.setCartesian(-77,0).polar.angle.degrees],
+						[	45,		nv3p.setCartesian(-77,77).polar.angle.degrees],
+						[	90,		nv3p.setCartesian(0,77).polar.angle.degrees],
+						[	135,	nv3p.setCartesian(77,77).polar.angle.degrees],
+						[	-45,	nv3p.setCartesian(-77,-77).polar.angle.degrees],
+						[	-90,	nv3p.setCartesian(0,-77).polar.angle.degrees],
+						[	-135,	nv3p.setCartesian(77,-77).polar.angle.degrees]
+					]
+				).toConsole();
+
+			</script>
+		</details>
+
+
+		<details name="test_set" class="fullwidth" open>
+			<summary>Custom space tests - anticlockwise (maths) variants</summary>
+
+			<script type="module"  title="Custom space tests">
+				console.info('Custom space tests - anticlockwise (maths) variants');
 				import * as test from '../testing/testing.js';
 				import * as predicate from '../testing/predicate.js';
 				import * as ps from './PlanarSpace.js'
@@ -175,8 +262,6 @@
 						[	-135,	mv3p.setCartesian(-77,77).polar.angle.degrees]
 					]
 				).toConsole();
-
-
 
 			</script>
 		</details>

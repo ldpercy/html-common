@@ -114,10 +114,10 @@ export class Space extends abstractSpace.Space {
 
 
 		switch(setting.polarAxis) {
-			case 'up'    : this.#jsAngleAxisAdjust = Math.PI/2; 	break;
+			case 'up'    : this.#jsAngleAxisAdjust = -Math.PI/2; 	break;
 			case 'right' : this.#jsAngleAxisAdjust = 0; 			break;
-			case 'down'  : this.#jsAngleAxisAdjust = -Math.PI/2;	break;
-			case 'left'  : this.#jsAngleAxisAdjust = -Math.PI;		break;
+			case 'down'  : this.#jsAngleAxisAdjust = Math.PI/2;		break;
+			case 'left'  : this.#jsAngleAxisAdjust = Math.PI;		break;
 			default      : this.#jsAngleAxisAdjust = 0; 			break;
 		}
 
@@ -149,7 +149,14 @@ export class Space extends abstractSpace.Space {
 		//console.debug(`${this.#desc}.getAngleFrom:`, arguments);
 		const result = new Angle();
 		//console.debug(this.#jsAngleDirectionAdjust, this.#jsAngleAxisAdjust);
-		result.radians = (this.#jsAngleDirectionAdjust * Math.atan2(cartesian.y - center.y, cartesian.x - center.x)) + this.#jsAngleAxisAdjust;
+
+		const mat2 = Math.atan2(cartesian.y - center.y, cartesian.x - center.x);
+
+		//result.radians = mat2;										// this *only* works for maths conventions - good
+		//result.radians = mat2 * this.#jsAngleDirectionAdjust;			// works for: polar axis right, cw & ccw
+		//result.radians = mat2 + this.#jsAngleAxisAdjust;				// works for: anticlockwise variants
+		result.radians = (mat2 + this.#jsAngleAxisAdjust) * this.#jsAngleDirectionAdjust;		// this is it, when you get the jsAngleAxisAdjust signs right
+
 		//console.debug(result.radians, result.degrees);
 		result.normalise180();
 		//console.debug(`${this.#desc}.getAngleFrom:`, result);
