@@ -8,5 +8,7 @@ body {
 	form	{ --element-colour: silver; }
 	svg		{ --element-colour: var(--svg-orange); }
 
+	/* output	{ --element-colour: orange; } */
+
 }
 

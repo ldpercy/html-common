@@ -18,8 +18,10 @@
 		</nav>
 	</header>
 
+	<link rel="stylesheet" href="../style/testing.css">
+
 	<main>
-		<details name="test_set" class="fullwidth">
+		<details name="test_set">
 			<summary>Preconfigured space tests</summary>
 			<script type="module" title="Preconfigured space tests">
 				console.info('preconfigured space setting tests');
@@ -28,6 +30,7 @@
 				import * as predicate from '../testing/predicate.js';
 				import * as ps from './PlanarSpace.js'
 
+				let output = '';
 				function mat2(x,y) { return Math.atan2(y,x); }
 
 
@@ -41,7 +44,7 @@
 				console.groupEnd();
 
 
-				new test.Test(
+				const t1 = new test.Test(
 					'Default (navigational) quadrant test',
 					new predicate.AllEqual(),
 					[
@@ -53,7 +56,9 @@
 						[	-90,	np.setCartesian(-77,0).polar.angle.degrees],
 						[	-135,	np.setCartesian(-77,-77).polar.angle.degrees]
 					]
-				).toConsole();
+				);
+				t1.toConsole();
+				output += t1.toHTML();
 
 
 				console.groupCollapsed('Setup planar space - maths conventions');
@@ -67,7 +72,7 @@
 				console.groupEnd();
 
 
-				new test.Test(
+				const t2 = new test.Test(
 					'Maths conventions quadrant test',
 					new predicate.AllEqual(),
 					[
@@ -79,9 +84,11 @@
 						[	-90,	mp.setCartesian(0,-77).polar.angle.degrees],
 						[	-135,	mp.setCartesian(-77,-77).polar.angle.degrees]
 					]
-				).toConsole();
+				);
+				t2.toConsole();
+				output += t2.toHTML();
 
-				new test.Test(
+				const t3 = new test.Test(
 					'Maths conventions should be the same as atan2',
 					new predicate.AllEqual(),
 					[
@@ -93,10 +100,22 @@
 						[	mat2(0,-77),	mp.setCartesian(0,-77).polar.angle.radians],
 						[	mat2(-77,-77),	mp.setCartesian(-77,-77).polar.angle.radians]
 					]
-				).toConsole();
+				);
+				t3.toConsole();
+				output += t3.toHTML();
 
+				document.getElementById('output_pstr').innerHTML = output;
 			</script>
 		</details>
+
+
+		<section>
+			<h3>Preconfigured space test results</h3>
+
+			<output id="output_pstr">
+
+			</output>
+		</section>
 
 
 

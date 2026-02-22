@@ -41,36 +41,6 @@ function passFail(b){
 
 
 
-/* * testArray
- * @param {function} predicate
- * @param {array} array
- * /
-export function testArray(predicate, array) {
-	//let result = true;
-	console.log('predicate:', predicate.name);
-
-	const result = array.map(
-		(element) => {
-			const elementResult = {
-				result : predicate(element),
-				test   : element,
-			};
-
-			return elementResult ;
-			// if (predicate(element))
-			// {
-			// 	console.log('true', element);
-			// }
-			// else {
-			// 	console.log('false:', element);
-			// }
-		}
-	);
-
-	console.dir(result);
-
-	return result;
-}/ * testArray */
 
 
 
@@ -100,6 +70,9 @@ class Test {
 		this.expressionArray = expressionArray;
 	}
 
+	/** @returns {boolean} */
+	get pass()	{ return this.#pass; }
+
 	get result() { return this.#result; }
 
 	get summary() { return ``}
@@ -119,6 +92,7 @@ class Test {
 				return expressionResult ;
 			}
 		);
+		this.#pass = this.testPasses();
 		return this.#result;
 	}/* run */
 
@@ -126,7 +100,7 @@ class Test {
 
 
 	/** @return {boolean} */
-	get pass() {
+	testPasses() {
 		const result = this.#result.every(						// this is still a 'none false' condition
 			(item) => { return item.predicate === true; }
 		);
@@ -134,24 +108,41 @@ class Test {
 	}
 
 
+
 	toConsole() {
 		this.run();
-		const pass = this.pass;
-		const consoleStyle = `color:${(pass) ? 'green' : 'red'};`  ;
-		if (pass) {
-			console.groupCollapsed(`%c [${passFail(pass)}] ${this.desc}`, consoleStyle);
+		const consoleStyle = `color:${(this.pass) ? 'green' : 'red'};`  ;
+		if (this.pass) {
+			console.groupCollapsed(`%c [${passFail(this.pass)}] ${this.desc}`, consoleStyle);
 		}
 		else{
-			console.group(`%c [${passFail(pass)}] ${this.desc}`, consoleStyle);
+			console.group(`%c [${passFail(this.pass)}] ${this.desc}`, consoleStyle);
 		}
 
 		console.log('predicate:', this.predicate.constructor.name);
 		console.dir(this.result);
-		console.log(`%c ${passFail(pass)}`, consoleStyle);
+		console.log(`%c ${passFail(this.pass)}`, consoleStyle);
 		console.groupEnd();
 
 	}/* toConsole */
 
+
+	/**
+	 * @param {string} detailsName
+	 */
+	toHTML(detailsName) {
+		let result = `
+			<details name="${detailsName}" class="test ${passFail(this.pass)}">
+				<summary>${this.desc}</summary>
+
+
+
+
+			</details>
+		`;
+
+		return result;
+	}
 
 
 }/* Test */
