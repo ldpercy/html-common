@@ -199,11 +199,15 @@ nav {
 
 details {
 	margin:1em 0em;
-	cursor:pointer;
+	summary {
+		cursor:pointer;
+		border-bottom: 1px dotted transparent;
+	}
+	summary:hover {
+		border-bottom: 1px dotted;
+	}
 }
-summary:hover {
-	text-decoration: underline dotted;
-}
+
 
 [type=disabled] {
 	max-height: 12em;
