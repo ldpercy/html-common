@@ -35,3 +35,10 @@ https://en.wikipedia.org/wiki/Vacuous_truth#In_computer_programming
 
 I may have need for a stronger assertion of "all true" in some cases - try to find a reference or precedent.
 
+
+
+Grouping and nesting
+--------------------
+
+Need to sort out some structure and vocab for grouped and nested tests.
+

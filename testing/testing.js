@@ -10,38 +10,23 @@ export { Test }
 
 
 
-
-/* * groupTest
- * @param {string} desc
- * @param {predicateLibrary.Predicate} predicate
- * @param {array} expressionArray
- * /
-export function groupTest(desc, predicate, expressionArray) {
-	//console.debug(arguments);
-
-	const test = new Test(desc, predicate, expressionArray);
-	test.run();
-
-	const consoleStyle = `color:${(test.pass) ? 'green' : 'red'};`  ;
-
-	console.groupCollapsed(`%c [${passFail(test.pass)}] ${desc}`, consoleStyle);
-	console.log('predicate:', test.predicate.constructor.name);
-	console.dir(test.result);
-	console.log(`%c ${passFail(test.pass)}`, consoleStyle);
-	console.groupEnd();
-}/ * groupTest */
-
-
-/** @param {boolean} b */
+/**
+ * @param {boolean} b
+ * @returns {string}
+ */
 function passFail(b){
 	return (b) ? 'pass' : 'fail';
 }
 
 
 
-
-
-
+/**
+ * @param {boolean} b
+ * @returns {string}
+ */
+function tickCross(b){
+	return (b) ? '🗹' : '🗷';
+}
 
 
 
@@ -108,7 +93,7 @@ class Test {
 	}
 
 
-
+	/** @returns {void} */
 	toConsole() {
 		this.run();
 		const consoleStyle = `color:${(this.pass) ? 'green' : 'red'};`  ;
@@ -129,15 +114,45 @@ class Test {
 
 	/**
 	 * @param {string} detailsName
+	 * @returns {string}
 	 */
 	toHTML(detailsName) {
+		// name="${detailsName}"
+
+		const testResultOutput = this.result.reduce(
+			(testOutput, currentItem, index) => {
+				const result = testOutput + `
+					<span>${index}</span>
+					<span>${currentItem.expression}</span>
+					<span class="ballotBox ${passFail(this.pass)}">${tickCross(currentItem.predicate)}</span>
+
+				`;
+
+				return result;
+			},
+			''
+		);
+		// <code>${JSON.stringify(this.result)}</code>
 		let result = `
-			<details name="${detailsName}" class="test ${passFail(this.pass)}">
-				<summary>${this.desc}</summary>
+			<details class="test ${passFail(this.pass)}" open>
+				<summary>
+					<span class="ballotBox ${passFail(this.pass)}">
+						${tickCross(this.pass)}
+					</span>
+					${this.desc}
+				</summary>
+				<div>
+					Predicate:
+					<strong>${this.predicate.constructor.name}</strong>
+				</div>
 
-
-
-
+				<div class="testResult">
+					${testResultOutput}
+				</div>
+				<div>
+					Result:
+					<strong>${passFail(this.pass)}</strong>
+				</div>
 			</details>
 		`;
 
