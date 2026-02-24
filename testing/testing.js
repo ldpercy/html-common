@@ -97,11 +97,12 @@ class Test {
 	toConsole() {
 		this.run();
 		const consoleStyle = `color:${(this.pass) ? 'green' : 'red'};`  ;
+		const groupTitle = `${tickCross(this.pass)} ${this.desc}`;
 		if (this.pass) {
-			console.groupCollapsed(`%c [${passFail(this.pass)}] ${this.desc}`, consoleStyle);
+			console.groupCollapsed(`%c ${groupTitle}`, consoleStyle);
 		}
 		else{
-			console.group(`%c [${passFail(this.pass)}] ${this.desc}`, consoleStyle);
+			console.group(`%c ${groupTitle}`, consoleStyle);
 		}
 
 		console.log('predicate:', this.predicate.constructor.name);

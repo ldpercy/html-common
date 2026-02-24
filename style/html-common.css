@@ -142,11 +142,24 @@ main {
 		grid-column-start: span 2;
 	}
 
-	.limit-height {
-		max-height:30em;
-		overflow-y: scroll;
-	}
+
 }
+
+
+.maxHeight-small {
+	max-height:24em;
+	overflow-y: scroll;
+}
+.maxHeight-medium {
+	max-height:48em;
+	overflow-y: scroll;
+}
+.maxHeight-large {
+	max-height:64em;
+	overflow-y: scroll;
+}
+
+
 
 @media (orientation: landscape) {
 	main {
