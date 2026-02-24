@@ -21,18 +21,22 @@
 	<link rel="stylesheet" href="../style/testing.css">
 
 	<main>
-		<details name="test_set">
-			<summary>Preconfigured space tests</summary>
-			<script type="module" title="Preconfigured space tests">
+
+		<details open>
+			<summary>Setup: test preconfigured spaces</summary>
+			<script type="module" title="Setup: test preconfigured spaces">
 				console.info('preconfigured space setting tests');
 
 				import * as test from '../testing/testing.js';
 				import * as predicate from '../testing/predicate.js';
 				import * as ps from './PlanarSpace.js'
 
-				let output = '';
+
 				function mat2(x,y) { return Math.atan2(y,x); }
 
+
+				/** @type {Array<Test>}	*/	let testPreconfigured = [];
+				/** @type {string}		*/	let testPreconfiguredOutput = '';
 
 				console.groupCollapsed('Setup default (navigational) planar space');
 					let nps = new ps.Space(undefined, 'default planar space');
@@ -40,25 +44,23 @@
 
 					let np = nps.newPoint(nps.newCartesianCoordinates(77,77), 'test point');
 					console.log('np:', np.cartesian, np);
-
 				console.groupEnd();
 
-
-				const t1 = new test.Test(
-					'Default (navigational) quadrant test',
-					new predicate.AllEqual(),
-					[
-						[	0,		np.setCartesian(0,77).polar.angle.degrees],
-						[	45,		np.setCartesian(77,77).polar.angle.degrees],
-						[	90,		np.setCartesian(77,0).polar.angle.degrees],
-						[	135,	np.setCartesian(77,-77).polar.angle.degrees],
-						[	-45,	np.setCartesian(-77,77).polar.angle.degrees],
-						[	-90,	np.setCartesian(-77,0).polar.angle.degrees],
-						[	-135,	np.setCartesian(-77,-77).polar.angle.degrees]
-					]
+				testPreconfigured.push(
+					new test.Test(
+						'Default (navigational) quadrant test',
+						new predicate.AllEqual(),
+						[
+							[	0,		np.setCartesian(0,77).polar.angle.degrees],
+							[	45,		np.setCartesian(77,77).polar.angle.degrees],
+							[	90,		np.setCartesian(77,0).polar.angle.degrees],
+							[	135,	np.setCartesian(77,-77).polar.angle.degrees],
+							[	-45,	np.setCartesian(-77,77).polar.angle.degrees],
+							[	-90,	np.setCartesian(-77,0).polar.angle.degrees],
+							[	-135,	np.setCartesian(-77,-77).polar.angle.degrees]
+						]
+					)
 				);
-				t1.toConsole();
-				output += t1.toHTML();
 
 
 				console.groupCollapsed('Setup planar space - maths conventions');
@@ -72,61 +74,71 @@
 				console.groupEnd();
 
 
-				const t2 = new test.Test(
-					'Maths conventions quadrant test',
-					new predicate.AllEqual(),
-					[
-						[	0,		mp.setCartesian(77,0).polar.angle.degrees],
-						[	45,		mp.setCartesian(77,77).polar.angle.degrees],
-						[	90,		mp.setCartesian(0,77).polar.angle.degrees],
-						[	135,	mp.setCartesian(-77,77).polar.angle.degrees],
-						[	-45,	mp.setCartesian(77,-77).polar.angle.degrees],
-						[	-90,	mp.setCartesian(0,-77).polar.angle.degrees],
-						[	-135,	mp.setCartesian(-77,-77).polar.angle.degrees]
-					]
+				testPreconfigured.push(
+					new test.Test(
+						'Maths conventions quadrant test',
+						new predicate.AllEqual(),
+						[
+							[	0,		mp.setCartesian(77,0).polar.angle.degrees],
+							[	45,		mp.setCartesian(77,77).polar.angle.degrees],
+							[	90,		mp.setCartesian(0,77).polar.angle.degrees],
+							[	135,	mp.setCartesian(-77,77).polar.angle.degrees],
+							[	-45,	mp.setCartesian(77,-77).polar.angle.degrees],
+							[	-90,	mp.setCartesian(0,-77).polar.angle.degrees],
+							[	-135,	mp.setCartesian(-77,-77).polar.angle.degrees]
+						]
+					)
 				);
-				t2.toConsole();
-				output += t2.toHTML();
 
-				const t3 = new test.Test(
-					'Maths conventions should be the same as atan2',
-					new predicate.AllEqual(),
-					[
-						[	mat2(77,0),		mp.setCartesian(77,0).polar.angle.radians],
-						[	mat2(77,77),	mp.setCartesian(77,77).polar.angle.radians],
-						[	mat2(0,77),		mp.setCartesian(0,77).polar.angle.radians],
-						[	mat2(-77,77),	mp.setCartesian(-77,77).polar.angle.radians],
-						[	mat2(77,-77),	mp.setCartesian(77,-77).polar.angle.radians],
-						[	mat2(0,-77),	mp.setCartesian(0,-77).polar.angle.radians],
-						[	mat2(-77,-77),	mp.setCartesian(-77,-77).polar.angle.radians]
-					]
+
+				testPreconfigured.push(
+					 new test.Test(
+						'Maths conventions should be the same as atan2',
+						new predicate.AllEqual(),
+						[
+							[	mat2(77,0),		mp.setCartesian(77,0).polar.angle.radians],
+							[	mat2(77,77),	mp.setCartesian(77,77).polar.angle.radians],
+							[	mat2(0,77),		mp.setCartesian(0,77).polar.angle.radians],
+							[	mat2(-77,77),	mp.setCartesian(-77,77).polar.angle.radians],
+							[	mat2(77,-77),	mp.setCartesian(77,-77).polar.angle.radians],
+							[	mat2(0,-77),	mp.setCartesian(0,-77).polar.angle.radians],
+							[	mat2(-77,-77),	mp.setCartesian(-77,-77).polar.angle.radians]
+						]
+					)
 				);
-				t3.toConsole();
-				output += t3.toHTML();
 
-				document.getElementById('output_pstr').innerHTML = output;
+				testPreconfigured.forEach(
+					(test) => {
+						test.toConsole();
+						testPreconfiguredOutput += test.toHTML();
+					}
+				);
+
+				document.getElementById('output_tps').innerHTML = testPreconfiguredOutput;
 			</script>
 		</details>
 
 
 		<section>
-			<h3>Preconfigured space test results</h3>
+			<h3>Results: test preconfigured spaces</h3>
 
-			<output id="output_pstr">
-
-			</output>
+			<output id="output_tps" class="testing testSet"></output>
 		</section>
 
 
 
-		<details name="test_set" class="fullwidth" open>
-			<summary>Custom space tests - clockwise (navigation) variants</summary>
+		<details open>
+			<summary>Setup: test custom space - clockwise (navigation) variants</summary>
 
 			<script type="module"  title="Custom space tests">
 				console.info('Custom space tests - clockwise (navigation) variants');
 				import * as test from '../testing/testing.js';
 				import * as predicate from '../testing/predicate.js';
 				import * as ps from './PlanarSpace.js'
+
+				/** @type {Array<Test>}	*/	let testClockwise = [];
+				/** @type {string}		*/	let testClockwiseOutput = '';
+
 
 				console.groupCollapsed('Setup navigation variant 1 - Polar axis right, clockwise');
 					const nv1 = new ps.Space(
@@ -137,19 +149,21 @@
 					console.log('nv1p', nv1p);
 				console.groupEnd();
 
-				new test.Test(
-					'Test: navigation variant 1 - Polar axis right, clockwise',
-					new predicate.AllEqual(),
-					[
-						[	0,		nv1p.setCartesian(77,0).polar.angle.degrees],
-						[	45,		nv1p.setCartesian(77,-77).polar.angle.degrees],
-						[	90,		nv1p.setCartesian(0,-77).polar.angle.degrees],
-						[	135,	nv1p.setCartesian(-77,-77).polar.angle.degrees],
-						[	-45,	nv1p.setCartesian(77,77).polar.angle.degrees],
-						[	-90,	nv1p.setCartesian(0,77).polar.angle.degrees],
-						[	-135,	nv1p.setCartesian(-77,77).polar.angle.degrees]
-					]
-				).toConsole();
+				testClockwise.push(
+					new test.Test(
+						'Test: navigation variant 1 - Polar axis right, clockwise',
+						new predicate.AllEqual(),
+						[
+							[	0,		nv1p.setCartesian(77,0).polar.angle.degrees],
+							[	45,		nv1p.setCartesian(77,-77).polar.angle.degrees],
+							[	90,		nv1p.setCartesian(0,-77).polar.angle.degrees],
+							[	135,	nv1p.setCartesian(-77,-77).polar.angle.degrees],
+							[	-45,	nv1p.setCartesian(77,77).polar.angle.degrees],
+							[	-90,	nv1p.setCartesian(0,77).polar.angle.degrees],
+							[	-135,	nv1p.setCartesian(-77,77).polar.angle.degrees]
+						]
+					)
+				);
 
 				console.groupCollapsed('Setup navigation variant 2 - Polar axis down, clockwise');
 					const nv2 = new ps.Space(
@@ -160,19 +174,21 @@
 					console.log('nv2p', nv2p);
 				console.groupEnd();
 
+				testClockwise.push(
 				new test.Test(
 					'Test: navigation variant 2 - Polar axis down, clockwise',
-					new predicate.AllEqual(),
-					[
-						[	0,		nv2p.setCartesian(0,-77).polar.angle.degrees],
-						[	45,		nv2p.setCartesian(-77,-77).polar.angle.degrees],
-						[	90,		nv2p.setCartesian(-77,0).polar.angle.degrees],
-						[	135,	nv2p.setCartesian(-77,77).polar.angle.degrees],
-						[	-45,	nv2p.setCartesian(77,-77).polar.angle.degrees],
-						[	-90,	nv2p.setCartesian(77,0).polar.angle.degrees],
-						[	-135,	nv2p.setCartesian(77,77).polar.angle.degrees]
-					]
-				).toConsole();
+						new predicate.AllEqual(),
+						[
+							[	0,		nv2p.setCartesian(0,-77).polar.angle.degrees],
+							[	45,		nv2p.setCartesian(-77,-77).polar.angle.degrees],
+							[	90,		nv2p.setCartesian(-77,0).polar.angle.degrees],
+							[	135,	nv2p.setCartesian(-77,77).polar.angle.degrees],
+							[	-45,	nv2p.setCartesian(77,-77).polar.angle.degrees],
+							[	-90,	nv2p.setCartesian(77,0).polar.angle.degrees],
+							[	-135,	nv2p.setCartesian(77,77).polar.angle.degrees]
+						]
+					)
+				);
 
 				/* 				 */
 
@@ -185,32 +201,53 @@
 					console.log('nv3p', nv3p);
 				console.groupEnd();
 
-				new test.Test(
-					'Test: navigation variant 3 - Polar axis left, clockwise',
-					new predicate.AllEqual(),
-					[
-						[	0,		nv3p.setCartesian(-77,0).polar.angle.degrees],
-						[	45,		nv3p.setCartesian(-77,77).polar.angle.degrees],
-						[	90,		nv3p.setCartesian(0,77).polar.angle.degrees],
-						[	135,	nv3p.setCartesian(77,77).polar.angle.degrees],
-						[	-45,	nv3p.setCartesian(-77,-77).polar.angle.degrees],
-						[	-90,	nv3p.setCartesian(0,-77).polar.angle.degrees],
-						[	-135,	nv3p.setCartesian(77,-77).polar.angle.degrees]
-					]
-				).toConsole();
+				testClockwise.push(
+					new test.Test(
+						'Test: navigation variant 3 - Polar axis left, clockwise',
+						new predicate.AllEqual(),
+						[
+							[	0,		nv3p.setCartesian(-77,0).polar.angle.degrees],
+							[	45,		nv3p.setCartesian(-77,77).polar.angle.degrees],
+							[	90,		nv3p.setCartesian(0,77).polar.angle.degrees],
+							[	135,	nv3p.setCartesian(77,77).polar.angle.degrees],
+							[	-45,	nv3p.setCartesian(-77,-77).polar.angle.degrees],
+							[	-90,	nv3p.setCartesian(0,-77).polar.angle.degrees],
+							[	-135,	nv3p.setCartesian(77,-77).polar.angle.degrees]
+						]
+					)
+				);
+
+				testClockwise.forEach(
+					(test) => {
+						test.toConsole();
+						testClockwiseOutput += test.toHTML();
+					}
+				);
+
+				document.getElementById('output_tcsc').innerHTML = testClockwiseOutput;
 
 			</script>
 		</details>
 
+		<section>
+			<h3>Results: test custom space - clockwise (navigation) variants</h3>
 
-		<details name="test_set" class="fullwidth" open>
-			<summary>Custom space tests - anticlockwise (maths) variants</summary>
+			<output id="output_tcsc" class="testing testSet"></output>
+		</section>
+
+
+		<details open>
+			<summary>Setup: Custom space tests - anticlockwise (maths) variants</summary>
 
 			<script type="module"  title="Custom space tests">
 				console.info('Custom space tests - anticlockwise (maths) variants');
 				import * as test from '../testing/testing.js';
 				import * as predicate from '../testing/predicate.js';
 				import * as ps from './PlanarSpace.js'
+
+				/** @type {Array<Test>}	*/	let testAntiClockwise = [];
+				/** @type {string}	*/		let testAntiClockwiseOutput = '';
+
 
 				console.groupCollapsed('Setup maths variant 1 - Polar axis up, anticlockwise');
 					const mv1 = new ps.Space(
@@ -221,19 +258,23 @@
 					console.log('mv1p', mv1p);
 				console.groupEnd();
 
-				new test.Test(
-					'Test: maths variant 1 - Polar axis up, anticlockwise',
-					new predicate.AllEqual(),
-					[
-						[	0,		mv1p.setCartesian(0,77).polar.angle.degrees],
-						[	45,		mv1p.setCartesian(-77,77).polar.angle.degrees],
-						[	90,		mv1p.setCartesian(-77,0).polar.angle.degrees],
-						[	135,	mv1p.setCartesian(-77,-77).polar.angle.degrees],
-						[	-45,	mv1p.setCartesian(77,77).polar.angle.degrees],
-						[	-90,	mv1p.setCartesian(77,0).polar.angle.degrees],
-						[	-135,	mv1p.setCartesian(77,-77).polar.angle.degrees]
-					]
-				).toConsole();
+
+				testAntiClockwise.push(
+					new test.Test(
+						'Test: maths variant 1 - Polar axis up, anticlockwise',
+						new predicate.AllEqual(),
+						[
+							[	0,		mv1p.setCartesian(0,77).polar.angle.degrees],
+							[	45,		mv1p.setCartesian(-77,77).polar.angle.degrees],
+							[	90,		mv1p.setCartesian(-77,0).polar.angle.degrees],
+							[	135,	mv1p.setCartesian(-77,-77).polar.angle.degrees],
+							[	-45,	mv1p.setCartesian(77,77).polar.angle.degrees],
+							[	-90,	mv1p.setCartesian(77,0).polar.angle.degrees],
+							[	-135,	mv1p.setCartesian(77,-77).polar.angle.degrees]
+						]
+					)
+				);
+
 
 				console.groupCollapsed('Setup maths variant 2 - Polar axis left, anticlockwise');
 					const mv2 = new ps.Space(
@@ -244,19 +285,21 @@
 					console.log('mv2p', mv2p);
 				console.groupEnd();
 
-				new test.Test(
-					'Test: maths variant 2 - Polar axis left, anticlockwise',
-					new predicate.AllEqual(),
-					[
-						[	0,		mv2p.setCartesian(-77,0).polar.angle.degrees],
-						[	45,		mv2p.setCartesian(-77,-77).polar.angle.degrees],
-						[	90,		mv2p.setCartesian(0,-77).polar.angle.degrees],
-						[	135,	mv2p.setCartesian(77,-77).polar.angle.degrees],
-						[	-45,	mv2p.setCartesian(-77,77).polar.angle.degrees],
-						[	-90,	mv2p.setCartesian(0,77).polar.angle.degrees],
-						[	-135,	mv2p.setCartesian(77,77).polar.angle.degrees]
-					]
-				).toConsole();
+				testAntiClockwise.push(
+					new test.Test(
+						'Test: maths variant 2 - Polar axis left, anticlockwise',
+						new predicate.AllEqual(),
+						[
+							[	0,		mv2p.setCartesian(-77,0).polar.angle.degrees],
+							[	45,		mv2p.setCartesian(-77,-77).polar.angle.degrees],
+							[	90,		mv2p.setCartesian(0,-77).polar.angle.degrees],
+							[	135,	mv2p.setCartesian(77,-77).polar.angle.degrees],
+							[	-45,	mv2p.setCartesian(-77,77).polar.angle.degrees],
+							[	-90,	mv2p.setCartesian(0,77).polar.angle.degrees],
+							[	-135,	mv2p.setCartesian(77,77).polar.angle.degrees]
+						]
+					)
+				);
 
 
 				console.groupCollapsed('Setup maths variant 3 - Polar axis down, anticlockwise');
@@ -268,22 +311,38 @@
 					console.log('mv3p', mv3p);
 				console.groupEnd();
 
-				new test.Test(
-					'Test: maths variant 3 - Polar axis down, anticlockwise',
-					new predicate.AllEqual(),
-					[
-						[	0,		mv3p.setCartesian(0,-77).polar.angle.degrees],
-						[	45,		mv3p.setCartesian(77,-77).polar.angle.degrees],
-						[	90,		mv3p.setCartesian(77,0).polar.angle.degrees],
-						[	135,	mv3p.setCartesian(77,77).polar.angle.degrees],
-						[	-45,	mv3p.setCartesian(-77,-77).polar.angle.degrees],
-						[	-90,	mv3p.setCartesian(-77,0).polar.angle.degrees],
-						[	-135,	mv3p.setCartesian(-77,77).polar.angle.degrees]
-					]
-				).toConsole();
+				testAntiClockwise.push(
+					new test.Test(
+						'Test: maths variant 3 - Polar axis down, anticlockwise',
+						new predicate.AllEqual(),
+						[
+							[	0,		mv3p.setCartesian(0,-77).polar.angle.degrees],
+							[	45,		mv3p.setCartesian(77,-77).polar.angle.degrees],
+							[	90,		mv3p.setCartesian(77,0).polar.angle.degrees],
+							[	135,	mv3p.setCartesian(77,77).polar.angle.degrees],
+							[	-45,	mv3p.setCartesian(-77,-77).polar.angle.degrees],
+							[	-90,	mv3p.setCartesian(-77,0).polar.angle.degrees],
+							[	-135,	mv3p.setCartesian(-77,77).polar.angle.degrees]
+						]
+					)
+				);
 
+
+				testAntiClockwise.forEach(
+					(test) => {
+						test.toConsole();
+						testAntiClockwiseOutput += test.toHTML();
+					}
+				);
+				document.getElementById('output_tcsa').innerHTML = testAntiClockwiseOutput;
 			</script>
 		</details>
+
+		<section>
+			<h3>Results: custom space tests - anticlockwise (maths) variants</h3>
+
+			<output id="output_tcsa" class="testing testSet"></output>
+		</section>
 
 	</main>
 
