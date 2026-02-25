@@ -252,7 +252,9 @@ export class PolarGrid {
 }/* PolarGrid */
 
 
-
+/** Box
+ * cf https://developer.mozilla.org/en-US/docs/Web/API/DOMRectReadOnly
+ */
 export class Box {
 	/** type {number} */	x;
 	/** type {number} */	y;
@@ -303,7 +305,7 @@ export class ViewBox extends Box{
 
 	/**
 	 * @param {string} viewBoxString
-	 * @return {ViewBox}
+	 * @return {this}
 	 */
 	fromString(viewBoxString) {
 		const vba    = viewBoxString.split(' ');
@@ -316,7 +318,7 @@ export class ViewBox extends Box{
 
 	/**
 	 * @param {number} padding
-	 * @return {ViewBox}
+	 * @return {this}
 	 */
 	pad(padding) {
 		this.x -= padding;

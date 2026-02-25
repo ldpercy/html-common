@@ -1,23 +1,30 @@
 
 body script {
-	/* scripts in the html body are displayed */
 	display: block;
-	margin:1ex;
-	background-color: hwb(from var(--javascript-yellow) h w b / 0.5);
-	border: 1px inset var(--javascript-yellow);
 	border-radius: 1ex;
+	padding: 0ex;
 	font-family: monospace;
 	white-space-collapse: preserve;
 	tab-size: 4;
 
 	&::before {
 		display:inline-block;
-		background-color: var(--javascript-yellow);
+		position:sticky;
+		top:0em;
+		background-color: var(--element-colour);
 		border-radius: 1ex 0ex;
-		margin-bottom:2ex;
+		margin-bottom: 1ex;
 		padding:1ex;
-		content: 'script ' attr(type) ' ' attr(src);
+		content: 'script type=' attr(type) ' src=' attr(src) ' ⋯ ' attr(title);
 	}
-
 }
+
+
+body script[src] { display: inline-block; }
+
+[data-colourscheme=dark] body script {
+	&::before { color: black; }
+}
+
+
 

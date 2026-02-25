@@ -1,0 +1,49 @@
+/*
+**	testing.css
+*/
+
+
+.testing {
+
+	--colour-pass: green;
+	--colour-fail: red;
+
+
+	.test {
+
+		&.pass { background-color: hsl(from var(--colour-pass) h s l / 10%); }
+		&.fail { background-color: hsl(from var(--colour-fail) h s l / 10%); }
+	}
+
+	.testResult {
+		display:grid;
+		grid-template-columns: 1fr 1fr 1fr;
+		span { text-align:center; }
+	}
+
+
+	details {
+		margin:1px;
+
+		&:first-of-type {
+			border-radius: 1ex 1ex 0ex 0ex;
+		}
+
+		&:last-of-type { border-radius: 0ex 0ex 1ex 1ex; }
+	}
+
+	details.test {
+		padding: 1ex;
+
+	}
+
+
+
+	.ballotBox {
+		line-height: 2ex;
+		&.pass { color: var(--colour-pass); }
+		&.fail { color: var(--colour-fail); }
+	}
+
+}
+

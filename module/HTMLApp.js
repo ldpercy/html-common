@@ -55,8 +55,10 @@ export class HTMLApp {
 	}/* addEventListeners */
 
 
-	/* getUrlParameter
-	*/
+	/** getUrlParameter
+	 * @param {string} name
+	 * @return {string}
+	 */
 	getUrlParameter(name)
 	{
 		return (new URL(window.location.href)).searchParams.get(name);
@@ -133,6 +135,18 @@ export class HTMLApp {
 				}
 			}
 		}
+	}
+
+
+
+	/** setColourScheme
+	 * @param {string} schemeName
+	 */
+	setColourScheme(schemeName) {
+		//document.documentElement.style.setProperty('--colourScheme', schemeName);
+		//document.documentElement.className = document.documentElement.className.replace(/\b(colourScheme-\w+)\b/,`colourScheme-${schemeName}`);
+		document.documentElement.dataset.colourscheme = schemeName;
+		localStorage.colourScheme = schemeName;
 	}
 
 

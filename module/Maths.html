@@ -3,18 +3,22 @@
 <head>
 	<title>Maths</title>
 	<meta charset="utf-8">
-	<link rel="icon" href="../favicon/html-common.svg">
-	<link rel="stylesheet" href="../style/ldpercy.css">
-	<link rel="stylesheet" href="../style/html-visible.css">
+	<link rel="icon" href="../favicon.svg">
+	<link rel="stylesheet" href="../style/html-common.css">
+	<script type="module" src="../script/colourScheme-selector.js"></script>
 </head>
 <body>
 	<header>
+		<h1><a href="">Maths</a></h1>
 		<nav>
+			<a class="colourScheme-selector" href="?colourScheme=light" title="Light colour scheme" data-colourscheme="light">🟓</a>
+			<a class="colourScheme-selector" href="?colourScheme=dark" title="Dark colour scheme" data-colourscheme="dark">🟒</a>
 			<a title="To folder" href="./">🖿</a>
 			<a title="Parent folder" href="../">🡅</a>
 		</nav>
-		<h1><a href="">Maths</a></h1>
 	</header>
+
+	<main>
 
 	<script type="module">
 		import * as maths from './Maths.js'
@@ -26,7 +30,7 @@
 		console.log(maths.getRandomInt(1, Number.POSITIVE_INFINITY));
 
 	</script>
-
+	</main>
 
 
 </body>

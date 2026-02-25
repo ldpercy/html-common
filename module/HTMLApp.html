@@ -3,74 +3,96 @@
 <head>
 	<title>HTML App</title>
 	<meta charset="utf-8">
-	<link rel="icon" href="../favicon/html-common.svg">
+	<link rel="icon" href="../favicon.svg">
 </head>
 <body>
 	<header>
+		<h1><a href="">HTML App</a></h1>
 		<nav>
-			<a id="button-lightScheme" href="#" title="Light scheme" data-scheme="light">🟓</a>
-			<a id="button-darkScheme" href="#" title="Dark scheme" data-scheme="dark">🟒</a>
+			<a class="colourScheme-selector" href="?colourScheme=light" title="Light colour scheme" data-colourscheme="light">🟓</a>
+			<a class="colourScheme-selector" href="?colourScheme=dark" title="Dark colour scheme" data-colourscheme="dark">🟒</a>
 			<a title="To folder" href="./">🖿</a>
 			<a title="Parent folder" href="../">🡅</a>
 		</nav>
-
-		<h1><a href="">HTML App</a></h1>
 	</header>
 
-	<link rel="stylesheet" href="../style/ldpercy.css">
-	<link rel="stylesheet" href="../style/html-visible.css">
+	<link rel="stylesheet" href="../style/html-common.css">
+
+	<main>
+
+		<script type="module">
+			import { HTMLApp } from "./HTMLApp.js";
+
+			class ExampleApp extends HTMLApp {
+				appName = "ExampleApp";
+				appInfo = [`%c
+					Example App 0.0.1 by ldpercy
+					`.replace(/\n\t\t/g,'\n'),
+					'color:light-dark(darkblue, lightblue);'
+				];
+
+				eventListeners = [
+					{
+						element: document,
+						type: 'click',
+						listener: this.documentClickListener
+					},
+					{
+						query: '#myForm',
+						type: 'change',
+						listener: this.formChangeListener
+					},
+					{
+						query: '.colourScheme-selector',
+						type: 'click',
+						listener: this.colourSchemeListener
+					},
+				];
+
+				documentClickListener(event) {
+					const domPoint = new DOMPoint(event.clientX, event.clientY);
+					console.info('You clicked', domPoint);
+				}
+
+				formChangeListener(event) {
+					console.log('formChangeListener arguments', arguments);				// arguments[0] = change
+				}
+
+				colourSchemeListener(event) {
+					//console.log('colourSchemeListener', event.target.dataset);
+					event.preventDefault();
+					this.setColourScheme(event.target.dataset.colourscheme);
+				}
+
+			}/* ExampleApp */
+
+			var exampleApp = new ExampleApp();
+		</script>
 
 
-	<script type="module">
-		import { HTMLApp } from "./HTMLApp.js";
 
-		class ExampleApp extends HTMLApp {
-			appName = "ExampleApp";
-			appInfo = [`%c
-				Example App 0.0.1 by ldpercy
-				`.replace(/\n\t\t/g,'\n'),
-				'color:light-dark(darkblue, lightblue);'
-			];
+		<form id="myForm">
+			<h2>App elements</h2>
 
-			eventListeners = [
-				{
-					element: document,
-					type: 'click',
-					listener: this.documentClickListener
-				},
-				{
-					query: '#myForm',
-					type: 'change',
-					listener: this.formChangeListener
-				},
-			];
+			<label>
+				<input type="checkbox">
+				checkbox
+			</label>
 
-			documentClickListener(event) {
-				const domPoint = new DOMPoint(event.clientX, event.clientY);
-				console.info('You clicked', domPoint);
-			}/* svgClickListener */
+			<select size="5">
+				<option>abcd</option>
+				<option>efgh</option>
+				<option>ijkl</option>
+				<option>mnop</option>
+			</select>
+		</form>
 
-			formChangeListener(event) {
-				console.log('formChangeListener arguments', arguments);				// arguments[0] = change
-			}
+		<style contenteditable="plaintext-only">
+			label { display:block; margin:1em; }
+			select { margin:1em; }
+		</style>
 
-		}/* ExampleApp */
-
-		var exampleApp = new ExampleApp();
-	</script>
-
-
-	<h2>App elements</h2>
-
-	<button id="myButton">myButton</button>
-
-	<form id="myForm">
-		<h3>myForm</h3>
-		<label>
-			<input type="checkbox">
-			checkbox
-		</label>
-	</form>
+	</main>
 
 </body>
 </html>

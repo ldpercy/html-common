@@ -3,42 +3,110 @@
 <head>
 	<title>Planar Space</title>
 	<meta charset="utf-8">
-	<link rel="icon" href="../favicon/html-common.svg">
-
+	<link rel="icon" href="../favicon.svg">
+	<link rel="stylesheet" href="../style/html-common.css">
+	<script type="module" src="../script/colourScheme-selector.js"></script>
 </head>
 <body>
 	<header>
+		<h1><a href="">Planar Space</a></h1>
 		<nav>
+			<a class="colourScheme-selector" href="?colourScheme=light" title="Light colour scheme" data-colourscheme="light">🟓</a>
+			<a class="colourScheme-selector" href="?colourScheme=dark" title="Dark colour scheme" data-colourscheme="dark">🟒</a>
 			<a title="To folder" href="./">🖿</a>
 			<a title="Parent folder" href="../">🡅</a>
 		</nav>
-		<h1><a href="">Planar Space</a></h1>
 	</header>
-	<link rel="stylesheet" href="../style/ldpercy.css">
-	<link rel="stylesheet" href="../style/html-visible.css">
 
 
-	<script type="module">
-		import * as PS from './PlanarSpace.js'
 
-		let s = new PS.Space('test-space',{});
+	<main>
 
-		console.log(s);
-		console.log(s.setting);
-
-		let p = s.newPoint('p');
-		p.setCartesian(15,20);
-
-		console.log(p);
-
-		console.log(p.getAngleFrom(s.origin));
-		console.log(p.getDistanceFrom(s.origin));
-
-		//const r = new planarSpace.Rectangle();
-		//console.log(r);
-
-	</script>
+		<script type="module" class="fullwidth">
+			import * as planarSpace from './PlanarSpace.js'
+			import * as test from '../testing/testing.js';
+			import * as predicate from '../testing/predicate.js';
 
 
+			console.group('example space');
+
+				const exampleSpace = new planarSpace.Space();
+				exampleSpace.desc = 'example space';
+				console.log(exampleSpace);
+				const p0 = new planarSpace.Point(exampleSpace, new planarSpace.CartesianCoordinates(300,400));
+				console.log(p0);
+
+				// no space instance specified - fails during construction:
+				// const p00 = new planarSpace.Point('p00', undefined, new planarSpace.CartesianCoordinates(300,400));
+				// console.log(p00);
+
+			console.groupEnd();
+
+
+
+			console.group('default planar space');
+				let dps = new planarSpace.Space(planarSpace.defaultSpaceSettings, 'default planar space' );
+				console.log('dps', dps);
+
+				let p1 = dps.newPoint(undefined,'p1');
+				p1.setCartesian(100,100);
+				//console.log('p1', p1);
+				//console.log('p1.angle', p1.angle);
+				//console.log('p1.radius', p1.radius);
+				p1.setCartesian(100,100);
+				console.assert((p1.angle.degrees === 45), 'Angle not equal to 45');
+				p1.setCartesian(-100,100);
+				console.assert((p1.angle.degrees === -45), 'Angle not equal to -45');
+				p1.setCartesian(100,-100);
+				console.assert((p1.angle.degrees === 135), 'Angle not equal to 45');
+				p1.setCartesian(-100,-100);
+				console.assert((p1.angle.degrees === -135), 'Angle not equal to -45');
+
+				// this was the branch bug reported a couple of weeks back:
+				let p = dps.newPoint('p');
+				p.setCartesian(15,20);
+				console.log('p.polar.angle.degrees', p.polar.angle.degrees);
+
+/* 				test.testArray(
+					predicate.allEqual,
+					[
+						[(new dps.Point( 100, 100)).degrees, 45],
+						[(new dps.Point( 100,-100)).degrees, 135],
+						[(new dps.Point(-100, 100)).degrees, -45],
+						[(new dps.Point(-100,-100)).degrees, -135],
+					]
+				);
+ */
+
+			console.groupEnd();
+
+
+			console.group('configured planar space');
+				let setting = {polarAxis:'x', polarDirection: 'anticlockwise'};
+				let cps = new planarSpace.Space(setting, 'configured planar space');
+				console.log('cps', cps);
+
+				let p2 = cps.newPoint('p2');
+				p2.setCartesian(15,20);
+				console.log('p2', p2);
+				console.log('p2.angle', p2.angle);
+				console.log('p2.radius', p2.radius);
+
+				p2.setCartesian(100,100);
+				console.assert((p2.angle.degrees === 45), `Angle not equal to 45: ${p2.angle.degrees}`);
+
+				p2.setCartesian(-100,100);
+				console.assert((p2.angle.degrees === 135), `Angle not equal to 135: ${p2.angle.degrees}`);
+
+				p2.setCartesian(100,-100);
+				console.assert((p2.angle.degrees === -45), `Angle not equal to -45: ${p2.angle.degrees}`);
+				p2.setCartesian(-100,-100);
+				console.assert((p2.angle.degrees === -135), `Angle not equal to -135: ${p2.angle.degrees}`);
+
+			console.groupEnd();
+
+		</script>
+
+	</main>
 </body>
 </html>

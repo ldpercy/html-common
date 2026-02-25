@@ -2,3 +2,235 @@
 **	html-common.css
 */
 
+@import "./technology-colour.css";
+@import "./element/element-colour.css";
+
+@import "./element/script-visible.css";
+@import "./element/style-visible.css";
+
+
+:root {
+	--project-colour: mediumvioletred;
+
+	--light-html: #eee;
+	--light-body: #fff;
+	--light-text: #000;
+
+	--dark-html: #000;
+	--dark-body: #111;
+	--dark-text: #fff;
+
+	--background-alpha: 0.15;
+	--border-alpha: 0.7;
+}
+
+
+html {
+	color-scheme: light;
+	--html-background: var(--light-html);
+	background-color: var(--html-background);
+	body {
+		--body-background: var(--light-body);
+		background-color: var(--body-background);
+		color: var(--light-text);
+	}
+}
+
+html[data-colourscheme=light] {
+	color-scheme: light;
+	--html-background: var(--light-html);
+	body {
+		--body-background: var(--light-body);
+		color: var(--light-text);
+	}
+}
+
+html[data-colourscheme=dark] {
+	color-scheme: dark;
+	--html-background: var(--dark-html);
+	body {
+		--body-background: var(--dark-body);
+		color: var(--dark-text);
+	}
+}
+
+
+body {
+	margin:1em;
+	padding:1em;
+	border-radius:1em;
+	font-family:sans-serif;
+
+	/* --accent-colour: var(--project-colour);
+	--accent-light: hsl(from var(--accent-colour) h s 20 / 1);
+	--accent-dark:  hsl(from var(--accent-colour) h s 80 / 1);
+	accent-color: light-dark(var(--accent-light), var(--accent-dark)); */
+	accent-color: var(--project-colour);
+}
+
+
+
+header {
+	position:sticky;
+	top:0em;
+	background-color: hsl(from var(--body-background) h s l / 0.9);
+	z-index: 50;
+
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+
+	line-height: 4ex;
+
+	margin-bottom: 1em;
+	padding: 1ex;
+	border-bottom: 2px groove #bbbb;
+
+
+	h1 { margin:0em; }
+	h1::before {
+		display: inline-block;
+		content: url("../favicon.svg");
+		height:1.2ex;
+		width:1.2ex;
+		margin-right:1rex;
+	}
+
+	nav {
+		text-align:right;
+		font-weight:bold;
+		font-size: 2em;
+	}
+
+
+
+}
+
+
+
+main {
+	/*
+	These conditions need work - not everything in body needs dressing, and some items I always want dressed even when nested
+	*/
+	&>* {
+		border: 1px inset hsl( from var(--element-colour) h s l / var(--border-alpha));
+		background-color: hsl( from var(--element-colour) h s l / var(--background-alpha));
+		padding: 1ex;
+	}
+	details>script
+	{
+		border: 1px inset hsl( from var(--element-colour) h s l / var(--border-alpha));
+		background-color: hsl( from var(--element-colour) h s l / var(--background-alpha));
+	}
+
+}
+
+
+
+
+/*
+**	grid layout
+*/
+
+
+main {
+	display:grid;
+
+	margin:1ex;	border-radius:1ex;
+	&>* {
+		margin:inherit;
+		border-radius:inherit;
+		grid-column-start: span 2;
+	}
+
+
+}
+
+
+.maxHeight-small {
+	max-height:24em;
+	overflow-y: scroll;
+}
+.maxHeight-medium {
+	max-height:48em;
+	overflow-y: scroll;
+}
+.maxHeight-large {
+	max-height:64em;
+	overflow-y: scroll;
+}
+
+
+
+@media (orientation: landscape) {
+	main {
+		grid-template-columns: 1fr 1fr 1fr 1fr;
+		&>* {
+			grid-column-start: span 2;
+		}
+		.fullwidth { grid-column-start: span 4; }
+	}
+}
+
+@media (orientation: portrait) {
+	main {
+		grid-template-columns: 1fr 1fr ;
+	}
+}
+
+
+
+/*
+**	Miscellaneous
+*/
+
+
+
+h1:first-child, h2:first-child, h3:first-child, h4:first-child, h5:first-child { margin-top:0ex; }
+
+
+h2 {
+	border-bottom: 1px dotted silver;
+}
+
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+
+nav {
+	display:block;
+	float:right;
+	font-weight:bold;
+	font-size: 2em;
+}
+
+
+details {
+	margin:1em 0em;
+	summary {
+		cursor:pointer;
+		border-bottom: 1px dotted transparent;
+	}
+	summary:hover {
+		border-bottom: 1px dotted;
+	}
+}
+
+
+[type=disabled] {
+	max-height: 12em;
+	overflow-y: scroll;
+	background:
+		repeating-linear-gradient(
+			135deg,
+			#999a 0px,
+			#999a 10px,
+			#fffa 10px,
+			#fffa 20px
+		);
+}

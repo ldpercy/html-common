@@ -3,48 +3,53 @@
 <head>
 	<title>SVG</title>
 	<meta charset="utf-8">
-	<link rel="icon" href="../favicon/html-common.svg">
-
-
-
+	<link rel="icon" href="../favicon.svg">
+	<link rel="stylesheet" href="../style/html-common.css">
+	<script type="module" src="../script/colourScheme-selector.js"></script>
 </head>
 <body>
 	<header>
+		<h1><a href="">SVG</a></h1>
 		<nav>
+			<a class="colourScheme-selector" href="?colourScheme=light" title="Light colour scheme" data-colourscheme="light">🟓</a>
+			<a class="colourScheme-selector" href="?colourScheme=dark" title="Dark colour scheme" data-colourscheme="dark">🟒</a>
 			<a title="To folder" href="./">🖿</a>
 			<a title="Parent folder" href="../">🡅</a>
 		</nav>
-		<h1><a href="">SVG</a></h1>
 	</header>
 
-	<link rel="stylesheet" href="../style/ldpercy.css">
-	<link rel="stylesheet" href="../style/html-visible.css">
+
 	<link rel="stylesheet" href="../style/svg/grid.css"/>
 
-	<style>
-		svg { width:80%; height:50%; outline:1px solid silver; }
-	</style>
+	<main>
+
+		<style>
+			svg { border-radius:1ex; outline:2px dashed var(--svg-orange); }
+		</style>
 
 
-	<script type="module">
-		import * as planar from './PlanarSpace.js'
-		import * as svg from './SVG.js'
+		<script type="module">
+			import * as planar from './PlanarSpace.js'
+			import * as svg from './SVG.js'
 
-		let space = new planar.Space('simple space');
-		let box = new svg.Box(-1200,-600,2400,1200);
-		console.log(box);
+			let space = new planar.Space(undefined,'simple space');
+			let box = new svg.Box(-1200,-600,2400,1200);
+			console.log(box);
 
-		const cartesianGrid = new svg.CartesianGrid(space, box);
-		document.getElementById('svgGrid').innerHTML = cartesianGrid.toString();
+			const cartesianGrid = new svg.CartesianGrid(space, box);
+			document.getElementById('svgGrid').innerHTML = cartesianGrid.toString();
 
-	</script>
+		</script>
 
-	<svg id="svgDoc1" viewBox="-1200 -600 2400 1200">
+		<output class="fullwidth">
+			<svg id="svgDoc1" viewBox="-1200 -600 2400 1200">
 
-		<g id="svgGrid" class="grid"></g>
+				<g id="svgGrid" class="grid"></g>
 
-	</svg>
+			</svg>
+		</output>
 
+	</main>
 
 
 </body>

@@ -13,21 +13,27 @@
 
 export class Space {
 
-	/** @type string */
-	#name;
-	#setting;
+	/** @type {SpaceSetting} */		#setting;
+	/** @type string */				#desc;
+
 
 	/**
-	 * @param {string} name
 	 * @param {SpaceSetting} setting
+	 * @param {string} desc
 	 */
-	constructor(name, setting) {
-		this.#name = name;
+	constructor(setting, desc) {
 		this.#setting = setting;
+		this.#desc = desc;
 	}
 
-	get name() { return this.#name; }
+	/** @returns {SpaceSetting} */
 	get setting() { return this.#setting; }
+
+	/** @returns {string} */
+	get desc() { return this.#desc; }
+
+	/** @param {string} desc */
+	set desc(desc) {this.#desc = desc; }
 
 }/* Space */
 

@@ -14,7 +14,8 @@ import * as abstractSpace  from "./AbstractSpace.js"
  * @typedef {Object} SpaceSetting
  * @param {string}	polarAxis
  * @param {string}	polarDirection
- * @param {object}	shape
+ * @param {object}	[shape]
+ * @param {string}	[desc]
  */
 
 
@@ -56,18 +57,26 @@ export class PolarCoordinates {
 
 
 
-
-
 //
 //	Const
 //
 
 /** @type {SpaceSetting} */
-const defaultSpaceSettings = {
-	polarAxis		: 'y',
+export const settings_navigation = {
+	desc			: 'Common navigational settings: polar axis up, rotate clockwise',
+	polarAxis		: 'up',
 	polarDirection	: 'clockwise',
 	shape			: undefined,
 }
+
+/** @type {SpaceSetting} */
+export const settings_maths = {
+	desc			: 'Common maths settings: polar axis right, rotate anticlockwise',
+	polarAxis		: 'right',
+	polarDirection	: 'anticlockwise',
+	shape			: undefined,
+}
+
 
 
 
@@ -81,13 +90,8 @@ const defaultSpaceSettings = {
  */
 export class Space extends abstractSpace.Space {
 
-	/** @type {string} */
-	#name;
-
-
 	/** @type {CartesianCoordinates} */
 	static origin = new CartesianCoordinates(0,0);
-
 
 
 	// JavaScript angle adjustments - see wiki/coordinates
@@ -98,29 +102,35 @@ export class Space extends abstractSpace.Space {
 	#shape;
 
 	/**
-	 * @param {string} name
 	 * @param {SpaceSetting} setting
+	 * @param {string} desc
 	 */
 	constructor(
-			name = 'Initial PlanarSpace name',
-			setting = defaultSpaceSettings,
-			polarAxis = 'y',
-			polarDirection = 'clockwise',
+			setting = settings_navigation,
+			desc = 'PlanarSpace description',
 		) {
-		super(name, setting);
-		this.#name = name;
+		super(setting, desc);
 		this.#shape = setting.shape;
 
-		if (polarAxis === 'y')	{	this.#jsAngleAxisAdjust = -Math.PI/2;	}
-		else					{	this.#jsAngleAxisAdjust = 0;			}
 
-		if (polarDirection === 'clockwise')	{	this.#jsAngleDirectionAdjust = -1;	}
-		else								{	this.#jsAngleDirectionAdjust = +1;	}
+		switch(setting.polarAxis) {
+			case 'up'    : this.#jsAngleAxisAdjust = -Math.PI/2; 	break;
+			case 'right' : this.#jsAngleAxisAdjust = 0; 			break;
+			case 'down'  : this.#jsAngleAxisAdjust = Math.PI/2;		break;
+			case 'left'  : this.#jsAngleAxisAdjust = Math.PI;		break;
+			default      : this.#jsAngleAxisAdjust = 0; 			break;
+		}
+
+		if (setting.polarDirection === 'clockwise')	{
+			this.#jsAngleDirectionAdjust = -1;
+		}
+		else {	// anti, counter
+			this.#jsAngleDirectionAdjust = +1;
+		}
 
 	}/* constructor */
 
 
-	get name() { return this.#name; }
 	get origin() { return Space.origin; }
 	get shape() { return this.#shape; }
 
@@ -136,11 +146,20 @@ export class Space extends abstractSpace.Space {
 	 * @returns {Angle}
 	 */
 	getAngleFrom(center, cartesian) {
-		//console.debug(`${this.#name}.getAngleFrom:`, arguments);
+		//console.debug(`${this.#desc}.getAngleFrom:`, arguments);
 		const result = new Angle();
-		result.radians = this.#jsAngleAxisAdjust + (this.#jsAngleDirectionAdjust * Math.atan2(center.y - cartesian.y, center.x - cartesian.x));
+		//console.debug(this.#jsAngleDirectionAdjust, this.#jsAngleAxisAdjust);
+
+		const mat2 = Math.atan2(cartesian.y - center.y, cartesian.x - center.x);
+
+		//result.radians = mat2;										// this *only* works for maths conventions - good
+		//result.radians = mat2 * this.#jsAngleDirectionAdjust;			// works for: polar axis right, cw & ccw
+		//result.radians = mat2 + this.#jsAngleAxisAdjust;				// works for: anticlockwise variants
+		result.radians = (mat2 + this.#jsAngleAxisAdjust) * this.#jsAngleDirectionAdjust;		// this is it, when you get the jsAngleAxisAdjust signs right
+
+		//console.debug(result.radians, result.degrees);
 		result.normalise180();
-		//console.debug(`${this.#name}.getAngleFrom:`, result);
+		//console.debug(`${this.#desc}.getAngleFrom:`, result);
 		return result;
 	}/* getAngleFrom */
 
@@ -210,7 +229,7 @@ export class Space extends abstractSpace.Space {
 
 	/* Attach constructed items to their parent space instance:
 	Doing something like the following:
-		constructor(name, space=this) {
+		constructor(space=this, desc) {
 	Unfortunately does not bind the 'this' to the space instance, it's bound to the new Instance's this.
 	I bet there is a way to do it though...
 
@@ -229,31 +248,42 @@ export class Space extends abstractSpace.Space {
 
 	/** newPoint
 	 * Automatically passes in the required reference to the parent space instance for the new point.
-	 * @returns {Point}
+	 * @param {CartesianCoordinates} [cartesian]
+	 * @param {string} [desc]
+	 * @return {Point}
 	 */
-	newPoint(name) {
-		return new Point(name, this);
+	newPoint(cartesian, desc) {
+		return new Point(this, cartesian, desc);
 	}/* newPoint */
 
 
 	/** newPosition
 	 * Automatically passes in the required reference to the parent space instance for the new position.
-	 * @returns {Position}
+	 * @param {Point} [location]
+	 * @param {Angle} [direction]
+	 * @param {string} [desc]
+	 * @return {Position}
 	 */
-	newPosition(name) {
-		return new Position(name, this);
+	newPosition(desc, location, direction) {
+		return new Position(this, location, direction, desc);
 	}/* newPosition */
 
-	/** @returns {Angle} */
+	/**
+	 * @param {number} [degrees]
+	 * @returns {Angle}
+	 */
 	Angle = class {
-		constructor() {
-			return new Angle(...arguments);
+		constructor(degrees) {
+			return new Angle(degrees);
 		}
 	}/* Angle */
 
-	/** @returns {Angle} */
-	newAngle() {
-		return new Angle(...arguments);
+	/**
+	 * @param {number} [degrees]
+	 * @returns {Angle}
+	 */
+	newAngle(degrees) {
+		return new Angle(degrees);
 	}
 
 	/** @returns {CartesianCoordinates} */
@@ -290,37 +320,53 @@ export class Space extends abstractSpace.Space {
 
 
 
-/** Angle
- * @type {Angle}
- */
+/* Angle
+*/
 export class Angle {
+	/** @type {number} */
 	#degrees = 0;
 
+	/**
+	 * @param {number} degrees
+	 */
 	constructor(degrees=0) {
 		this.#degrees = degrees;
 	}
 
-	get degrees()    { return this.#degrees; }
-	get radians()    { return this.#degrees / 180 * Math.PI; }
-	get radiansPi()  { return this.#degrees / 180; }
-	get radiansTau() { return this.#degrees / 360; }
 
-	set degrees(degrees)         { this.#degrees = degrees; }
-	set radians(radians)         { this.#degrees = radians * 180 / Math.PI; }
-	set radiansPi(radiansPi)     { this.#degrees = radiansPi * 180; }
-	set radiansTau(radiansTau)   { this.#degrees = radiansTau * 360; }
+	/** @returns {number} */ get degrees()    { return this.#degrees; }
+	/** @returns {number} */ get radians()    { return this.#degrees / 180 * Math.PI; }
+	/** @returns {number} */ get radiansPi()  { return this.#degrees / 180; }
+	/** @returns {number} */ get radiansTau() { return this.#degrees / 360; }
+
+	/** @param {number} degrees		*/	set degrees(degrees)         { this.#degrees = degrees; }
+	/** @param {number} radians		*/	set radians(radians)         { this.#degrees = radians * 180 / Math.PI; }
+	/** @param {number} radiansPi	*/	set radiansPi(radiansPi)     { this.#degrees = radiansPi * 180; }
+	/** @param {number} radiansTau	*/	set radiansTau(radiansTau)   { this.#degrees = radiansTau * 360; }
 
 
 	//
 	//	mutators
 	//
 
+	/**
+	 * @param {Angle} angle
+	 * @return {this}
+	 */
 	add(angle)		{	this.#degrees += angle.degrees;	return this; }
+
+	/**
+	 * @param {Angle} angle
+	 * @return {this}
+	 */
 	subtract(angle)	{	this.#degrees -= angle.degrees;	return this; }
 
-	/* normalise180 (mutator)
-	Normalise the angle to +/-180 degrees, or -/+ pi radians.
-	*/
+
+	/** normalise180 (mutator)
+	 * Normalise the angle to +/-180 degrees, or -/+ pi radians.
+	 *
+	 * @return {this}
+	 */
 	normalise180() {
 		// https://stackoverflow.com/questions/2320986/easy-way-to-keeping-angles-between-179-and-180-degrees
 
@@ -352,38 +398,47 @@ export class Angle {
  * @implements {PolarCoordinates}
  */
 export class Point {
-	#name		= 'Initial Point name';
+	#desc		= 'Point description';
 	/** @type {Space} */					#space;
 	/** @type {CartesianCoordinates} */		#cartesian;
 	/** @type {PolarCoordinates} */			#polar;
 
-	/**
-	 * @param {string} name
+
+	/** constructor
 	 * @param {Space} space
+	 * @param {CartesianCoordinates} [cartesian]
+	 * @param {string} [desc]
 	 */
-	constructor(name, space) {
-		this.#name = name;
+	constructor(
+			space,
+			cartesian = new CartesianCoordinates(),
+			desc,
+		) {
 		this.#space = space;
-		this.#cartesian	= new CartesianCoordinates();
-		this.#polar	    = new PolarCoordinates();
+		this.cartesian = cartesian;
+		this.#desc = desc;
 	}
 
 	//
 	//	Accessors
 	//
 
-	get x()			{ return this.#cartesian.x; }
-	get y()			{ return this.#cartesian.y; }
-	get angle()		{ return this.#polar.angle; }
-	get radius()	{ return this.#polar.radius; }
-	get cartesian() { return this.#cartesian; }
+	/** @returns {number}	*/					get x()			{ return this.#cartesian.x; }
+	/** @returns {number}	*/					get y()			{ return this.#cartesian.y; }
+	/** @returns {number}	*/					get radius()	{ return this.#polar.radius; }
+	/** @returns {Angle}	*/					get angle()		{ return this.#polar.angle; }
+	/** @returns {CartesianCoordinates}	*/		get cartesian() { return this.#cartesian; }
+	/** @returns {PolarCoordinates}		*/		get polar() 	{ return this.#polar; }
 
+
+	/** @param {string} desc */
+	set desc(desc) {this.#desc = desc}
 
 	/** set cartesian
 	 * @param {CartesianCoordinates} cartesian
 	 */
 	set cartesian(cartesian) {
-		//console.debug(`Point ${this.#name}.cartesian = `, cartesian);
+		//console.debug(`Point ${this.#desc}.cartesian = `, cartesian);
 		this.#cartesian = cartesian;
 		//console.debug('Point set cartesian', this.#cartesian);
 		this.#polar = this.#space.cartesianToPolar(cartesian);
@@ -395,7 +450,7 @@ export class Point {
 	 * @param {PolarCoordinates} polar
 	 */
 	set polar(polar) {
-		//console.debug(`Point ${this.#name}.polar = `, polar);
+		//console.debug(`Point ${this.#desc}.polar = `, polar);
 		this.#polar = polar;
 		this.#cartesian = this.#space.polarToCartesian(polar);
 	}
@@ -403,27 +458,31 @@ export class Point {
 
 	/** setCartesian
 	 * Convenience setter for setting cartesian x & y directly (js class setters only allow one arg)
+	 * Also returns 'this' to allow chaining
 	 * @param {number} x
 	 * @param {number} y
+	 * @return {this}
 	 */
 	setCartesian(x, y) {
 		const cc = new CartesianCoordinates(x,y);
 		this.cartesian = cc;
+		return this;
 	}
 
 
 	/** setPolar
 	 * Convenience setter for setting polar radius & degrees directly (js class setters only allow one arg)
+	 * Also returns 'this' to allow chaining
 	 * @param {number} degrees
 	 * @param {number} radius
+	 * @return {this}
 	 */
 	setPolar(degrees, radius) {
 		const a = new Angle(degrees);
 		const pc = new PolarCoordinates(a, radius);
 		this.polar = pc;
+		return this;
 	}
-
-
 
 
 
@@ -448,7 +507,7 @@ export class Point {
 	//
 
 	plus = function(point) {
-		const newPoint = new Point(`${this.#name} plus point`, this.#space);
+		const newPoint = this.#space.newPoint();
 		newPoint.cartesian = new CartesianCoordinates(this.x + point.x, this.y + point.y);
 		return newPoint;
 	}
@@ -482,7 +541,7 @@ export class Point {
 
 
 	toString() {
-		return `${this.#name} - x:${this.x}; y:${this.y}; a:${this.angle.degrees}; r:${this.radius};`;
+		return `${this.#desc} - x:${this.x}; y:${this.y}; a:${this.angle.degrees}; r:${this.radius};`;
 	}
 
 }/* Point */
@@ -500,30 +559,44 @@ For now though Point is the combined version.
 
 /** Position
  * @implements {CartesianCoordinates}
- * @implements {PolarCoordinates}
+ * //@implements {PolarCoordinates}
  */
 export class Position {
-	/** @type {string} */		#name		= 'Initial Position name';
+	/** @type {string} */		#desc		= 'Position description';
 	/** @type {Space} */		#space;
 	/** @type {Point} */		#location;
 	/** @type {Angle} */		#direction;
 
 
-	constructor(name, space) {
-		this.#name = name;
-		this.#space = space;
-		this.#location    = space.newPoint(`${name}.location`);
-		this.#direction   = space.newAngle();
+	/** constructor
+	 * @param {Space} space
+	 * @param {Point} [location]
+	 * @param {Angle} [direction]
+	 * @param {string} [desc]
+	 */
+	constructor(
+			space,
+			location  = space.newPoint(undefined ,`position.location`),
+			direction = space.newAngle(),
+			desc
+		) {
+		this.#space       = space;
+		this.#location    = location;
+		this.#direction   = direction;
+		this.#desc        = desc;
 	}
 
-	get x()			{ return this.#location.x; }
-	get y()			{ return this.#location.y; }
-	get location()	{ return this.#location; }
-	get cartesian()	{ return this.#location.cartesian; }
-	get direction()	{ return this.#direction; }
-	get angle()     { return this.#direction; }
-	get degrees()   { return this.#direction.degrees; }
-	get radius()	{ return this.#location.radius; }
+	/** @return {number}				*/	get x()			{ return this.#location.x; }
+	/** @return {number}				*/	get y()			{ return this.#location.y; }
+	/** @return {Point}					*/	get location()	{ return this.#location; }
+	/** @return {Angle}					*/	get direction()	{ return this.#direction; }
+	/** @return {CartesianCoordinates}	*/	get cartesian()	{ return this.#location.cartesian; }
+	/** @return {PolarCoordinates}		*/	get polar()		{ return this.#location.polar; }
+
+
+
+	//get degrees()   { return this.#direction.degrees; }
+	//get radius()	{ return this.#location.radius; }
 
 
 	/** setLocation
@@ -571,7 +644,7 @@ export class Position {
 		this.#direction.degrees += bearingDegrees;
 
 		if (distance) { // could also be subject to float comparison
-			delta = this.#space.newPoint('bearing delta');
+			delta = this.#space.newPoint();
 			delta.polar = this.#space.newPolarCoordinates(this.#direction, distance);
 
 			//console.debug('Position.bear delta', delta);
@@ -588,10 +661,10 @@ export class Position {
 		const currentCartesian =  this.#space.newCartesianCoordinates(this.x, this.y);
 
 		/** @type {Point} */
-		const newPoint = this.#space.newPoint('Move newPoint');
+		const newPoint = this.#space.newPoint(); //.desc = ('Move newPoint');
 		newPoint.cartesian = currentCartesian;
 
-		let delta = this.#space.newPoint('delta');
+		let delta = this.#space.newPoint();
 		let deltaCartesian = this.#space.newCartesianCoordinates(dx, dy);
 		//console.debug('Position.move deltaCartesian:', deltaCartesian);
 

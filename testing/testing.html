@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<title>Testing</title>
+	<meta charset="utf-8">
+	<link rel="icon" href="../favicon.svg">
+	<link rel="stylesheet" href="../style/html-common.css">
+	<script type="module" src="../script/colourScheme-selector.js"></script>
+</head>
+<body>
+	<header>
+		<h1><a href="">Testing</a></h1>
+		<nav>
+			<a class="colourScheme-selector" href="?colourScheme=light" title="Light colour scheme" data-colourscheme="light">🟓</a>
+			<a class="colourScheme-selector" href="?colourScheme=dark" title="Dark colour scheme" data-colourscheme="dark">🟒</a>
+			<a title="To folder" href="./">🖿</a>
+			<a title="Parent folder" href="../">🡅</a>
+		</nav>
+	</header>
+
+	<main>
+		<script type="module" class="fullwidth">
+			import * as test from './testing.js';
+			import * as predicate from './predicate.js';
+
+
+			new test.Test(
+				'empty test'
+			).toConsole();
+			// Empty tests pass:	https://en.wikipedia.org/wiki/Vacuous_truth#In_computer_programming
+
+
+			new test.Test(
+				'All equal test',
+				new predicate.AllEqual(),
+				[
+					[],
+					[1],
+					[true],
+					[false],
+					[1,2],
+					[1,2-1,1*1],
+					[null,false],
+					[1,2,3],
+					[1,1,1,1],
+					[typeof (()=>{}), 'function']
+				]
+			).toConsole();
+
+
+
+			new test.Test(
+				'Equal to test',
+				new predicate.EqualTo(5),
+				[
+					[0],
+					[1],
+					[5],
+					[6],
+					[true],
+					[false],
+				]
+			).toConsole();
+
+
+			new test.Test(
+				'Greater than test',
+				new predicate.GreaterThan(5),
+				[
+					[0],
+					[1],
+					[5],
+					[6],
+					[true],
+					[false],
+				]
+			).toConsole();
+
+			new test.Test(
+				'Less than test',
+				new predicate.LessThan(5),
+				[
+					[0],
+					[1],
+					[5],
+					[6],
+					[true],
+					[false],
+				]
+			).toConsole();
+
+
+			new test.Test(
+				'Excepts test',
+				new predicate.Excepts(),
+				[
+					1+2,
+					1/0,
+					()=>{ return 1+1; },
+					()=>{ throw 'an exception'; },
+					throwsException,
+					//throwsException(),		// can't do this - it excepts immediately and isn't caught by the testing function
+					()=>throwsException(),
+					f1,
+					() => f1,
+					() => f1(),
+					() => f1({}),
+					//f1(),						// can't do this - it excepts immediately and isn't caught by the testing function
+				]
+			).toConsole();
+
+		</script>
+
+
+		<script>
+			// helpers
+
+			function throwsException() {
+				throw 'this is an exception';
+			}
+
+			function f1({a,b,c}) {
+				// console.log(`f1(${argString(arguments)}): ${a},${b},${c}`);
+				return `f1(${argString(arguments)}): ${a},${b},${c}`;
+			}
+
+			//f1();
+			// 	[chr] Uncaught TypeError: Cannot destructure property 'a' of 'undefined' as it is undefined.
+			//	[ff] Uncaught TypeError: (destructured parameter) is undefined
+
+			/*
+			try {
+				f1();
+			}
+			catch(exception){
+				console.log(exception);  // this exception appears at the top of the console stack
+			}
+			*/
+
+		</script>
+
+
+
+	</main>
+
+</body>
+</html>

@@ -1,0 +1,14 @@
+
+body {
+
+	script	{ --element-colour: var(--javascript-yellow); }
+	style, link[rel=stylesheet]	{ --element-colour: var(--css-purple); }
+	link	{ --element-colour: grey; }
+
+	form	{ --element-colour: silver; }
+	svg		{ --element-colour: var(--svg-orange); }
+
+	/* output	{ --element-colour: orange; } */
+
+}
+
