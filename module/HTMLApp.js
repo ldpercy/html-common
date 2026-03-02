@@ -2,13 +2,13 @@
 */
 export class HTMLApp {
 
-	name;
-	appVersion;
-	appInfo;
+	/** @type {string}	*/	appVersion;
+	/** @type {array}	*/	appInfo;
 
-	elementMap = {};
-	element = {};
-	eventListeners = [];
+	/** @type {object}	*/	elementMap = {};
+	/** @type {object}	*/	element = {};
+	/** @type {array}	*/	eventListeners = [];
+
 
 	constructor() {
 		// console.debug('HTMLApp.constructor', this);
@@ -65,11 +65,12 @@ export class HTMLApp {
 	}
 
 
-	/* buildElementMap
+	/** buildElementMap
 	There are different ways this could be done.
 	For instance SVG has it's own version of 'getElementById' that is sometimes needed.
 	Also a query selector could be used.
 	Also might need to change in type sensitive contexts.
+	* @return {object}
 	*/
 	static buildElementMap(baseElement, elementMap) {
 		const result = {};
@@ -88,13 +89,20 @@ export class HTMLApp {
 		return result;
 	} */
 
-	getFormData(formElement) {
+
+	/**
+	 * @returns {object}
+	 */
+	getFormData(formElement) {		// @param {HTMLFormElement} formElement		-- can't get this to work yet - figure out
 		//console.debug('getFormData arguments', arguments);
 		//console.debug('getFormData formElement.elements', formElement.elements);
 		const result = {}
+
 		let input;
 
 		for (let i=0 ; i < formElement.elements.length; i++) {
+
+
 			input = formElement.elements[i];
 
 			if (input.name) { // need to ignore unnamed form elements like buttons
