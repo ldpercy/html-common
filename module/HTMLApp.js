@@ -25,7 +25,11 @@ export class HTMLApp {
 	}/* documentDOMContentLoaded */
 
 
-	addEventListeners() {
+
+	/**
+	 * @param {array} eventListeners
+	 */
+	addEventListeners(eventListeners = this.eventListeners) {
 		// by default event listeners like these receive the originating element as 'this' (here HTMLDocument)
 		// and the event object as argument 0
 		// HTMLDocument doesn't seem all that useful as a 'this', especially in a class context
@@ -34,7 +38,7 @@ export class HTMLApp {
 		// NB Might need updating for other modules/classes/components
 		// Also the root node might need changing for SVG? Not sure yet.
 
-		this.eventListeners.forEach(
+		eventListeners.forEach(
 			(item) => {
 				if (item.element) {
 					item.element.addEventListener(
