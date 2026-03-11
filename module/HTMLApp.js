@@ -20,7 +20,7 @@ export class HTMLApp {
 	documentDOMContentLoaded() {
 		//console.log('documentDOMContentLoaded', arguments, this);
 		this.element = HTMLApp.buildElementMap(document, this.elementMap);
-		HTMLApp.addEventListeners(this.eventListeners);
+		HTMLApp.addEventListeners(this.eventListeners, this);
 		console.info(...this.appInfo);
 	}/* documentDOMContentLoaded */
 
@@ -28,8 +28,9 @@ export class HTMLApp {
 
 	/**
 	 * @param {array} eventListeners
+	 * @param {any} thisObj
 	 */
-	static addEventListeners(eventListeners) {
+	static addEventListeners(eventListeners, thisObj) {
 		// by default event listeners like these receive the originating element as 'this' (here HTMLDocument)
 		// and the event object as argument 0
 		// HTMLDocument doesn't seem all that useful as a 'this', especially in a class context
@@ -43,14 +44,14 @@ export class HTMLApp {
 				if (item.element) {
 					item.element.addEventListener(
 						item.type,
-						item.listener.bind(this)
+						item.listener.bind(thisObj)
 					);
 				} else if (item.query) {
 					document.querySelectorAll(item.query).forEach((node) => {
 						//console.debug('HTMLApp.addEventListeners item.listener', item.listener);
 						node.addEventListener(
 							item.type,
-							item.listener.bind(this)
+							item.listener.bind(thisObj)
 						);//addEventListener
 					});
 				}
