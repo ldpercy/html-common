@@ -2,13 +2,13 @@
 */
 export class HTMLApp {
 
-	name;
-	appVersion;
-	appInfo;
+	/** @type {string}	*/	appVersion;
+	/** @type {array}	*/	appInfo;
 
-	elementMap = {};
-	element = {};
-	eventListeners = [];
+	/** @type {object}	*/	elementMap = {};
+	/** @type {object}	*/	element = {};
+	/** @type {array}	*/	eventListeners = [];
+
 
 	constructor() {
 		// console.debug('HTMLApp.constructor', this);
@@ -20,12 +20,17 @@ export class HTMLApp {
 	documentDOMContentLoaded() {
 		//console.log('documentDOMContentLoaded', arguments, this);
 		this.element = HTMLApp.buildElementMap(document, this.elementMap);
-		this.addEventListeners();
+		HTMLApp.addEventListeners(this.eventListeners, this);
 		console.info(...this.appInfo);
 	}/* documentDOMContentLoaded */
 
 
-	addEventListeners() {
+
+	/**
+	 * @param {array} eventListeners
+	 * @param {any} thisObj
+	 */
+	static addEventListeners(eventListeners, thisObj) {
 		// by default event listeners like these receive the originating element as 'this' (here HTMLDocument)
 		// and the event object as argument 0
 		// HTMLDocument doesn't seem all that useful as a 'this', especially in a class context
@@ -34,19 +39,19 @@ export class HTMLApp {
 		// NB Might need updating for other modules/classes/components
 		// Also the root node might need changing for SVG? Not sure yet.
 
-		this.eventListeners.forEach(
+		eventListeners.forEach(
 			(item) => {
 				if (item.element) {
 					item.element.addEventListener(
 						item.type,
-						item.listener.bind(this)
+						item.listener.bind(thisObj)
 					);
 				} else if (item.query) {
 					document.querySelectorAll(item.query).forEach((node) => {
 						//console.debug('HTMLApp.addEventListeners item.listener', item.listener);
 						node.addEventListener(
 							item.type,
-							item.listener.bind(this)
+							item.listener.bind(thisObj)
 						);//addEventListener
 					});
 				}
@@ -65,11 +70,12 @@ export class HTMLApp {
 	}
 
 
-	/* buildElementMap
+	/** buildElementMap
 	There are different ways this could be done.
 	For instance SVG has it's own version of 'getElementById' that is sometimes needed.
 	Also a query selector could be used.
 	Also might need to change in type sensitive contexts.
+	* @return {object}
 	*/
 	static buildElementMap(baseElement, elementMap) {
 		const result = {};
@@ -88,13 +94,20 @@ export class HTMLApp {
 		return result;
 	} */
 
-	getFormData(formElement) {
+
+	/**
+	 * @returns {object}
+	 */
+	getFormData(formElement) {		// @param {HTMLFormElement} formElement		-- can't get this to work yet - figure out
 		//console.debug('getFormData arguments', arguments);
 		//console.debug('getFormData formElement.elements', formElement.elements);
 		const result = {}
+
 		let input;
 
 		for (let i=0 ; i < formElement.elements.length; i++) {
+
+
 			input = formElement.elements[i];
 
 			if (input.name) { // need to ignore unnamed form elements like buttons
