@@ -2,12 +2,13 @@
 */
 export class HTMLApp {
 
-	/** @type {string}	*/	appVersion;
-	/** @type {array}	*/	appInfo;
+	/** @type {string}	*/	appName 		= 'HTMLApp';
+	/** @type {string}	*/	appVersion		= '0.0.0';
+	/** @type {array}	*/	appInfo			= [];
 
-	/** @type {object}	*/	elementMap = {};
-	/** @type {object}	*/	element = {};
-	/** @type {array}	*/	eventListeners = [];
+	/** @type {object}	*/	elementMap 		= {};
+	/** @type {object}	*/	element 		= {};
+	/** @type {array}	*/	eventListeners	= [];
 
 
 	constructor() {
@@ -159,7 +160,7 @@ export class HTMLApp {
 		//document.documentElement.style.setProperty('--colourScheme', schemeName);
 		//document.documentElement.className = document.documentElement.className.replace(/\b(colourScheme-\w+)\b/,`colourScheme-${schemeName}`);
 		document.documentElement.dataset.colourscheme = schemeName;
-		localStorage.colourScheme = schemeName;
+		localStorage[this.appName].colourScheme = schemeName;
 	}
 
 
