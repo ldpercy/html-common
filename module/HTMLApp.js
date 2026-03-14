@@ -23,6 +23,9 @@ export class HTMLApp {
 		this.element = HTMLApp.buildElementMap(document, this.elementMap);
 		HTMLApp.addEventListeners(this.eventListeners, this);
 		console.info(...this.appInfo);
+		if (!localStorage[this.appName]) {
+			localStorage[this.appName] = {};
+		}
 	}/* documentDOMContentLoaded */
 
 
