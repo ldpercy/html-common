@@ -23,9 +23,6 @@ export class HTMLApp {
 		this.element = HTMLApp.buildElementMap(document, this.elementMap);
 		HTMLApp.addEventListeners(this.eventListeners, this);
 		console.info(...this.appInfo);
-		if (!localStorage[this.appName]) {
-			localStorage[this.appName] = {};
-		}
 	}/* documentDOMContentLoaded */
 
 
@@ -163,7 +160,7 @@ export class HTMLApp {
 		//document.documentElement.style.setProperty('--colourScheme', schemeName);
 		//document.documentElement.className = document.documentElement.className.replace(/\b(colourScheme-\w+)\b/,`colourScheme-${schemeName}`);
 		document.documentElement.dataset.colourscheme = schemeName;
-		localStorage[this.appName].colourScheme = schemeName;
+		localStorage[`${this.appName}_colourScheme`] = schemeName;
 	}
 
 
