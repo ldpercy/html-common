@@ -12,46 +12,40 @@
 :root {
 	--project-colour: mediumvioletred;
 
-	--light-html: #eee;
-	--light-body: #fff;
-	--light-text: #000;
-
-	--dark-html: #000;
-	--dark-body: #111;
-	--dark-text: #fff;
-
 	--background-alpha: 0.15;
 	--border-alpha: 0.7;
 }
 
 
 html {
+	--scheme-colour: white;
+	--html-background: hsl(from var(--scheme-colour) h s 90 / alpha);
+	--body-background: hsl(from var(--scheme-colour) h s 100 / 0.9);
+	--accent-colour: hsl(from var(--project-colour) h s 50 );
+
 	color-scheme: light;
-	--html-background: var(--light-html);
+	accent-color: var(--accent-colour);
 	background-color: var(--html-background);
 	body {
-		--body-background: var(--light-body);
 		background-color: var(--body-background);
-		color: var(--light-text);
+		color: lab( from var(--scheme-colour) calc(sign(l - 70) * -100) 0 0 / 1);
 	}
 }
 
 html[data-colourscheme=light] {
+	--scheme-colour: white;
+	--html-background: hsl(from var(--scheme-colour) h s 90 / alpha);
+	--body-background: hsl(from var(--scheme-colour) h s 100 / 0.9);
+	--accent-colour: hsl(from var(--project-colour) h s 50 );
 	color-scheme: light;
-	--html-background: var(--light-html);
-	body {
-		--body-background: var(--light-body);
-		color: var(--light-text);
-	}
 }
 
 html[data-colourscheme=dark] {
+	--scheme-colour: black;
+	--html-background: hsl(from var(--scheme-colour) h s 0 / alpha);
+	--body-background: hsl(from var(--scheme-colour) h s 10 / 0.9);
+	--accent-colour: hsl(from var(--project-colour) h s 75 );
 	color-scheme: dark;
-	--html-background: var(--dark-html);
-	body {
-		--body-background: var(--dark-body);
-		color: var(--dark-text);
-	}
 }
 
 
@@ -60,12 +54,6 @@ body {
 	padding:1em;
 	border-radius:1em;
 	font-family:sans-serif;
-
-	/* --accent-colour: var(--project-colour);
-	--accent-light: hsl(from var(--accent-colour) h s 20 / 1);
-	--accent-dark:  hsl(from var(--accent-colour) h s 80 / 1);
-	accent-color: light-dark(var(--accent-light), var(--accent-dark)); */
-	accent-color: var(--project-colour);
 }
 
 
