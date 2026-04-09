@@ -88,6 +88,22 @@ export class HTMLApp {
 	}/* buildElementMap */
 
 
+	static getKeyboardHandler(thisObj) {
+		const result =
+			function(event) {
+				if (!event.altKey && !event.ctrlKey && !event.metaKey) {
+
+					if (this.keyFunctionMap[event.key]) {
+						event.preventDefault();
+						this.keyFunctionMap[event.key]();
+					}
+				}
+			}/* keyboardHandler */
+		return result;
+	}
+
+
+
 	/*
 	getFormData(formElement) {
 		const formData = new FormData(formElement);
