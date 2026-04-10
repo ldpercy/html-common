@@ -91,7 +91,7 @@ export class HTMLApp {
 
 
 	/** newKeyboardHandler
-	 * returns a new keyboard handler function
+	 * returns a new keyboard handler function, with a bound 'this' object
 	 *
 	 * @param {object} thisObj
 	 */
@@ -103,7 +103,7 @@ export class HTMLApp {
 
 					if (this.keyFunctionMap[event.key]) {
 						event.preventDefault();
-						this.keyFunctionMap[event.key]();
+						this.keyFunctionMap[event.key].bind(thisObj)();		// this appears to work for 'this' binding before the call
 					}
 				}
 			}/* keyboardHandler */
