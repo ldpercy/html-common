@@ -88,8 +88,16 @@ export class HTMLApp {
 	}/* buildElementMap */
 
 
-	static getKeyboardHandler(thisObj) {
+
+
+	/** newKeyboardHandler
+	 * returns a new keyboard handler function
+	 *
+	 * @param {object} thisObj
+	 */
+	static newKeyboardHandler(thisObj) {
 		const result =
+			/** @param {KeyboardEvent} event */
 			function(event) {
 				if (!event.altKey && !event.ctrlKey && !event.metaKey) {
 
@@ -100,7 +108,7 @@ export class HTMLApp {
 				}
 			}/* keyboardHandler */
 		return result;
-	}
+	}/* newKeyboardHandler */
 
 
 
