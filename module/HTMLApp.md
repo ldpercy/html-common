@@ -1,17 +1,63 @@
 HTML App
 ========
 
-> [!NOTE]
-> Moved in from `experiment-html` - needs updating
+A small class that combines a few common page setup features.
 
-
-Going to try to combine a few common page setup features into a small class.
-
-For event registration I think it'll need to be split it into two phases
+Event registration is split into two phases:
 1. Register initial DOMContentLoaded event at load/instantitaion time
-2. Register all remaining events when that one fires
+2. Register any other events after that one fires
 
-I'm simultaneously using/developing this in a couple of other places so will collect together what's current here.
+
+
+Methods
+-------
+
+
+### *static* newKeyboardHandler
+
+Returns a function for key-to-handler mapping.
+* The keydown event listener needs to be registered elsewhere
+* Filters out ctrl, alt and meta combos to not interrupt browser/os operation.
+* Currently prevents default, but may remove this
+
+Add to class in the constructor :
+```js
+	this.keyboardHandler = HTMLApp.newKeyboardHandler(keyFunctionMap, this);
+```
+Example key function map:
+```js
+	keyFunctionMap = {
+		'?'	: this.showAppInfoDialog,
+		' ' : this.playPauseHandler,
+	};
+```
+
+Example keydown listener:
+```js
+	{
+		element: document,
+		type: 'keydown',
+		listener: (event) => { this.keyboardHandler(event); }		//	Use this for one generated from HTMLApp
+	},
+```
+
+Not yet sure how 'this' binding will work in a raw module, will have to try.
+
+
+
+
+Original doco
+-------------
+
+>
+> [!NOTE]
+> Everything below are the older notes as moved in from `experiment-html`
+>
+> All need to be reviewed and wikified
+>
+
+
+
 
 
 
@@ -128,3 +174,11 @@ Not sure what's going on - was I doing something wrong in the past?
 Was it something specific to the way I was doing things in year-clock?
 
 I'd better test this some more.
+
+
+
+
+
+
+
+
