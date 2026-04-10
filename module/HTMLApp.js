@@ -88,6 +88,31 @@ export class HTMLApp {
 	}/* buildElementMap */
 
 
+
+
+	/** newKeyboardHandler
+	 * returns a new keyboard handler function, with a bound 'this' object
+	 *
+	 * @param {object} keyFunctionMap
+	 * @param {object} thisObj
+	 */
+	static newKeyboardHandler(keyFunctionMap, thisObj) {
+		const result =
+			/** @param {KeyboardEvent} event */
+			function(event) {
+				if (!event.altKey && !event.ctrlKey && !event.metaKey) {
+
+					if (keyFunctionMap[event.key]) {
+						event.preventDefault();							// not 100% I still need this
+						keyFunctionMap[event.key].bind(thisObj)();		// appears to work for 'this' binding before the call
+					}
+				}
+			}/* keyboardHandler */
+		return result;
+	}/* newKeyboardHandler */
+
+
+
 	/*
 	getFormData(formElement) {
 		const formData = new FormData(formElement);
