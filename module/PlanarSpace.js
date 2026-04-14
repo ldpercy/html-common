@@ -503,21 +503,6 @@ export class Point {
 	}
 
 	//
-	// Convertors
-	//
-
-	plus = function(point) {
-		const newPoint = this.#space.newPoint();
-		newPoint.cartesian = new CartesianCoordinates(this.x + point.x, this.y + point.y);
-		return newPoint;
-	}
-
-	toCartesian()	{ return new CartesianCoordinates(this.x, this.y); }
-	toPolar()		{ return new PolarCoordinates(new Angle(this.#polar.angle.degrees), this.#polar.radius); }
-
-
-
-	//
 	// Mutators
 	//
 
@@ -540,9 +525,35 @@ export class Point {
 	}
 
 
+
+
+	//
+	// Convertors
+	//
+
+	/** @returns {Point} */
+	plus = function(point) {
+		const newPoint = this.#space.newPoint();
+		newPoint.cartesian = new CartesianCoordinates(this.x + point.x, this.y + point.y);
+		return newPoint;
+	}
+
+	/** @returns {CartesianCoordinates} */
+	toCartesian()	{ return new CartesianCoordinates(this.x, this.y); }
+	/** @returns {PolarCoordinates} */
+	toPolar()		{ return new PolarCoordinates(new Angle(this.#polar.angle.degrees), this.#polar.radius); }
+
+
+	/** @returns {string} */
 	toString() {
 		return `${this.#desc} - x:${this.x}; y:${this.y}; a:${this.angle.degrees}; r:${this.radius};`;
 	}
+
+	/** @returns {CartesianCoordinates} */
+	get invertedY() {
+		return new CartesianCoordinates(this.x, -this.y);
+	}
+
 
 }/* Point */
 
@@ -554,6 +565,9 @@ export class Point {
 This can be culled  - there might be some sort of need for it in the future but in a greatly cut-down version.
 For now though Point is the combined version.
 */
+
+
+
 
 
 
