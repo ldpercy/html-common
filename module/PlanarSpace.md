@@ -6,6 +6,14 @@ A simple representation of a Euclidean plane.
 
 
 
+Todo
+----
+
+* Rationalise some getter/converter method names and syntax
+
+
+
+
 Space Attachment
 ----------------
 
