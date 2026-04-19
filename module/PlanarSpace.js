@@ -37,6 +37,28 @@ export class CartesianCoordinates {
 		this.x = x;
 		this.y = y;
 	}
+
+
+	/**
+	 * @param {CartesianCoordinates} arg
+	 * @returns {CartesianCoordinates}
+	 */
+	plus(arg) {
+		return new CartesianCoordinates(this.x + arg.x, this.y + arg.y);
+	}
+
+	/**
+	 * @param {CartesianCoordinates} arg
+	 * @returns {CartesianCoordinates}
+	 */
+	minus(arg) {
+		return new CartesianCoordinates(this.x - arg.x, this.y - arg.y);
+	}
+
+	toString() {
+		return `${this.x},${this.y}`;
+	}
+
 }/* CartesianCoordinates */
 
 
@@ -393,7 +415,7 @@ export class Angle {
 
 
 
-/** Point
+/* Point
  * @implements {CartesianCoordinates}
  * @implements {PolarCoordinates}
  */
@@ -418,6 +440,8 @@ export class Point {
 		this.cartesian = cartesian;
 		this.#desc = desc;
 	}
+
+
 
 	//
 	//	Accessors
@@ -491,15 +515,15 @@ export class Point {
 	//
 
 	getAngleFrom(center) {
-		return this.#space.getAngleFrom(center, this);
+		return this.#space.getAngleFrom(center, this.cartesian);
 	}
 
 	getDistanceFrom(point) {
-		return Space.getDistanceFrom(this, point);
+		return Space.getDistanceFrom(this.cartesian, point);
 	}
 
 	isEqualTo(point) {
-		return Space.areEqual(this, point);
+		return Space.areEqual(this.cartesian, point);
 	}
 
 	//
@@ -572,7 +596,7 @@ For now though Point is the combined version.
 
 
 /** Position
- * @implements {CartesianCoordinates}
+ * //@implements {CartesianCoordinates}
  * //@implements {PolarCoordinates}
  */
 export class Position {
@@ -695,7 +719,7 @@ export class Position {
 
 		//console.debug('Position.move newPoint:', newPoint);
 
-		const newDirection = this.#space.getAngleFrom(currentCartesian, newPoint);
+		const newDirection = this.#space.getAngleFrom(currentCartesian, newPoint.cartesian);
 		// There is a pre-existing quirk/bug here that the angles chosen aren't ideal
 		// They need to calculated better as deltas from the previous direction
 
