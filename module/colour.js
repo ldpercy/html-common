@@ -89,12 +89,18 @@ export class colourRGBA {
 		const r = Math.round(this.r).toString(16).padStart(2,'0');
 		const g = Math.round(this.g).toString(16).padStart(2,'0');
 		const b = Math.round(this.b).toString(16).padStart(2,'0');
-		//const a = Math.round(this.a).toString(16).padStart(2,'0');
-		//${a}
 		return `#${r}${g}${b}`;
 	}
 
 
+	/** @returns {string} */
+	toHexA() {
+		const r = Math.round(this.r).toString(16).padStart(2,'0');
+		const g = Math.round(this.g).toString(16).padStart(2,'0');
+		const b = Math.round(this.b).toString(16).padStart(2,'0');
+		const a = Math.round(this.a).toString(16).padStart(2,'0');
+		return `#${r}${g}${b}${a}`;
+	}
 
 
 	/** @returns {string} */
