@@ -37,6 +37,12 @@ export class CartesianCoordinates {
 		this.x = x;
 		this.y = y;
 	}
+
+	/** @returns {string}  */
+	toString() {
+		return `${this.x},${this.y}`;
+	}
+
 }/* CartesianCoordinates */
 
 
