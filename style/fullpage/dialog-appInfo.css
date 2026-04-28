@@ -43,7 +43,7 @@
 
 
 	&::backdrop {
-		background-image:  url('../favicon.svg');
+		background-image:  url('../../favicon.svg');
 		backdrop-filter: blur(1pt) brightness(40%);
 		background-position: center;
 		background-repeat: repeat;
