@@ -11,7 +11,7 @@
 	h1 { text-align: center;}
 	h1::before {
 		display: inline-block ;
-		content: url("../favicon.svg");
+		content: url("../../favicon.svg");
 		height:2ex;
 		width:2ex;
 		vertical-align: sub;
