@@ -41,7 +41,6 @@
 	}
 
 
-
 	&::backdrop {
 		background-image:  url('../../favicon.svg');
 		backdrop-filter: blur(1pt) brightness(40%);
@@ -51,6 +50,11 @@
 		background-size: 15vh;
 		background-color: var(--accent);
 		opacity: 0.8;
+	}
+
+	*:focus-visible {
+		outline: 1px dashed;
+		/* tones down the default thick focus ring that gets shown when using kbd to open the dialog */
 	}
 
 }
