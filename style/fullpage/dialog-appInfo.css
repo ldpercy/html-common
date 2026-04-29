@@ -9,7 +9,10 @@
 	box-shadow: 0px 0px 3em var(--accent-colour);
 
 	h1 { text-align: center;}
-	a { border-radius:3px; }
+	a {
+		border-radius:3px;
+		color: var(--accent-colour);	/* experimental, should perhaps use a diff var */
+	}
 
 	dl {
 		display: grid;
