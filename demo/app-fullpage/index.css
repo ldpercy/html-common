@@ -1,0 +1,38 @@
+
+
+@import "../../style/fullpage/dialog-appInfo.css";
+@import "../../style/fullpage/ui-panel.css";
+@import "../../style/fullpage/control-group.css";
+
+
+
+html {
+	--project-colour: mediumvioletred;
+	--transition-duration: 0.5s;
+
+
+	--scheme-colour: oklch(from var(--project-colour) 0.80 c h / alpha);
+	--html-background: var(--scheme-colour);
+	--accent-colour: oklch(from var(--project-colour) 0.40 c h / alpha);
+	--text-colour: black;
+
+
+	background-color: var(--html-background);
+	accent-color: var(--accent-colour);
+	color: var(--text-colour);
+	color-scheme: light;
+
+	margin:0px;
+	padding:0px;
+
+	body {
+		margin:0px;
+		padding:0px;
+	}
+	scrollbar-width: none;
+
+	font-size: 14px; /* 14px; */
+	font-family:'Noto sans', sans-serif;
+
+	body > main > svg { display:block; } /* fix the extra pixels on svg thing */
+}

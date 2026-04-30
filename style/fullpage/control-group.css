@@ -1,0 +1,13 @@
+.control-group {
+
+	&.control-left {
+		position:absolute;
+		left:0ex;
+	}
+
+	&.control-right {
+		position:absolute;
+		right:0ex;
+	}
+
+}
