@@ -1,11 +1,11 @@
 .panel-group {
 
-	&.control-left {
+	&.group-left {
 		position:absolute;
 		left:0ex;
 	}
 
-	&.control-right {
+	&.group-right {
 		position:absolute;
 		right:0ex;
 	}
