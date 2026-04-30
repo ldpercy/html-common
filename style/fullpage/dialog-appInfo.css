@@ -17,9 +17,12 @@
 		width:2ex;
 		vertical-align: sub;
 	}
+
 	a {
-		border-radius:3px;
+		border-radius: 2px;
 		color: var(--accent-colour);	/* experimental, should perhaps use a diff var */
+		text-decoration: none;
+		&:hover { text-decoration: 2px underline; }
 	}
 
 	dl {
