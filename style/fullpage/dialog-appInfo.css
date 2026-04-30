@@ -1,6 +1,7 @@
 
 
 #dialog-appInfo {
+	font-size:1.2em;
 	/* backdrop-filter: blur(20px); */
 	border-radius: 1em;
 	padding:1em;
@@ -27,15 +28,14 @@
 		margin:1em;
 		font-size:1em;
 	}
-	dt {
 
+	dt {
 		margin: 0em 1em;
 		white-space: nowrap;
 		font-family: monospace;
-
 	}
-	kbd {
 
+	kbd {
 		display:inline-block;
 		width:3ex;
 		padding:0.2em;
@@ -45,10 +45,9 @@
 		font-weight: bold;
 		vertical-align: middle;
 	}
+
 	dd {
 		margin: 0em 1em;
-		padding-top:1ex;
-		vertical-align: middle;
 	}
 
 
