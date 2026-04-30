@@ -42,11 +42,13 @@
 	}
 
 	input, option { text-align: center; padding:1pt; }
+	textarea { font-size: 1em; }
 
 	h1 { font-size:2rem; }
 	h2 { font-size:1.6rem; margin-top:2ex; margin-bottom:1ex; }
 	h3 { font-size:1.2rem; margin-top:2ex; margin-bottom:1ex; }
 	h4 { font-size:1rem; margin-top:1ex; margin-bottom:.6ex; }
+	h1 + h2 { margin-top: 0ex; }
 
 
 	label:has(h2) { margin-top:2ex; }
