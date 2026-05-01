@@ -40,14 +40,14 @@
 		display: flex;
 		justify-content: space-evenly;
 		&>* {
-			width: 100%;
+			flex: 1;
 			text-align: center;
 			margin:0ex;
 		}
 	}
 
 
-	details>div {	display: grid; 	}
+	details>fieldset {	display: grid; 	}
 	summary>h3 { display:inline-block; margin: 0ex 0ex 0.1ex;}
 
 
