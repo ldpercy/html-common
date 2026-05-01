@@ -4,6 +4,8 @@
 	min-width: 16rem;
 
 
+	&>* { margin: 0.5ex 0ex; }
+
 	border-width: 1px;
 	border-style: solid;
 	border-color: lab( from var(--scheme-colour) calc(sign(l - 70) * -100) 0 0 / 0.5);	/* text-colour, transparent, need to abstract */
@@ -29,17 +31,36 @@
 		}
 	}
 
+	fieldset {
+		padding:0px;
+		border:none;
+	}
+
+	.flex-evenly {
+		display: flex;
+		justify-content: space-evenly;
+		&>* {
+			width: 100%;
+			text-align: center;
+			margin:0ex;
+		}
+	}
+
 
 	details>div {	display: grid; 	}
 	summary>h3 { display:inline-block; margin: 0ex 0ex 0.1ex;}
 
 
 	label {
-		margin-top: 1ex;
 		h1,h2,h3,h4,h5 {
 			display:inline-block;
 		}
 	}
+
+	/* label:has([type="radio"])  {
+		&:hover { background-color: yellow; }
+	} */
+
 
 	input, option { text-align: center; padding:1pt; }
 	textarea { font-size: 1em; }

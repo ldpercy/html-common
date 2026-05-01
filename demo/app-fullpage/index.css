@@ -10,7 +10,7 @@
 
 html {
 
-	--scheme-colour: oklch(from var(--project-colour) 0.80 c h / alpha);
+	--scheme-colour: oklch(from var(--project-colour) 0.90 c h / alpha);
 	--html-background: var(--scheme-colour);
 	--accent-colour: oklch(from var(--project-colour) 0.40 c h / alpha);
 	--text-colour: black;

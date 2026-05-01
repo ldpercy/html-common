@@ -59,9 +59,7 @@
 		backdrop-filter: blur(1pt) brightness(40%);
 		background-position: center;
 		background-repeat: repeat;
-
 		background-size: 15vh;
-		/* background-color: var(--accent); */
 		opacity: 0.8;
 	}
 
