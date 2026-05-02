@@ -24,7 +24,7 @@
 
 
 	details {
-		margin:1em 0em;
+		margin-top:1ex;
 		summary {
 			cursor:pointer;
 			border-bottom: 1px dotted transparent;
