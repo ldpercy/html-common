@@ -4,7 +4,7 @@
 
 	min-width: 16rem;
 	display: grid;
-	gap:1ex;
+	gap:0.2em;
 
 
 	/* &>* { margin: 0.5ex 0ex; } */
