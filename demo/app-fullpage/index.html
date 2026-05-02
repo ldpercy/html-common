@@ -18,7 +18,7 @@
 			<form id="form-application" name="application" tabindex="0" class="ui-panel">
 				<h1>Demo full page app</h1>
 
-				<fieldset class="flex-evenly" title="Colour scheme">
+				<fieldset class="flex1" title="Colour scheme">
 					<label title="Light scheme">
 						<input type="radio" name="colourScheme" value="light" class="colourScheme-selector" data-colourscheme="light" checked>
 						light
@@ -88,13 +88,14 @@
 				<details open>
 					<summary><h3>page</h3></summary>
 					<fieldset>
-						<label for="input-pageColour" class="colourWithRandom">
+						<label for="input-pageColour" class="colourWithRandom" >
 							colour
-							<div class="flex-evenly">
-								<input type="color" name="pageColour" id="input-pageColour" value="#0a0a0a">
-								<button type="button" name="pageColourRandom" id="button-pageColourRandom">🎲</button>
-							</div>
 						</label>
+						<div class="flex1">
+							<input type="color" name="pageColour" id="input-pageColour" value="#0a0a0a">
+							<button type="button" name="pageColourRandom" id="button-pageColourRandom">🎲</button>
+						</div>
+
 
 						<label for="input-blendMode">blend mode</label>
 						<select id="input-blendMode" name="blend mode" size="1">
