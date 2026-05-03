@@ -1,17 +1,17 @@
 
 .ui-panel {
 
+	--border-colour: lab( from var(--scheme-colour) calc(sign(l - 70) * -100) 0 0 / 0.5);	/* text-colour, transparent, need to abstract */
+	--gap: 0.2rem;
+
+	display: grid;
+	gap: var(--gap);
 
 	min-width: 16rem;
-	display: grid;
-	gap:0.2em;
-
-
-	/* &>* { margin: 0.5ex 0ex; } */
 
 	border-width: 1px;
 	border-style: solid;
-	border-color: lab( from var(--scheme-colour) calc(sign(l - 70) * -100) 0 0 / 0.5);	/* text-colour, transparent, need to abstract */
+	border-color: var(--border-colour);
 	border-radius: 1ex;
 
 	background-color: hsl( from var(--scheme-colour) h s clamp(20,l,80) / 0.5);			/* scheme colour clamped */
@@ -42,14 +42,17 @@
 
 	.flex1 {
 		display: flex;
-		gap: 1ex;
+		gap: var(--gap);
 		&>* { flex: 1; }
 		text-align: center;
 
 	}
 
 
-	details>fieldset {	display: grid; gap:1ex;	}
+	details>fieldset {
+		display: grid;
+		gap: var(--gap);
+	}
 	summary>h3 { display:inline-block; margin: 0ex 0ex 0.1ex;}
 
 
@@ -59,9 +62,12 @@
 		}
 	}
 
-	/* label:has([type="radio"])  {
-		&:hover { background-color: yellow; }
-	} */
+	label:has([type=radio], [type=checkbox]) {
+
+		&:hover {
+			outline: 1px dotted var(--border-colour);
+		}
+	}
 
 
 	input, option { text-align: center; padding:1pt; }
