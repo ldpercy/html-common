@@ -75,7 +75,10 @@
 
 
 	input, option { text-align: center; padding:1pt; }
-	textarea { font-size: 1em; }
+	textarea {
+		font-size: 1em;
+		display: block;		/* chr and ff both set this to inline block, but chr renders it with extra space after	*/
+	}
 
 	header>h1 { margin-top:0em; }
 
