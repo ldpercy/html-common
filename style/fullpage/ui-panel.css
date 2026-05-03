@@ -1,6 +1,7 @@
 
 .ui-panel {
 
+
 	--border-colour: lab( from var(--scheme-colour) calc(sign(l - 70) * -100) 0 0 / 0.5);	/* text-colour, transparent, need to abstract */
 	--gap: 0.2rem;
 
@@ -64,6 +65,9 @@
 
 	label:has([type=radio], [type=checkbox]) {
 
+		border-radius: var(--gap);
+		vertical-align: middle ;
+		input { vertical-align: middle; }
 		&:hover {
 			outline: 1px dotted var(--border-colour);
 		}
