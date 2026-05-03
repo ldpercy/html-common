@@ -3,7 +3,7 @@
 
 
 	--border-colour: lab( from var(--scheme-colour) calc(sign(l - 70) * -100) 0 0 / 0.5);	/* text-colour, transparent, need to abstract */
-	--gap: 0.2rem;
+	--gap: 1ex;
 
 	display: grid;
 	gap: var(--gap);
@@ -21,7 +21,7 @@
 	margin: 1ex;
 
 
-	:nth-child(1) { margin-top:0em; }
+	&>*:first-child { margin-top:0em; }
 
 
 	details {
@@ -66,8 +66,8 @@
 	label:has([type=radio], [type=checkbox]) {
 
 		border-radius: var(--gap);
-		vertical-align: middle ;
-		input { vertical-align: middle; }
+		/* vertical-align: middle ;
+		input { vertical-align: middle; } */
 		&:hover {
 			outline: 1px dotted var(--border-colour);
 		}
