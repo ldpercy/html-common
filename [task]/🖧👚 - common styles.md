@@ -6,10 +6,14 @@ Add a common set of reusable styles for the fullpage apps.
 * [ldpercy-workspace common-styles](<../../ldpercy-workspace/task/🖧👚 - common styles.md>)
 * [ldpercy-workspace colour flow](<../../ldpercy-workspace/task/🎨🢡🖽 - style flow.md>)
 
-
 ```
 2026-04-28		🖧👚		new task
 ```
+* [x] App info dialog style
+* [x] panel group classes
+* [x] panel class
+* [x] Demo page for full page app - rough, but functional
+* [ ] panel customisation - inputs, style flow etc
 
 
 Easyish jobs
@@ -29,7 +33,6 @@ ui-panel
 This one is taking a bit more time, more fiddly with grids and gaps and things.
 Have it looking it fairly reasonable across the apps now though.
 
-
 The thing I need to sort out next is properly defining the inputs (or inheritance) from the apps:
 * background colour
 * text colour
@@ -42,8 +45,16 @@ This also relates to how properties like colours flow into the panels.
 I've started another task in ldpercy-workspace to start formalising some of the flow ideas, but for now I'm starting to wonder if I can push this as first release...?
 
 
+### Sizes and spacing
 
-
+For screensaver's fairly busy panels I've reduced the grid gaps by doing this:
+```css
+.ui-panel {
+	--gap: 0.1em;
+	label { margin-top: var(--gap); }
+}
+```
+Starting to look at all the 'ex' lengths and wondering if they also should be made into var inputs in a similar way.
 
 
 
