@@ -4,7 +4,7 @@ Common styles
 Add a common set of reusable styles for the fullpage apps.
 
 * [ldpercy-workspace common-styles](<../../ldpercy-workspace/task/🖧👚 - common styles.md>)
-* [ldpercy-workspace colour flow](<../../ldpercy-workspace/task/🎨🢡🖽 - colour flow.md>)
+* [ldpercy-workspace colour flow](<../../ldpercy-workspace/task/🎨🢡🖽 - style flow.md>)
 
 
 ```
@@ -39,5 +39,14 @@ The thing I need to sort out next is properly defining the inputs (or inheritanc
 * etc
 
 This also relates to how properties like colours flow into the panels.
+I've started another task in ldpercy-workspace to start formalising some of the flow ideas, but for now I'm starting to wonder if I can push this as first release...?
+
+
+
+
+
+
+
+
 
 

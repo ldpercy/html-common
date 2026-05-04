@@ -36,7 +36,15 @@ html {
 	body > main > svg { display:block; } /* fix the extra pixels on svg thing */
 }
 
+.ui-panel {
 
+	--label-colour: lavenderblush;
+
+	label {
+		background-color: oklch(from var(--label-colour) l c h / 0.2)
+	}
+
+}
 
 /* nav, div { background-color: floralwhite; } */
 
