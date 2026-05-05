@@ -6,10 +6,14 @@
 
 :root {
 	--project-colour: mediumvioletred;
+
+	/* overrides: */
+
 	/*
 	--schemeColour-light: #fcfcfc;
 	--schemeColour-dark: #0a0a0a;
- 	*/
+	*/
+
 
 	--transition-time-page: 0.5s;
 }
@@ -47,14 +51,14 @@ html {
 
 html[data-colourscheme=light] {
 	color-scheme: light;
-	--scheme-colour: var(--schemeColour-light,  oklch(from var(--project-colour) 0.8 c h / 0.5 ) );
-	--accent-colour: hsl(from var(--project-colour) h 50 50 );
+	--scheme-colour: var(--schemeColour-light,  oklch(from var(--project-colour) 1.0 c h ) );
+	--accent-colour: oklch(from var(--project-colour) 0.6 c h );
 }
 
 html[data-colourscheme=dark] {
 	color-scheme: dark;
-	--scheme-colour: var(--schemeColour-dark,  oklch(from var(--project-colour) 0.2 c h / 0.5 ) );
-	--accent-colour: hsl(from var(--project-colour) h s 85 );
+	--scheme-colour: var(--schemeColour-dark,  oklch(from var(--project-colour) 0.1 c h ) );
+	--accent-colour: oklch(from var(--project-colour) 0.8 c h );
 }
 
 

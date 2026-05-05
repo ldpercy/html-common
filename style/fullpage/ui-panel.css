@@ -15,7 +15,7 @@
 	border-color: var(--border-colour);
 	border-radius: 1ex;
 
-	background-color: hsl( from var(--scheme-colour) h s clamp(20,l,80) / 0.5);			/* scheme colour clamped */
+	background-color: oklch( from var(--scheme-colour) clamp(20,l,80) c h / 0.5);			/* scheme colour clamped */
 
 	padding:1ex;
 	margin: 1ex;
