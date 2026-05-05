@@ -9,7 +9,7 @@
 	<link rel="icon" href="../../favicon.svg"/>
 
 	<link rel="stylesheet" href="./index.css"/>
-	<!-- <script  type="module"  src="./index.js"></script> -->
+	<script  type="module"  src="../..//script/colourScheme-selector.js"></script>
 </head>
 <body>
 
@@ -18,9 +18,29 @@
 			<form id="form-application" name="application" tabindex="0" class="ui-panel">
 				<h1>Demo full page app</h1>
 
+
+				<label for="input-projectColour" class="colourWithRandom" >
+					project colour
+				</label>
+				<input type="text" name="projectColour" id="input-projectColour" value="mediumvioletred" onchange="document.documentElement.style.setProperty('--project-colour', this.value);">
+
+				<fieldset class="grid">
+					<label for="input-schemeColour-light">
+						scheme colour - light
+					</label>
+					<input type="text" name="schemeColour-light" id="schemeColour-light" value="#fcfcfc" onchange="document.documentElement.style.setProperty('--schemeColour-light', this.value);">
+
+					<label for="input-schemeColour-dark">
+						scheme colour - dark
+					</label>
+					<input type="text" name="schemeColour-dark" id="schemeColour-dark" value="#0a0a0a" onchange="document.documentElement.style.setProperty('--schemeColour-dark', this.value);">
+				</fieldset>
+
+
+
 				<fieldset class="flex1" title="Colour scheme">
 					<label title="Light scheme">
-						<input type="radio" name="colourScheme" value="light" class="colourScheme-selector" data-colourscheme="light" checked>
+						<input type="radio" name="colourScheme" value="light" class="colourScheme-selector" data-colourscheme="light">
 						light
 					</label>
 					<label title="Dark scheme">
@@ -32,13 +52,7 @@
 				<button type="button" id="button-showAppInfo" onclick="document.getElementById('dialog-appInfo').showModal();">🛈 Demo full page app</button>
 
 
-				<h1>h1</h1>
-				<h2>h2</h2>
-				<h3>h3</h3>
-				<h4>h4</h4>
-				<h5>h5</h5>
 
-				<p>paragraph</p>
 
 
 				<label for="input-centerTurtle" title="Center the turtle on the page">
@@ -70,8 +84,16 @@
 
 
 		<div class="panel-group group-right">
-			<div class="ui-panel">
-				<p>asdasd</p>
+			<div class="ui-panel" tabindex="0" >
+
+				<h1>h1</h1>
+				<h2>h2</h2>
+				<h3>h3</h3>
+				<h4>h4</h4>
+				<h5>h5</h5>
+
+
+				<p>paragraph</p>
 
 				<details>
 					<summary>
@@ -82,6 +104,12 @@
 
 				<input type="range" name="range">
 
+				<label for="input-blendMode">blend mode</label>
+				<select id="input-blendMode" name="blend mode" size="1">
+					<option>aaa</option>
+					<option>bbb</option>
+					<option>ccc</option>
+				</select>
 
 				<label title="radio 1">
 					<input type="radio" name="radio-1" value="1" checked>
@@ -109,12 +137,12 @@
 				<details open>
 					<summary><h3>page</h3></summary>
 					<fieldset>
-						<label for="input-pageColour" class="colourWithRandom" >
+						<label for="input-projectColour" class="colourWithRandom" >
 							colour
 						</label>
 						<div class="flex1">
-							<input type="color" name="pageColour" id="input-pageColour" value="#0a0a0a">
-							<button type="button" name="pageColourRandom" id="button-pageColourRandom">🎲</button>
+							<input type="color" name="projectColour" id="input-projectColour" value="#0a0a0a">
+							<button type="button" name="projectColourRandom" id="button-projectColourRandom">🎲</button>
 						</div>
 
 
@@ -140,6 +168,18 @@
 		<!-- main-svg
 		-->
 		<svg id="main-svg" class="main-svg" viewBox="-1200 -1200 2400 2400" preserveAspectRatio="xMidYMid meet" tabindex="0">
+
+
+			<g class="graphPaper" id="group-grid">
+				<pattern id="pattern-graphPaper" width="100" height="100" patternUnits="userSpaceOnUse">
+					<rect style="stroke: teal; stroke-width: 1px; fill:none;" x="0" y="0" width="100" height="100"/>
+				</pattern>
+				<rect class="viewBox" style="x: -100%; y: -100%; width: 200%; height: 200%; stroke:none; fill: url(#pattern-graphPaper);"/>
+				<line x1="-100%" y1="0" x2="100%" y2="0" style="stroke: teal; stroke-width: 2px;"><title>x-axis</title></line>
+				<line x1="0" y1="-100%" x2="0" y2="100%" style="stroke: teal; stroke-width: 2px;"><title>y-axis</title></line>
+				<circle r="10" style="stroke: teal; stroke-width: 2px; fill:none;"><title>origin</title></circle>
+			</g>
+
 
 
 		</svg>

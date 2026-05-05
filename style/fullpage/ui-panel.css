@@ -49,6 +49,10 @@
 
 	}
 
+	.grid {
+		display: grid;
+		gap: var(--gap);
+	}
 
 	details>fieldset {
 		display: grid;
@@ -64,10 +68,7 @@
 	}
 
 	label:has([type=radio], [type=checkbox]) {
-
 		border-radius: var(--gap);
-		/* vertical-align: middle ;
-		input { vertical-align: middle; } */
 		&:hover {
 			outline: 1px dotted var(--border-colour);
 		}

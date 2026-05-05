@@ -6,11 +6,15 @@
 
 :root {
 	--project-colour: mediumvioletred;
+	/*
+	--schemeColour-light: #fcfcfc;
+	--schemeColour-dark: #0a0a0a;
+ 	*/
+
+	--transition-time-page: 0.5s;
 }
 
 html {
-
-	--scheme-colour: oklch(from var(--project-colour) 0.90 c h / alpha);
 	--html-background: var(--scheme-colour);
 	--accent-colour: oklch(from var(--project-colour) 0.40 c h / alpha);
 	--text-colour: black;
@@ -18,7 +22,7 @@ html {
 
 	background-color: var(--html-background);
 	accent-color: var(--accent-colour);
-	color: var(--text-colour);
+	color: lab( from var(--scheme-colour) calc(sign(l - 70) * -100) 0 0 / 1);
 	color-scheme: light;
 
 	font-family: sans-serif;
@@ -34,17 +38,39 @@ html {
 	scrollbar-width: none;
 
 	body > main > svg { display:block; } /* fix the extra pixels on svg thing */
+
+	transition:
+		background-color var(--transition-time-page) linear;
+
 }
 
-.ui-panel {
 
+html[data-colourscheme=light] {
+	color-scheme: light;
+	--scheme-colour: var(--schemeColour-light,  oklch(from var(--project-colour) 0.8 c h / 0.5 ) );
+	--accent-colour: hsl(from var(--project-colour) h 50 50 );
+}
+
+html[data-colourscheme=dark] {
+	color-scheme: dark;
+	--scheme-colour: var(--schemeColour-dark,  oklch(from var(--project-colour) 0.2 c h / 0.5 ) );
+	--accent-colour: hsl(from var(--project-colour) h s 85 );
+}
+
+
+
+
+/*
+**	debugging
+*/
+
+
+/* .ui-panel {
 	--label-colour: lavenderblush;
 
 	label {
 		background-color: oklch(from var(--label-colour) l c h / 0.2)
 	}
+} */
 
-}
-
-/* nav, div { background-color: floralwhite; } */
 
