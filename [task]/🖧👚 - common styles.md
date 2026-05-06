@@ -75,3 +75,15 @@ With allowance for custom overrides.
 
 
 
+
+Panel backgrounds
+-----------------
+
+Have split apart the background colour, not looking too bad now.
+But i think the opacity is too low now, and bumping it up brings too much colour into the panel.
+So need to see if I can make it more opaque, but wash it out a bit similar to what I've done with the lightness for scheme backgrounds (see above).
+
+
+
+
+

@@ -10,6 +10,16 @@
 
 	<link rel="stylesheet" href="./index.css"/>
 	<script  type="module"  src="../..//script/colourScheme-selector.js"></script>
+
+	<script>
+		function updateProjectColour(colourString) {
+			document.documentElement.style.setProperty('--project-colour', colourString);
+			document.forms['application']['projectColour'].value = colourString;
+			document.forms['application']['colourPicker'].value = colourString;
+		}
+
+	</script>
+
 </head>
 <body>
 
@@ -22,8 +32,8 @@
 				<label for="input-projectColour" class="colourWithRandom" >
 					project colour
 				</label>
-				<input type="text" name="projectColour" id="input-projectColour" value="mediumvioletred" onchange="document.documentElement.style.setProperty('--project-colour', this.value);">
-
+				<input type="text" name="projectColour" id="input-projectColour" value="mediumvioletred" onchange="updateProjectColour(this.value);">
+				<input type="color" name="colourPicker" id="input-colourPicker" value="#0a0a0a" onchange="updateProjectColour(this.value);">
 				<!--
 				<fieldset class="grid">
 					<label for="input-schemeColour-light">
