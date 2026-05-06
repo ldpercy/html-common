@@ -10,7 +10,7 @@
 
 	--panel-colour:			var( --custom-panel-colour, var(--default-panel-colour));		/* base colour from which others are derived */
 	--border-colour:		hsl( from var(--panel-colour) h s l / 1);
-	--background-colour:	hsl( from var(--panel-colour) h s clamp(20,l,80) / 0.2);
+	--background-colour:	hsl( from var(--panel-colour) h s clamp(20,l,80) / 0.5);
 
 	--gap: 1ex;
 
