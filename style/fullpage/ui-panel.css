@@ -1,10 +1,17 @@
+/* ui-panel.css
+
+	dependencies:
+	* --custom-panel-colour or --default-panel-colour
+	* --accent-colour
+
+*/
 
 .ui-panel {
 
-	/* --panel-colour: var(--scheme-colour) */
-	--panel-colour: var(--custom-panel-colour, var(--default-panel-colour));
+	--panel-colour:			var( --custom-panel-colour, var(--default-panel-colour));		/* base colour from which others are derived */
+	--border-colour:		hsl( from var(--panel-colour) h s l / 1);
+	--background-colour:	hsl( from var(--panel-colour) h s clamp(20,l,80) / 0.2);
 
-	--border-colour: hsl(from var(--panel-colour) h s l / 0.9);	/* text-colour, transparent, need to abstract */
 	--gap: 1ex;
 
 	display: grid;
@@ -15,14 +22,11 @@
 	border-width: 1px;
 	border-style: solid;
 	border-radius: 1ex;
-
 	border-color: var(--border-colour);
-
-	background-color: hsl( from var(--scheme-colour) clamp(20,l,80) c h / 0.5);			/* scheme colour clamped */
+	background-color: var(--background-colour);
 
 	padding:1ex;
 	margin: 1ex;
-
 
 	&>*:first-child { margin-top:0em; }
 
@@ -31,7 +35,7 @@
 		margin-top:1ex;
 		summary {
 			cursor:pointer;
-			margin-bottom:1ex;
+			margin-bottom: 1ex;
 			border-bottom: 1px dotted transparent;
 		}
 		summary:hover {
