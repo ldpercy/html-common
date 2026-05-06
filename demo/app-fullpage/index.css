@@ -51,13 +51,13 @@ html {
 
 html[data-colourscheme=light] {
 	color-scheme: light;
-	--scheme-colour: var(--schemeColour-light,  oklch(from var(--project-colour) 1.0 c h ) );
+	--scheme-colour: var(--schemeColour-light,  hsl(from var(--project-colour) h s 95 ) );
 	--accent-colour: oklch(from var(--project-colour) 0.6 c h );
 }
 
 html[data-colourscheme=dark] {
 	color-scheme: dark;
-	--scheme-colour: var(--schemeColour-dark,  oklch(from var(--project-colour) 0.1 c h ) );
+	--scheme-colour: var(--schemeColour-dark,  hsl(from var(--project-colour) h s 05 ) );
 	--accent-colour: oklch(from var(--project-colour) 0.8 c h );
 }
 

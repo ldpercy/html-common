@@ -57,7 +57,21 @@ For screensaver's fairly busy panels I've reduced the grid gaps by doing this:
 Starting to look at all the 'ex' lengths and wondering if they also should be made into var inputs in a similar way.
 
 
+Page backgrounds
+----------------
 
+Will use `hsl` for relative colours here as its lightness channel is wider, goes from from black to white.
+These work pretty well for generic light/dark backgrounds, gives a bit of flavour without being overpowering:
+
+```css
+	color-scheme: light;
+	--scheme-colour: var(--schemeColour-light,  hsl(from var(--project-colour) h s 95 ) );
+
+	color-scheme: dark;
+	--scheme-colour: var(--schemeColour-dark,  hsl(from var(--project-colour) h s 05 ) );
+```
+
+With allowance for custom overrides.
 
 
 
