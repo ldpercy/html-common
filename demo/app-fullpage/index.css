@@ -16,12 +16,12 @@
 
 
 	--transition-time-page: 0.5s;
+
 }
 
 html {
 	--html-background: var(--scheme-colour);
-	--accent-colour: oklch(from var(--project-colour) 0.40 c h / alpha);
-	--text-colour: black;
+	--default-panel-colour: var(--accent-colour);
 
 
 	background-color: var(--html-background);

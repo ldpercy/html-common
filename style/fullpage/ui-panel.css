@@ -1,8 +1,10 @@
 
 .ui-panel {
 
+	/* --panel-colour: var(--scheme-colour) */
+	--panel-colour: var(--custom-panel-colour, var(--default-panel-colour));
 
-	--border-colour: lab( from var(--scheme-colour) calc(sign(l - 70) * -100) 0 0 / 0.5);	/* text-colour, transparent, need to abstract */
+	--border-colour: hsl(from var(--panel-colour) h s l / 0.9);	/* text-colour, transparent, need to abstract */
 	--gap: 1ex;
 
 	display: grid;
@@ -12,10 +14,11 @@
 
 	border-width: 1px;
 	border-style: solid;
-	border-color: var(--border-colour);
 	border-radius: 1ex;
 
-	background-color: oklch( from var(--scheme-colour) clamp(20,l,80) c h / 0.5);			/* scheme colour clamped */
+	border-color: var(--border-colour);
+
+	background-color: hsl( from var(--scheme-colour) clamp(20,l,80) c h / 0.5);			/* scheme colour clamped */
 
 	padding:1ex;
 	margin: 1ex;
@@ -28,11 +31,11 @@
 		margin-top:1ex;
 		summary {
 			cursor:pointer;
-			border-bottom: 1px dotted transparent;
 			margin-bottom:1ex;
+			border-bottom: 1px dotted transparent;
 		}
 		summary:hover {
-			border-bottom: 1px dotted;
+			border-bottom: 1px dotted var(--border-colour);
 		}
 	}
 
@@ -83,7 +86,7 @@
 
 	header>h1 { margin-top:0em; }
 
-	h1 { font-size:2rem; margin-bottom:1ex; text-align:center; }
+	h1 { font-size:2rem; margin-bottom:1ex; text-align:center; border-bottom: 1px dotted var(--border-colour); }
 	h2 { font-size:1.6rem; margin-top:1ex; margin-bottom:1ex; }
 	h3 { font-size:1.2rem; margin-top:1ex; margin-bottom:1ex; }
 	h4 { font-size:1rem; margin-top:1ex; margin-bottom:.6ex; }
