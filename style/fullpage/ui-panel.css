@@ -51,6 +51,8 @@
 	.infoBox {
 		font-family: monospace;
 		white-space: pre;
+		font-size: 0.8em;
+		padding:1ex;
 		tab-size: 4;
 		background-color: hsl( from var(--panel-colour) h s l / 0.8);
 	}
