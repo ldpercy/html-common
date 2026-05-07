@@ -21,7 +21,7 @@
 
 html {
 	--html-background: var(--scheme-colour);
-	--default-panel-colour: var(--accent-colour);
+	--default-panel-colour: var(--scheme-colour);
 
 
 	background-color: var(--html-background);
