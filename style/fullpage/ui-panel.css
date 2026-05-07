@@ -8,8 +8,8 @@
 
 .ui-panel {
 
-	--panel-colour:			var( --custom-panel-colour, var(--default-panel-colour));		/* base colour from which others are derived */
-	--border-colour:		hsl( from var(--accent-colour) h s l / 1);
+	--panel-colour:			var( --custom-panel-colour,  var(--default-panel-colour));		/* base colour from which others are derived */
+	--border-colour:		var( --custom-border-colour, var(--accent-colour));
 	--background-colour:	hsl( from var(--panel-colour) h s clamp(20,l,80) / 0.6);
 
 	--gap: 1ex;
