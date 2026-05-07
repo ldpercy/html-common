@@ -1,4 +1,6 @@
-
+/*
+**	index.css
+*/
 
 @import "../../style/fullpage/dialog-appInfo.css";
 @import "../../style/fullpage/ui-panel.css";
@@ -15,7 +17,7 @@
 	*/
 
 
-	--transition-time-page: 0.5s;
+	--transition-duration-page: 0.5s;
 
 }
 
@@ -44,7 +46,7 @@ html {
 	body > main > svg { display:block; } /* fix the extra pixels on svg thing */
 
 	transition:
-		background-color var(--transition-time-page) linear;
+		background-color var(--transition-duration-page) linear;
 
 }
 
