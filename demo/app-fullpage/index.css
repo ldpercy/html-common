@@ -9,16 +9,12 @@
 :root {
 	--project-colour: mediumvioletred;
 
-	/* overrides: */
-
-	/*
+	/* overrides:
 	--schemeColour-light: #fcfcfc;
 	--schemeColour-dark: #0a0a0a;
 	*/
 
-
 	--transition-duration-page: 0.5s;
-
 }
 
 html {

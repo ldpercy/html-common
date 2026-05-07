@@ -33,21 +33,10 @@
 					project colour
 				</label>
 				<input type="text" name="projectColour" id="input-projectColour" value="mediumvioletred" onchange="updateProjectColour(this.value);">
-				<input type="color" name="colourPicker" id="input-colourPicker" value="#0a0a0a" onchange="updateProjectColour(this.value);">
-				<!--
-				<fieldset class="grid">
-					<label for="input-schemeColour-light">
-						scheme colour - light
-					</label>
-					<input type="text" name="schemeColour-light" id="schemeColour-light" value="#fcfcfc" onchange="document.documentElement.style.setProperty('--schemeColour-light', this.value);">
-
-					<label for="input-schemeColour-dark">
-						scheme colour - dark
-					</label>
-					<input type="text" name="schemeColour-dark" id="schemeColour-dark" value="#0a0a0a" onchange="document.documentElement.style.setProperty('--schemeColour-dark', this.value);">
-				</fieldset>
-				 -->
-
+				<div class="flex1">
+					<input type="color" name="colourPicker" id="input-colourPicker" value="#0a0a0a" onchange="updateProjectColour(this.value);">
+					<label for="input-colourPicker">colour picker</label>
+				</div>
 
 
 				<fieldset class="flex1" title="Colour scheme">
