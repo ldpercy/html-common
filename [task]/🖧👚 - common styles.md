@@ -8,12 +8,13 @@ Add a common set of reusable styles for the fullpage apps.
 
 ```
 2026-04-28		🖧👚		new task
+2026-05-09		0.3.0		wrapup
 ```
 * [x] App info dialog style
 * [x] panel group classes
 * [x] panel class
 * [x] Demo page for full page app - rough, but functional
-* [ ] panel customisation - inputs, style flow etc
+* [x] Some customisation options
 
 
 Easyish jobs
@@ -83,7 +84,24 @@ Have split apart the background colour, not looking too bad now.
 But i think the opacity is too low now, and bumping it up brings too much colour into the panel.
 So need to see if I can make it more opaque, but wash it out a bit similar to what I've done with the lightness for scheme backgrounds (see above).
 
+Some improvements, better now.
 
 
 
+Wrapup
+------
 
+Going to start wrapping this whole thing up and releasing the changes for the apps.
+It's very far from perfect, but good enough for current requirements in the apps.
+Happy to push out dot releases for extra bits that turn up, need adhustment etc.
+Also getting more ideas about style abstraction, so will use this as a bit of a starting point.
+
+* Added common 'App info' dialog style
+* Common classes for panel groups
+* Brought in and revamped the ui panel class
+* Added a demo page for full page app styles where I can try things out, pretty basic, but handy
+* Heaps of smaller tweaks and adjustments
+
+### Future work
+* Work on consistent units for the structural features of the ui panel: eg, normalise onto ems, or a common customisable base unit from which all other gaps, padding, margins etc are derived
+* Separate the typography or form tweaks from the panel? Might depend on some things....
