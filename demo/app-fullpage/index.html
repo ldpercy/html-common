@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en" data-colourscheme="light">
+<head>
+	<title>Demo full page app</title>
+	<meta charset="utf-8">
+	<meta name="description" content="Demo full page app">
+	<meta name="theme-color" content="mediumvioletred"/>
+	<meta name="color-scheme" content="dark light">
+	<link rel="icon" href="../../favicon.svg"/>
+
+	<link rel="stylesheet" href="./index.css"/>
+	<script  type="module"  src="../..//script/colourScheme-selector.js"></script>
+
+	<script>
+		function updateProjectColour(colourString) {
+			document.documentElement.style.setProperty('--project-colour', colourString);
+			document.forms['application']['projectColour'].value = colourString;
+			document.forms['application']['colourPicker'].value = colourString;
+		}
+
+	</script>
+
+</head>
+<body onload="updateProjectColour(document.forms['application']['projectColour'].value);">
+
+	<header>
+		<div class="panel-group group-left">
+			<form id="form-application" name="application" tabindex="0" class="ui-panel">
+				<h1>Demo full page app</h1>
+
+
+				<label for="input-projectColour" class="colourWithRandom" >
+					project colour
+				</label>
+				<input type="text" name="projectColour" id="input-projectColour" value="mediumvioletred" onchange="updateProjectColour(this.value);">
+				<div class="flex1">
+					<input type="color" name="colourPicker" id="input-colourPicker" value="#0a0a0a" onchange="updateProjectColour(this.value);">
+					<label for="input-colourPicker">colour picker</label>
+				</div>
+
+
+				<fieldset class="flex1" title="Colour scheme">
+					<label title="Light scheme">
+						<input type="radio" name="colourScheme" value="light" class="colourScheme-selector" data-colourscheme="light">
+						light
+					</label>
+					<label title="Dark scheme">
+						<input type="radio" name="colourScheme" value="dark" class="colourScheme-selector" data-colourscheme="dark">
+						dark
+					</label>
+				</fieldset>
+
+
+
+				<label for="input-centerTurtle" title="Center the turtle on the page">
+					<input type="checkbox" name="centerTurtle" id="input-centerTurtle" checked>
+					center page
+				</label>
+				<label for="input-rotatePage" title="Rotate the page with the turtle's direction">
+					<input type="checkbox" name="rotatePage" id="input-rotatePage">
+					rotate page
+				</label>
+
+
+
+				<section>
+					<textarea id="input-command" class="tab-body" type="string" name="command" title="Current command set" spellcheck="false">right 60,500</textarea>
+					<div id="command-tabs" class="tabbar bottom">
+						<a href="#commandSet-1" id="tab-commandSet-1" data-commandSet="1" class="tab" title="Command set 1">set 1</a>
+						<a href="#commandSet-2" id="tab-commandSet-2" data-commandSet="2" class="tab" title="Command set 2">set 2</a>
+						<a href="#commandSet-3" id="tab-commandSet-3" data-commandSet="3" class="tab" title="Command set 3">set 3</a>
+					</div>
+				</section>
+
+
+				<output id="character-info" class="infoBox">
+				some
+				important
+				output
+				text
+				</output>
+
+				<input type="file" name="fileinput" id="input-loadfile">
+
+				<button type="button" id="button-showAppInfo" onclick="document.getElementById('dialog-appInfo').showModal();">🛈 Demo full page app</button>
+			</form>
+
+
+
+
+		</div><!-- panel-left -->
+
+
+		<div class="panel-group group-right">
+			<div class="ui-panel" tabindex="0" >
+
+				<h1>h1</h1>
+				<h2>h2</h2>
+				<h3>h3</h3>
+				<h4>h4</h4>
+				<h5>h5</h5>
+
+
+				<p>paragraph</p>
+
+				<details>
+					<summary>
+						summary text
+					</summary>
+					details body
+				</details>
+
+				<input type="range" name="range">
+
+				<label for="input-blendMode">blend mode</label>
+				<select id="input-blendMode" name="blend mode" size="1">
+					<option>aaa</option>
+					<option>bbb</option>
+					<option>ccc</option>
+				</select>
+
+				<label title="radio 1">
+					<input type="radio" name="radio-1" value="1" checked>
+					radio 1
+				</label>
+				<label title="radio 2">
+					<input type="radio" name="radio-1" value="2">
+					radio 2
+				</label>
+				<label title="radio 3">
+					<input type="radio" name="radio-1" value="3">
+					radio 3
+				</label>
+				<label title="radio 4">
+					<input type="radio" name="radio-1" value="4">
+					radio 4
+				</label>
+				<!--
+				<input type="radio" name="radio-1" value="5">
+				<label title="radio 5">
+					radio 5
+				</label>
+				 -->
+
+				<details open>
+					<summary><h3>page</h3></summary>
+					<fieldset>
+						<label for="input-projectColour" class="colourWithRandom" >
+							colour
+						</label>
+						<div class="flex1">
+							<input type="color" name="projectColour" id="input-projectColour" value="#0a0a0a">
+							<button type="button" name="projectColourRandom" id="button-projectColourRandom">🎲</button>
+						</div>
+
+
+						<label for="input-blendMode">blend mode</label>
+						<select id="input-blendMode" name="blend mode" size="1">
+							<option>aaa</option>
+							<option>bbb</option>
+							<option>ccc</option>
+						</select>
+					</fieldset>
+				</details><!-- page -->
+
+
+			</div>
+
+		</div>
+
+
+
+	</header>
+
+	<main id="main-document-area">
+		<!-- main-svg
+		-->
+		<svg id="main-svg" class="main-svg" viewBox="-1200 -1200 2400 2400" preserveAspectRatio="xMidYMid meet" tabindex="0">
+
+
+			<g class="graphPaper" id="group-grid">
+				<pattern id="pattern-graphPaper" width="100" height="100" patternUnits="userSpaceOnUse">
+					<rect style="stroke: teal; stroke-width: 1px; fill:none;" x="0" y="0" width="100" height="100"/>
+				</pattern>
+				<rect class="viewBox" style="x: -100%; y: -100%; width: 200%; height: 200%; stroke:none; fill: url(#pattern-graphPaper);"/>
+				<line x1="-100%" y1="0" x2="100%" y2="0" style="stroke: teal; stroke-width: 2px;"><title>x-axis</title></line>
+				<line x1="0" y1="-100%" x2="0" y2="100%" style="stroke: teal; stroke-width: 2px;"><title>y-axis</title></line>
+				<circle r="10" style="stroke: teal; stroke-width: 2px; fill:none;"><title>origin</title></circle>
+			</g>
+
+
+
+		</svg>
+	</main>
+
+
+	<dialog id="dialog-appInfo" closedby="any">
+		<h1>
+			<a href="https://github.com/ldpercy/html-common">Demo full page app</a>
+			<a href="https://github.com/ldpercy/html-common/releases/tag/v0.0.0">v0.0.0</a>
+			by <a href="https://github.com/ldpercy/">ldpercy</a>
+		</h1>
+
+		<h2>Keyboard shortcuts</h2>
+		<dl>
+			<dt><kbd>?</kbd></dt>
+			<dd>Show this dialog</dd>
+		</dl>
+	</dialog>
+
+
+</body>
+</html>

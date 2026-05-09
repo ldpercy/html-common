@@ -70,7 +70,7 @@ Or in `superproject/.git/config`:
 ```
 
 
-The submodule commit hash is also tracked in `superproject/.git/modules[html-common]/FETCH_HEAD`, eg:
+The submodule commit hash is also tracked in `superproject/.git/modules/[html-common]/FETCH_HEAD`, eg:
 
 ```
 1234abcd------commit-hash-------1234abcd		branch 'main' of /local/path/to/html-common

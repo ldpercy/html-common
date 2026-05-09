@@ -1,0 +1,107 @@
+Common styles
+=============
+
+Add a common set of reusable styles for the fullpage apps.
+
+* [ldpercy-workspace common-styles](<../../ldpercy-workspace/task/🖧👚 - common styles.md>)
+* [ldpercy-workspace colour flow](<../../ldpercy-workspace/task/🎨🢡🖽 - style flow.md>)
+
+```
+2026-04-28		🖧👚		new task
+2026-05-09		0.3.0		wrapup
+```
+* [x] App info dialog style
+* [x] panel group classes
+* [x] panel class
+* [x] Demo page for full page app - rough, but functional
+* [x] Some customisation options
+
+
+Easyish jobs
+------------
+
+Moved the `panel-group` styles into here, they were the same across the apps.
+Will need to be revisited sometime down the track.
+
+
+Added a common set of styles for the app info dialogs.
+Not perfect, but at least they're common now so I can keep them in sync with each other.
+
+
+ui-panel
+--------
+
+This one is taking a bit more time, more fiddly with grids and gaps and things.
+Have it looking it fairly reasonable across the apps now though.
+
+The thing I need to sort out next is properly defining the inputs (or inheritance) from the apps:
+* background colour
+* text colour
+* border colour
+* gap sizing
+* accent colour
+* etc
+
+This also relates to how properties like colours flow into the panels.
+I've started another task in ldpercy-workspace to start formalising some of the flow ideas, but for now I'm starting to wonder if I can push this as first release...?
+
+
+### Sizes and spacing
+
+For screensaver's fairly busy panels I've reduced the grid gaps by doing this:
+```css
+.ui-panel {
+	--gap: 0.1em;
+	label { margin-top: var(--gap); }
+}
+```
+Starting to look at all the 'ex' lengths and wondering if they also should be made into var inputs in a similar way.
+
+
+Page backgrounds
+----------------
+
+Will use `hsl` for relative colours here as its lightness channel is wider, goes from from black to white.
+These work pretty well for generic light/dark backgrounds, gives a bit of flavour without being overpowering:
+
+```css
+	color-scheme: light;
+	--scheme-colour: var(--schemeColour-light,  hsl(from var(--project-colour) h s 95 ) );
+
+	color-scheme: dark;
+	--scheme-colour: var(--schemeColour-dark,  hsl(from var(--project-colour) h s 05 ) );
+```
+
+With allowance for custom overrides.
+
+
+
+
+Panel backgrounds
+-----------------
+
+Have split apart the background colour, not looking too bad now.
+But i think the opacity is too low now, and bumping it up brings too much colour into the panel.
+So need to see if I can make it more opaque, but wash it out a bit similar to what I've done with the lightness for scheme backgrounds (see above).
+
+Some improvements, better now.
+
+
+
+Wrapup
+------
+
+Going to start wrapping this whole thing up and releasing the changes for the apps.
+It's very far from perfect, but good enough for current requirements in the apps.
+Happy to push out dot releases for extra bits that turn up, need adhustment etc.
+Also getting more ideas about style abstraction, so will use this as a bit of a starting point.
+
+* Added common 'App info' dialog style
+* Common classes for panel groups
+* Brought in and revamped the ui panel class
+* Added a demo page for full page app styles where I can try things out, pretty basic, but handy
+* Heaps of smaller tweaks and adjustments
+
+### Future work
+* Work on consistent units for the structural features of the ui panel: eg, normalise onto ems, or a common customisable base unit from which all other gaps, padding, margins etc are derived
+* Separate the typography or form tweaks from the panel? Might depend on some things....

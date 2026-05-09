@@ -5,10 +5,10 @@ document.querySelectorAll('.colourScheme-selector').forEach(
 		element.addEventListener(
 			'click',
 			(event) => {
-				event.preventDefault();
-
 				const eventTarget = /** @type {HTMLElement} */ (event.target);		// this cast is awkward - see if there is a 'proper' way
-
+				if (eventTarget.nodeName === 'A') {
+					event.preventDefault();
+				}
 				setColourScheme(eventTarget.dataset.colourscheme);
 			}
 		);

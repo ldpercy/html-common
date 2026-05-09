@@ -1,0 +1,78 @@
+/*
+**	index.css
+*/
+
+@import "../../style/fullpage/dialog-appInfo.css";
+@import "../../style/fullpage/ui-panel.css";
+@import "../../style/fullpage/panel-group.css";
+
+:root {
+	--project-colour: mediumvioletred;
+
+	/* overrides:
+	--schemeColour-light: #fcfcfc;
+	--schemeColour-dark: #0a0a0a;
+	*/
+
+	--transition-duration-page: 0.5s;
+}
+
+html {
+	--html-background: var(--scheme-colour);
+	--default-panel-colour: var(--scheme-colour);
+
+
+	background-color: var(--html-background);
+	accent-color: var(--accent-colour);
+	color: lab( from var(--scheme-colour) calc(sign(l - 70) * -100) 0 0 / 1);
+	color-scheme: light;
+
+	font-family: sans-serif;
+	font-size: 16px;
+
+	margin:0px;
+	padding:0px;
+
+	body {
+		margin:0px;
+		padding:0px;
+	}
+	scrollbar-width: none;
+
+	body > main > svg { display:block; } /* fix the extra pixels on svg thing */
+
+	transition:
+		background-color var(--transition-duration-page) linear;
+
+}
+
+
+html[data-colourscheme=light] {
+	color-scheme: light;
+	--scheme-colour: var(--schemeColour-light,  hsl(from var(--project-colour) h s 95 ) );
+	--accent-colour: oklch(from var(--project-colour) 0.6 c h );
+}
+
+html[data-colourscheme=dark] {
+	color-scheme: dark;
+	--scheme-colour: var(--schemeColour-dark,  hsl(from var(--project-colour) h s 05 ) );
+	--accent-colour: oklch(from var(--project-colour) 0.8 c h );
+}
+
+
+
+
+/*
+**	debugging
+*/
+
+
+/* .ui-panel {
+	--label-colour: lavenderblush;
+
+	label {
+		background-color: oklch(from var(--label-colour) l c h / 0.2)
+	}
+} */
+
+

@@ -1,0 +1,13 @@
+.panel-group {
+
+	&.group-left {
+		position:absolute;
+		left:0ex;
+	}
+
+	&.group-right {
+		position:absolute;
+		right:0ex;
+	}
+
+}

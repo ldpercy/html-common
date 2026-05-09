@@ -1,0 +1,128 @@
+/* ui-panel.css
+
+	dependencies:
+	* --custom-panel-colour or --default-panel-colour
+	* --accent-colour
+
+*/
+
+.ui-panel {
+
+	--panel-colour:			var( --custom-panel-colour,  var(--default-panel-colour));		/* base colour from which others are derived */
+	--border-colour:		var( --custom-border-colour, var(--accent-colour));
+	--background-colour:	hsl( from var(--panel-colour) h s clamp(15,l,85) / 0.6);
+
+	--gap: 1ex;
+
+	display: grid;
+	gap: var(--gap);
+
+	min-width: 16rem;
+
+	border-width: 1px;
+	border-style: solid;
+	border-radius: 1ex;
+	border-color: var(--border-colour);
+	background-color: var(--background-colour);
+
+	padding:1ex;
+	margin: 1ex;
+
+	&:focus-within {
+		outline: 2px solid var(--accent-colour);
+	}
+
+	&>*:first-child { margin-top:0em; }
+
+	/* Child classes
+	*/
+	.flex1 {
+		display: flex;
+		gap: var(--gap);
+		&>* { flex: 1; }
+		text-align: center;
+	}
+
+	.grid {
+		display: grid;
+		gap: var(--gap);
+	}
+
+	.infoBox {
+		font-family: monospace;
+		white-space: pre;
+		font-size: 0.8em;
+		padding:1ex;
+		tab-size: 4;
+		background-color: hsl( from var(--panel-colour) h s l / 0.8);
+	}
+
+	/* headings
+	*/
+
+	header>h1 { margin-top:0em; }
+
+	h1 { font-size:2em; margin-bottom:1ex; text-align:center; border-bottom: 1px dotted var(--border-colour); }
+	h2 { font-size:1.6em; margin-top:1ex; margin-bottom:1ex; }
+	h3 { font-size:1.2em; margin-top:1ex; margin-bottom:1ex; }
+	h4 { font-size:1em; margin-top:1ex; margin-bottom:.6ex; }
+	h1 + h2 { margin-top: 0ex; }
+	h1 + h3 { margin-top: 0ex; }
+
+	/* Form elements
+	*/
+
+	details {
+		margin-top:1ex;
+		summary {
+			cursor:pointer;
+			margin-bottom: 1ex;
+			border-bottom: 1px dotted transparent;
+		}
+		summary:hover {
+			border-bottom: 1px dotted var(--border-colour);
+		}
+	}
+
+	fieldset {
+		padding:0px;
+		border:none;
+	}
+
+	details>fieldset {
+		display: grid;
+		gap: var(--gap);
+	}
+	summary>h3 { display:inline-block; margin: 0ex 0ex 0.1ex;}
+
+
+	label {
+		h1,h2,h3,h4,h5 {
+			display:inline-block;
+		}
+	}
+
+
+	label:has([type=radio], [type=checkbox]), input[type=file] {
+		border-radius: var(--gap);
+		&:hover {
+			outline: 1px dotted var(--border-colour);
+		}
+	}
+
+	input, option { text-align: center; padding:1pt; }
+	textarea {
+		font-size: 1em;
+		display: block;		/* chr and ff both set this to inline block, but chr renders it with extra space after	*/
+	}
+
+	label:has(h2) { margin-top:2ex; }
+
+	hr { width:100%;  } /* border:1px dotted silver inset; */
+
+	option:checked {
+		font-weight:bold;
+	}
+
+
+}/* ui-panel */
