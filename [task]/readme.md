@@ -4,6 +4,7 @@ Task
 Todo
 ----
 
+* Split up the html-common css file
 * Split up PlanarSpace 'space parameters' task: polar config (done 🤞), axis config, and size config
 * PlanarSpace axis inversions - in particular y-axis for std svg coords (need for yearclock, polygon, etc)
 * After all that, see if a single transformation fn/matrix can be used as config alternative
