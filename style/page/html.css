@@ -1,0 +1,41 @@
+
+html {
+	--scheme-colour: white;
+	--html-background: hsl(from var(--scheme-colour) h s 90 / alpha);
+	--body-background: hsl(from var(--scheme-colour) h s 100 / 0.9);
+	--accent-colour: hsl(from var(--project-colour) h s 50 );
+
+	color-scheme: light;
+	accent-color: var(--accent-colour);
+	background-color: var(--html-background);
+	body {
+		background-color: var(--body-background);
+		color: lab( from var(--scheme-colour) calc(sign(l - 70) * -100) 0 0 / 1);
+	}
+}
+
+html[data-colourscheme=light] {
+	--scheme-colour: white;
+	--html-background: hsl(from var(--scheme-colour) h s 90 / alpha);
+	--body-background: hsl(from var(--scheme-colour) h s 100 / 0.9);
+	--accent-colour: hsl(from var(--project-colour) h s 50 );
+	color-scheme: light;
+}
+
+html[data-colourscheme=dark] {
+	--scheme-colour: black;
+	--html-background: hsl(from var(--scheme-colour) h s 0 / alpha);
+	--body-background: hsl(from var(--scheme-colour) h s 10 / 0.9);
+	--accent-colour: hsl(from var(--project-colour) h s 75 );
+	color-scheme: dark;
+}
+
+
+body {
+	margin:1em;
+	padding:1em;
+	border-radius:1em;
+	font-family:sans-serif;
+}
+
+

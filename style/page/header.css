@@ -1,0 +1,39 @@
+header {
+	position:sticky;
+	top:0em;
+	background-color: hsl(from var(--body-background) h s l / 0.9);
+	z-index: 50;
+
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+
+	line-height: 4ex;
+
+	margin-bottom: 1em;
+	padding: 1ex;
+	border-bottom: 2px groove #bbbb;
+
+
+	h1 { margin:0em; }
+	h1::before {
+		display: inline-block;
+		content: url("../../favicon.svg");
+		height:1.2ex;
+		width:1.2ex;
+		margin-right:1rex;
+	}
+
+	nav {
+		text-align:right;
+		font-weight:bold;
+		font-size: 2em;
+	}
+
+}
+
+nav {
+	display:block;
+	float:right;
+	font-weight:bold;
+	font-size: 2em;
+}

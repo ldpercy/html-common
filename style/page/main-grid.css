@@ -1,0 +1,73 @@
+
+/*
+**	grid layout
+*/
+
+
+main {
+	display:grid;
+
+	margin:1ex;	border-radius:1ex;
+	&>* {
+		margin:inherit;
+		border-radius:inherit;
+		grid-column-start: span 2;
+	}
+
+	--background-alpha: 0.15;
+	--border-alpha: 0.7;
+
+}
+
+
+
+main {
+	/*
+	These conditions need work - not everything in body needs dressing, and some items I always want dressed even when nested
+	*/
+	&>* {
+		border: 1px inset hsl( from var(--element-colour) h s l / var(--border-alpha));
+		background-color: hsl( from var(--element-colour) h s l / var(--background-alpha));
+		padding: 1ex;
+	}
+	details>script
+	{
+		border: 1px inset hsl( from var(--element-colour) h s l / var(--border-alpha));
+		background-color: hsl( from var(--element-colour) h s l / var(--background-alpha));
+	}
+
+}
+
+
+
+.maxHeight-small {
+	max-height:24em;
+	overflow-y: scroll;
+}
+.maxHeight-medium {
+	max-height:48em;
+	overflow-y: scroll;
+}
+.maxHeight-large {
+	max-height:64em;
+	overflow-y: scroll;
+}
+
+
+
+@media (orientation: landscape) {
+	main {
+		grid-template-columns: 1fr 1fr 1fr 1fr;
+		&>* {
+			grid-column-start: span 2;
+		}
+		.fullwidth { grid-column-start: span 4; }
+	}
+}
+
+@media (orientation: portrait) {
+	main {
+		grid-template-columns: 1fr 1fr ;
+	}
+}
+

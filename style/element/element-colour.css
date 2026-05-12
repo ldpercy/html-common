@@ -1,4 +1,6 @@
 
+@import "../colour/technology.css";
+
 body {
 
 	script	{ --element-colour: var(--javascript-yellow); }
