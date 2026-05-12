@@ -1,6 +1,11 @@
 
 
 
+body {
+	font-family:sans-serif;
+}
+
+
 h1:first-child, h2:first-child, h3:first-child, h4:first-child, h5:first-child { margin-top:0ex; }
 
 
@@ -11,9 +16,10 @@ h2 {
 
 a {
 	text-decoration: none;
+	&:hover {
+		text-decoration: underline;
+	}
 }
 
-a:hover {
-	text-decoration: underline;
-}
+
 
