@@ -13,6 +13,13 @@ header {
 	padding: 1ex;
 	border-bottom: 2px groove #bbbb;
 
+	a {
+		color: color-mix(in srgb, var(--project-colour) 75%, var(--text-colour));
+		&:hover {
+			color: var(--accent-colour);
+		}
+	}
+
 
 	h1 { margin:0em; }
 	h1::before {
