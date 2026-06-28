@@ -104,6 +104,8 @@ export class ColourWidget extends HTMLElement {
 	updateColourInputs(colourString) {
 		this.colorInput.value = colourString;
 		this.textInput.value = colourString;
+		const changeEvent = new CustomEvent('change', {detail:colourString});
+		this.dispatchEvent(changeEvent);
 	}
 
 }/* class ColourWidget */
