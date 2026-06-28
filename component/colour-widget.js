@@ -28,8 +28,9 @@ export class ColourWidget extends HTMLElement {
 					gap: var(--gap);
 					grid-template-columns: 1fr 1fr ;
 
+					min-height: calc(3 * var(--gap));
+
 					input[type=color] {
-						height:100%;
 						width:100%;
 					}
 					input[type=text] {
