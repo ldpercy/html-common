@@ -3,7 +3,7 @@ html {
 	--scheme-colour: white;
 	--html-background: hsl(from var(--scheme-colour) h s 90 / alpha);
 	--body-background: hsl(from var(--scheme-colour) h s 100 / 0.9);
-	--accent-colour: hsl(from var(--project-accent) h s 50 );
+	--accent-colour: hsl(from var(--project-accent) h s 40 );
 	--text-colour: lab( from var(--scheme-colour) calc(sign(l - 70) * -100) 0 0 / 1);
 
 	color-scheme: light;
@@ -19,7 +19,7 @@ html[data-colourscheme=light] {
 	--scheme-colour: white;
 	--html-background: hsl(from var(--scheme-colour) h s 90 / alpha);
 	--body-background: hsl(from var(--scheme-colour) h s 100 / 0.9);
-	--accent-colour: hsl(from var(--project-accent) h s 50 );
+	--accent-colour: hsl(from var(--project-accent) h s 40 );
 	color-scheme: light;
 }
 
@@ -27,7 +27,7 @@ html[data-colourscheme=dark] {
 	--scheme-colour: black;
 	--html-background: hsl(from var(--scheme-colour) h s 0 / alpha);
 	--body-background: hsl(from var(--scheme-colour) h s 10 / 0.9);
-	--accent-colour: hsl(from var(--project-accent) h s 85 );
+	--accent-colour: hsl(from var(--project-accent) h s 60 );
 	color-scheme: dark;
 }
 

@@ -14,6 +14,6 @@
 
 :root {
 	--project-colour: mediumvioletred;
-	--project-accent: mediumblue;
+	--project-accent: hsl(from var(--project-colour) calc(h + 240.00) s l / alpha);
 }
 
