@@ -113,15 +113,18 @@ export class HTMLApp {
 
 
 
-	/*
-	getFormData(formElement) {
+	/** getFormEntries
+	 * @param {HTMLFormElement} formElement
+	 * @returns {object}
+	 */
+	getFormEntries(formElement) {
 		const formData = new FormData(formElement);
 		const result = Object.fromEntries(formData);
 		return result;
-	} */
+	}
 
 
-	/**
+	/** getFormData
 	 * @returns {object}
 	 */
 	getFormData(formElement) {		// @param {HTMLFormElement} formElement		-- can't get this to work yet - figure out

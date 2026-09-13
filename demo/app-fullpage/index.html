@@ -9,7 +9,8 @@
 	<link rel="icon" href="../../favicon.svg"/>
 
 	<link rel="stylesheet" href="./index.css"/>
-	<script  type="module"  src="../..//script/colourScheme-selector.js"></script>
+	<script type="module" src="../../script/colourScheme-selector.js"></script>
+	<script type="module" src="../../component/colour-widget.js"></script>
 
 	<script>
 		function updateProjectColour(colourString) {
@@ -32,7 +33,11 @@
 				<label for="input-projectColour" class="colourWithRandom" >
 					project colour
 				</label>
+
 				<input type="text" name="projectColour" id="input-projectColour" value="mediumvioletred" onchange="updateProjectColour(this.value);">
+
+
+
 				<div class="flex1">
 					<input type="color" name="colourPicker" id="input-colourPicker" value="#0a0a0a" onchange="updateProjectColour(this.value);">
 					<label for="input-colourPicker">colour picker</label>
@@ -142,18 +147,15 @@
 				</label>
 				 -->
 
+
+				<colour-widget id="colour-widget-2" colour="blue" onchange="console.log(event);">
+				</colour-widget>
+
+
 				<details open>
 					<summary><h3>page</h3></summary>
+
 					<fieldset>
-						<label for="input-projectColour" class="colourWithRandom" >
-							colour
-						</label>
-						<div class="flex1">
-							<input type="color" name="projectColour" id="input-projectColour" value="#0a0a0a">
-							<button type="button" name="projectColourRandom" id="button-projectColourRandom">🎲</button>
-						</div>
-
-
 						<label for="input-blendMode">blend mode</label>
 						<select id="input-blendMode" name="blend mode" size="1">
 							<option>aaa</option>
