@@ -5,5 +5,11 @@
 	"version"		: "0.3.2-development",
 	"commit"		: "",
 	"date"			: "2026-10-13",
-	"tag"			: ["html","css","svg","js"]
+	"tag"			: ["html","css","svg","js"],
+	"screenshot"	: [
+		{
+			"path"	: "[project]/screenshot/demo-full-page-app.png",
+			"link"	: "demo/app-fullpage/"
+		}
+	]
 }
