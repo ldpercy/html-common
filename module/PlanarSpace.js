@@ -12,10 +12,10 @@ import * as abstractSpace  from "./AbstractSpace.js"
 
 /** SpaceSetting
  * @typedef {Object} SpaceSetting
- * @param {string}	polarAxis
- * @param {string}	polarDirection
- * @param {object}	[shape]
- * @param {string}	[desc]
+ * @property {string}	polarAxis
+ * @property {string}	polarDirection
+ * @property {object}	[shape]
+ * @property {string}	[desc]
  */
 
 
