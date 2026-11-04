@@ -1,15 +1,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="-32 -32 64 64">
-	<defs>
-		<clipPath id="icon-square">
-			<rect x="-32" y="-32" width="64" height="64" rx="8"/>
-		</clipPath>
-	</defs>
-
-	<g style="clip-path: url(#icon-square);">
-		<polygon points="-32,32 -32,-32 32,-32" fill="#639"/>
-		<polygon points="32,-32 +32,+32 -32,32" fill="#f7df1e"/>
-		<polygon points="0,32 -32,0 0,-32" fill="#ffb13b"/>
-		<polygon points="0,-32 +32,0 0,32" fill="#e42"/>
-	</g>
-
+	<polygon fill="#639" points="
+		-27,+27 -32,+22
+		-32,-22 -22,-32
+		+22,-32 +27,-27
+	"/>
+	<polygon fill="#f7df1e" points="
+		+27,-27 +32,-22
+		+32,+22 +22,+32
+		-22,+32 -27,+27
+	"/>
+	<polygon points="0,30 -30,0 0,-30" fill="#ffb13b"/>
+	<polygon points="0,-30 +30,0 0,30" fill="#e42"/>
 </svg>
