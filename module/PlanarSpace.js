@@ -647,13 +647,16 @@ export class Position {
 	}
 
 
-
+	/** resetToOrigin
+	 * @returns {void}
+	 */
 	resetToOrigin() {
 		this.#location.resetToOrigin();
 		this.#direction.degrees = 0;
-	}
+	}/* resetToOrigin */
 
-	/**
+
+	/** bear
 	 * @param {number} bearingDegrees
 	 * @param {number} distance
 	 */
@@ -675,6 +678,10 @@ export class Position {
 	}/* bear */
 
 
+	/** move
+	 * @param {number} dx
+	 * @param {number} dy
+	 */
 	move(dx, dy) {
 		//console.debug('Position.move:', arguments);
 
@@ -722,15 +729,23 @@ export class Position {
 		//this.#direction = newDirection;
 
 		this.setLocation(newPoint);
-	}
+	}/* move */
 
 
+	/** moveToXY
+	 * @param {number} x
+	 * @param {number} y
+	 */
 	moveToXY(x,y) {
 		const newCartesian = this.#space.newCartesianCoordinates(x, y);
 		this.setCartesian(newCartesian);
-	}
+	}/* moveToXY */
 
 
+	/** moveToXY
+	 * @param {number} x
+	 * @param {number} y
+	 */
 	moveToXYandTurn(x,y) {
 		const currentCartesian = this.#space.newCartesianCoordinates(this.x, this.y);
 		const newCartesian =  this.#space.newCartesianCoordinates(x, y);
@@ -752,16 +767,20 @@ export class Position {
 		this.direction.add(delta);
 
 		this.setCartesian(newCartesian);
-	}
+	}/* moveToXY */
 
 
+	/** moveToXYD
+	 * @param {number} x
+	 * @param {number} y
+	 * @param {number} d
+	 */
 	moveToXYD(x,y,d) {
 		const newCartesian = this.#space.newCartesianCoordinates(x, y);
 		this.setCartesian(newCartesian);
 		const newDirection  =  this.#space.newAngle(d);
 		this.setDirection(newDirection);
-	}
-
+	}/* moveToXYD */
 
 
 }/* Position */
