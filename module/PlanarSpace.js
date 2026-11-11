@@ -579,7 +579,13 @@ For now though Point is the combined version.
 
 /** Position
  * @implements {CartesianCoordinates}
- * //@implements {PolarCoordinates}
+ * //@implements {PolarCoordinates}			//????
+ *
+ * TODO:
+ *	rationalise some of the methods in here, eg move(dx, dy) needs to be broken up/simplified
+ *	plus (abs/rel) metyhods that return new positions
+ *	rotate mutator
+ *	review the Polar implementation
  */
 export class Position {
 	/** @type {string} */		#desc		= 'Position description';
@@ -681,6 +687,8 @@ export class Position {
 	/** move
 	 * @param {number} dx
 	 * @param {number} dy
+	 *
+	 * This also includes a rotation to the implied direction, this should probably be split apart/rationalised
 	 */
 	move(dx, dy) {
 		//console.debug('Position.move:', arguments);
@@ -735,6 +743,8 @@ export class Position {
 	/** moveToXY
 	 * @param {number} x
 	 * @param {number} y
+	 *
+ 	 * TODO: document - this looks absolute, no rotation
 	 */
 	moveToXY(x,y) {
 		const newCartesian = this.#space.newCartesianCoordinates(x, y);
@@ -745,6 +755,8 @@ export class Position {
 	/** moveToXY
 	 * @param {number} x
 	 * @param {number} y
+	 *
+	 * TODO: document - this looks absolute with a rotation
 	 */
 	moveToXYandTurn(x,y) {
 		const currentCartesian = this.#space.newCartesianCoordinates(this.x, this.y);
