@@ -11,8 +11,13 @@
 	--panel-colour:			var( --custom-panel-colour,  var(--default-panel-colour));		/* base colour from which others are derived */
 	--border-colour:		var( --custom-border-colour, var(--accent-colour));
 	--background-colour:	hsl( from var(--panel-colour) h s clamp(15,l,85) / 0.6);
+	--panel-shadow-light: 	grey;
+	--panel-shadow-dark:	var(--accent-colour);
 
 	--gap: 1ex;
+
+	backdrop-filter: blur(1pt);
+
 
 	display: grid;
 	gap: var(--gap);
@@ -27,6 +32,7 @@
 
 	padding:1ex;
 	margin: 1ex;
+	margin-bottom:1em;
 
 	&:focus-within {
 		outline: 2px solid var(--accent-colour);
@@ -126,3 +132,16 @@
 
 
 }/* ui-panel */
+
+
+[data-colourscheme=light] .ui-panel {
+
+	box-shadow: 0px 1ex 1em var(--panel-shadow-light);
+
+}
+
+[data-colourscheme=dark] .ui-panel {
+
+	box-shadow: 0px 1pt 1em var(--panel-shadow-dark);
+
+}
