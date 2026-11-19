@@ -12,10 +12,10 @@ import * as abstractSpace  from "./AbstractSpace.js"
 
 /** SpaceSetting
  * @typedef {Object} SpaceSetting
- * @param {string}	polarAxis
- * @param {string}	polarDirection
- * @param {object}	[shape]
- * @param {string}	[desc]
+ * @property {string}	polarAxis
+ * @property {string}	polarDirection
+ * @property {object}	[shape]
+ * @property {string}	[desc]
  */
 
 
@@ -579,7 +579,13 @@ For now though Point is the combined version.
 
 /** Position
  * @implements {CartesianCoordinates}
- * //@implements {PolarCoordinates}
+ * //@implements {PolarCoordinates}			//????
+ *
+ * TODO:
+ *	rationalise some of the methods in here, eg move(dx, dy) needs to be broken up/simplified
+ *	plus (abs/rel) metyhods that return new positions
+ *	rotate mutator
+ *	review the Polar implementation
  */
 export class Position {
 	/** @type {string} */		#desc		= 'Position description';
@@ -647,13 +653,16 @@ export class Position {
 	}
 
 
-
+	/** resetToOrigin
+	 * @returns {void}
+	 */
 	resetToOrigin() {
 		this.#location.resetToOrigin();
 		this.#direction.degrees = 0;
-	}
+	}/* resetToOrigin */
 
-	/**
+
+	/** bear
 	 * @param {number} bearingDegrees
 	 * @param {number} distance
 	 */
@@ -675,6 +684,12 @@ export class Position {
 	}/* bear */
 
 
+	/** move
+	 * @param {number} dx
+	 * @param {number} dy
+	 *
+	 * This also includes a rotation to the implied direction, this should probably be split apart/rationalised
+	 */
 	move(dx, dy) {
 		//console.debug('Position.move:', arguments);
 
@@ -722,15 +737,27 @@ export class Position {
 		//this.#direction = newDirection;
 
 		this.setLocation(newPoint);
-	}
+	}/* move */
 
 
+	/** moveToXY
+	 * @param {number} x
+	 * @param {number} y
+	 *
+ 	 * TODO: document - this looks absolute, no rotation
+	 */
 	moveToXY(x,y) {
 		const newCartesian = this.#space.newCartesianCoordinates(x, y);
 		this.setCartesian(newCartesian);
-	}
+	}/* moveToXY */
 
 
+	/** moveToXY
+	 * @param {number} x
+	 * @param {number} y
+	 *
+	 * TODO: document - this looks absolute with a rotation
+	 */
 	moveToXYandTurn(x,y) {
 		const currentCartesian = this.#space.newCartesianCoordinates(this.x, this.y);
 		const newCartesian =  this.#space.newCartesianCoordinates(x, y);
@@ -752,16 +779,20 @@ export class Position {
 		this.direction.add(delta);
 
 		this.setCartesian(newCartesian);
-	}
+	}/* moveToXY */
 
 
+	/** moveToXYD
+	 * @param {number} x
+	 * @param {number} y
+	 * @param {number} d
+	 */
 	moveToXYD(x,y,d) {
 		const newCartesian = this.#space.newCartesianCoordinates(x, y);
 		this.setCartesian(newCartesian);
 		const newDirection  =  this.#space.newAngle(d);
 		this.setDirection(newDirection);
-	}
-
+	}/* moveToXYD */
 
 
 }/* Position */

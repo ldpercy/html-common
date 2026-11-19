@@ -1,3 +1,9 @@
 .emoji {
 	font-family: emoji;
 }
+
+/*
+I'm sure I found this in one version of the kiwix docs, but the latest download doesn't include it.
+Can't find any online references to it at the moment either.
+Appears to work in firefox & chrome though; test/use with with caution.
+*/

@@ -4,9 +4,10 @@
 	<title>HTML App</title>
 	<meta charset="utf-8">
 	<link rel="icon" href="../favicon.svg">
+	<script type="module" src="../component/page-header.js"></script>
 </head>
 <body>
-	<header>
+	<!-- <header>
 		<h1><a href="">HTML App</a></h1>
 		<nav>
 			<a class="colourScheme-selector" href="?colourScheme=light" title="Light colour scheme" data-colourscheme="light">🟓</a>
@@ -14,7 +15,11 @@
 			<a title="To folder" href="./">🖿</a>
 			<a title="Parent folder" href="../">🡅</a>
 		</nav>
-	</header>
+	</header> -->
+
+	<page-header>
+		<span slot="page-title">HTML App</span>
+	</page-header>
 
 	<link rel="stylesheet" href="../style/html-common.css">
 
