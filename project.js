@@ -6,7 +6,7 @@ export default {
 	"description"	: "A git submodule for common HTML, CSS, SVG & JavaScript items",
 	"repository"	: "https://github.com/ldpercy/html-common/",
 	"version"		: "0.4_development",
-	"date"			: "2026-11-16",
+	"date"			: "2026-11-19",
 	"status"		: "Project data development",
 	"tag"			: ["html","css","svg","js","jsdoc","🍦js"],
 	"screenshot"	: [
